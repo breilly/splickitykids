@@ -1,0 +1,22 @@
+<div class="center">
+	<div class="row">
+	  <% @activities.each do |activity| %>
+		<div class="col-md-3">
+		  <div class="thumbnail">
+			<%= image_tag activity.image.url %>
+			<div class="caption">
+			  <h3><%= activity.name %></h3>
+			  <p><%= number_to_currency(activity.price) %></p>
+			  <%= link_to 'Show', activity, class: "btn btn-link" %>
+			  <%= link_to 'Edit', edit_activity_path(activity), class: "btn btn-link" %>
+			  <%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-link" %>
+			</div>
+		  </div>
+		</div>
+	  <% end %>
+	</div>
+</div>
+
+<br>
+
+<%= link_to 'New Activity', new_activity_path, class: "btn btn-link" %>

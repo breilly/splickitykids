@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="thumbnail">
+      <%= image_tag @activity.image.url %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h3><%= @activity.name %></h3>
+    <p><%= number_to_currency(@activity.price) %></p>
+    <p><%= @activity.description %></p>
+  </div>
+</div>
+
+<%= link_to 'Edit', edit_activity_path(@activity), class: "btn btn-link" %> |
+<%= link_to 'Back', activities_path, class: "btn btn-link" %>
