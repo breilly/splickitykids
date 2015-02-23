@@ -3,7 +3,7 @@
 	  <% @activities.each do |activity| %>
 		<div class="col-md-3">
 		  <div class="thumbnail">
-			<%= image_tag activity.image.url %>
+			<%= image_tag activity.image.url(:medium) %>
 			<div class="caption">
 			  <h3><%= activity.name %></h3>
 			  <p><%= number_to_currency(activity.price) %></p>

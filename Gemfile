@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "1.9.3"
+ruby "2.2.0"
 
 gem 'rails', '4.1.1'
 gem 'sass-rails', '~> 4.0.3'
@@ -11,7 +11,9 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'bootstrap-sass', '~> 3.3.3'
-gem "paperclip", "~> 4.2"
+gem 'paperclip', '~> 4.2'
+gem 'aws-sdk', '~> 1.6.9'
+gem "figaro"
 
 group :production do
   gem 'pg', '~> 0.18.1'
