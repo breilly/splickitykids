@@ -11,8 +11,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'bootstrap-sass', '~> 3.3.3'
-gem 'paperclip', '~> 4.2'
 gem 'aws-sdk', '~> 1.6.9'
+gem 'paperclip', '~> 4.2'
 gem "figaro"
 
 group :production do
