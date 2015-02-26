@@ -1,8 +1,13 @@
 class Activity < ActiveRecord::Base
-  #if Rails.env.development?
-    #has_attached_file :image, :styles => { :medium => "250x250#", :thumb => "100x100>" }, :default_url => "batman.png"
-    #validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
-  #else
+  if Rails.env.development?
+    has_attached_file :image, :styles => { :medium => "250x250#", :thumb => "100x100>" }, :default_url => "batman.png",
+      :storage => :s3,
+      :s3_credentials => "#{::Rails.root.to_s}/config/s3.yml",
+  	  :url => ':s3_domain_url',
+      #:s3_host_alias => 'd1j1smmjasrwse.cloudfront.net',
+  	  :path => "images/:id/:style.:extension"
+    validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+  else
     has_attached_file :image, :styles => { :medium => "250x250#", :thumb => "100x100>" }, :default_url => "batman.png",
   	  #:download,
       :storage => :s3,
@@ -11,5 +16,5 @@ class Activity < ActiveRecord::Base
       :s3_host_alias => 'd1j1smmjasrwse.cloudfront.net',
   	  :path => "images/:id/:style.:extension"
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
-  #end
+  end
 end
