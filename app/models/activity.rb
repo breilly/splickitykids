@@ -17,4 +17,10 @@ class Activity < ActiveRecord::Base
   	  :path => "images/:id/:style.:extension"
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   end
+  
+  validates :name, :description, :price, presence: true
+  validates :price, numericality: { greater_than: 0 }
+  validates_attachment_presence :image
+  validates_attachment :image,
+  :content_type => { :content_type => ["image/jpeg", "image/gif", "image/png"] }
 end
