@@ -14,6 +14,7 @@ gem 'bootstrap-sass', '~> 3.3.3'
 gem 'aws-sdk', '~> 1.6.9'
 gem 'paperclip', '~> 4.2'
 gem "figaro"
+gem "devise"
 
 group :production do
   gem 'pg', '~> 0.18.1'

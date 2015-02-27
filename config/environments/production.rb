@@ -89,4 +89,7 @@ Rails.application.configure do
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
+  
+  # Required for Devise. Remember to change to actual host.
+  config.action_mailer.default_url_options = { host: 'splickitykids.herokuapp.com', port: 3000 }
 end
