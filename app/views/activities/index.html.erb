@@ -7,7 +7,7 @@
 			<div class="caption">
 			  <h3><%= activity.name %></h3>
 			  <p><%= number_to_currency(activity.price) %></p>
-			  
+			  <p><%= "Sold by #{activity.user.full_name}" %></p>
 			  <%= link_to 'Show', activity, class: "btn btn-link" %>
 			  <%= link_to 'Edit', edit_activity_path(activity), class: "btn btn-link" %>
 			  <%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-link" %>
