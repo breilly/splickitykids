@@ -1,5 +1,7 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_filter :check_user, only: [:edit, :update, :destroy]
 
   # GET /activities
   # GET /activities.json
@@ -71,5 +73,11 @@ class ActivitiesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def activity_params
       params.require(:activity).permit(:name, :description, :price, :image)
+    end
+    
+    def check_user
+      if current_user != @activity.user
+        redirect_to root_url, alert: "Sorry, this activity belongs to someone else"
+      end
     end
 end
