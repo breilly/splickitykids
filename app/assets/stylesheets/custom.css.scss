@@ -26,7 +26,7 @@ body {
 .col-md-6 {
   h3 {font-size: 45px;}
   h5 {font-size: 25px;}
-  p {font-size: 18px;}
+  p {font-size: 18px; word-wrap: break-word;}
 }
 
 .caption {
@@ -41,8 +41,16 @@ body {
 }
 
 .jumbotron {
-  background-image: url('https://s3.amazonaws.com/splickitykids/images/8503405051_f7daf632d9_o.jpg');
+  background-image: url('https://d1j1smmjasrwse.cloudfront.net/images/8503405051_f7daf632d9_o.jpg');
   background-size: cover;
   height: 500px;
 }
   
+table {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.glyphicon.glyphicon-calendar {
+    font-size: 1.9em;
+}

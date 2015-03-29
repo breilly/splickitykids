@@ -18,7 +18,7 @@ class Activity < ActiveRecord::Base
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   end
   
-  validates :name, :description, :price, presence: true
+  validates :name, :description, :price, :start_date, :end_date, :spots, :address, :city, :state, :zip_code, presence: true
   validates :price, numericality: { greater_than: 0 }
   validates_attachment_presence :image
   validates_attachment :image,

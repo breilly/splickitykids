@@ -1,4 +1,4 @@
-<%= form_for(@activity, :html => { :multipart => true }) do |f| %>
+<%= simple_form_for(@activity, :html => { :multipart => true }) do |f| %>
   <% if @activity.errors.any? %>
     <div id="error_explanation" class="alert alert-danger alert-dismissable">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -12,23 +12,46 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :name %><br>
-    <%= f.text_field :name, class: "form-control" %>
+  <div class="form-group form-group-lg">
+    <%= f.input :name, class: "form-control", placeholder: "Activity name", label: false %>
   </div>
-  <div class="form-group">
-    <%= f.label :description %><br>
-    <%= f.text_area :description, class: "form-control" %>
+  <div class="form-group form-group-lg">
+    <%= f.input :description, class: "form-control", placeholder: "Activity description", label: false %>
   </div>
-  <div class="form-group">
-    <%= f.label :price %><br>
-    <%= f.text_field :price, class: "form-control" %>
+  <hr>
+  <div class="row">
+    <div class="form-group form-group-lg col-xs-4">
+	  <%= f.input :address, class: "form-control", placeholder: "Address", label: false %>
+    </div>
+    <div class="form-group form-group-lg col-xs-4">
+	  <%= f.input :city, class: "form-control", placeholder: "City", label: false %>
+    </div>
+    <div class="form-group form-group-lg col-xs-2">
+	  <%= f.input :state, collection: (us_states), class: 'form-control', prompt: "Select", label: false %>
+    </div>
+    <div class="form-group form-group-lg col-xs-2">
+	  <%= f.input :zip_code, class: "form-control", placeholder: "Zip code", label: false %>
+    </div>
   </div>
-  <div class="form-group">
-    <%= f.label :image %><br>
+  <hr>
+  <div class="row">
+    <div class="form-group form-group-lg col-xs-3">
+      <%= f.input :start_date, class: "form-control", as: :date_picker, placeholder: "Start date", label: false %>
+    </div>
+    <div class="form-group form-group-lg col-xs-3">
+      <%= f.input :end_date, class: "form-control", as: :date_picker, placeholder: "End date", label: false %>
+  	</div>
+    <div class="form-group form-group-lg col-xs-3">
+      <%= f.input :price, class: "form-control", placeholder: "Price", label: false %>
+  	</div>
+    <div class="form-group form-group-lg col-xs-3">
+      <%= f.input :spots, class: "form-control", placeholder: "Spots", label: false %>
+  	</div> 
+  </div>
+  <div class="form-group form-group-lg">
     <%= f.file_field :image, class: "form-control" %>
   </div>
   <div class="actions">
-    <%= f.submit class: "btn btn-primary"%>
+    <%= f.submit class: "btn btn-lg btn-primary"%>
   </div>
 <% end %>
