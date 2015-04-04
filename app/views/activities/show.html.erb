@@ -10,6 +10,10 @@
 	<p>End date: <%= @activity.end_date.strftime("%m/%d/%Y") %></p>
     <p><%= number_to_currency(@activity.price) %></p>
     <p><%= @activity.description %></p>
+    <br>
+    <div class="center">
+      <%= link_to 'Buy Now', new_activity_order_path(@activity), class: 'btn btn-primary' %>
+    </div>
   </div>
 </div>
 
