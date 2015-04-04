@@ -12,11 +12,11 @@
 
 <% @activities.each do |activity| %>
   <tr>
-    <td><%= image_tag activity.image.url(:thumb) %></td>
-    <td><%= activity.name %></td>
-    <td><%= activity.description %></td>
-    <td><%= number_to_currency(activity.price) %></td>
-    <td>
+    <td class='center'><%= image_tag activity.image.url(:thumb) %></td>
+    <td class='center'><%= activity.name %></td>
+    <td class='center'><%= activity.description %></td>
+    <td class='center'><%= number_to_currency(activity.price) %></td>
+    <td class='center'>
       <!-- Single button -->
       <div class="btn-group">
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
