@@ -20,6 +20,9 @@
 			</ul>
 		  </div>
 		<% end %>
+	    <div id="stripe_error" class="alert alert-danger" style="display:none">
+	      <noscript>Javascript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+	    </div>
 
 	  <div class="form-inputs">
 		<%= f.input :address, class: "form-control", placeholder: "Address", label: false %>
@@ -51,7 +54,7 @@
 	  </div>
 
 	  <div class="form-actions">
-		<%= f.button :submit, "Checkout", class: "btn btn-success", label: false %>
+		<%= f.button :submit, "Complete order", class: "btn btn-success", label: false %>
 	  </div>
 	<% end %>
   </div>
