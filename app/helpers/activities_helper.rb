@@ -56,4 +56,21 @@ module ActivitiesHelper
       ['Wyoming', 'WY']
     ]
   end
+
+  def categories
+    [
+      'Academic',
+      'Dance',
+      'Culture',
+      'Life Skills',
+      'Martial Arts',
+      'Music',
+      'Outdoors',
+      'Science',
+      'Special Needs',
+      'Sports',
+      'Tech',
+      'Theater'
+    ]
+  end
 end

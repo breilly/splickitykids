@@ -27,7 +27,7 @@
 	  <%= f.input :city, class: "form-control", placeholder: "City", label: false %>
     </div>
     <div class="form-group form-group-lg col-xs-2">
-	  <%= f.input :state, collection: (us_states), class: 'form-control', prompt: "Select", label: false %>
+	  <%= f.input :state, collection: (us_states), class: 'form-control', prompt: "State", label: false %>
     </div>
     <div class="form-group form-group-lg col-xs-2">
 	  <%= f.input :zip_code, class: "form-control", placeholder: "Zip code", label: false %>
@@ -41,12 +41,15 @@
     <div class="form-group form-group-lg col-xs-3">
       <%= f.input :end_date, class: "form-control", as: :date_picker, placeholder: "End date", label: false %>
   	</div>
-    <div class="form-group form-group-lg col-xs-3">
+    <div class="form-group form-group-lg col-xs-2">
       <%= f.input :price, class: "form-control", placeholder: "Price", label: false %>
   	</div>
-    <div class="form-group form-group-lg col-xs-3">
+    <div class="form-group form-group-lg col-xs-2">
       <%= f.input :spots, class: "form-control", placeholder: "Spots", label: false %>
   	</div> 
+    <div class="form-group form-group-lg col-xs-2">
+    <%= f.input :category, collection: (categories), class: 'form-control', prompt: "Category", label: false %>
+    </div>
   </div>
   <div class="form-group form-group-lg">
     <%= f.file_field :image, class: "form-control" %>
