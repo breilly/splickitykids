@@ -60,6 +60,7 @@ module ActivitiesHelper
   def categories
     [
       'Academic',
+      'Art',
       'Dance',
       'Culture',
       'Life Skills',
