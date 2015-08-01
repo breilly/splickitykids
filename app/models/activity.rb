@@ -1,4 +1,9 @@
+require 'elasticsearch/model'
+
 class Activity < ActiveRecord::Base
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+
   if Rails.env.development?
     has_attached_file :image, :styles => { :medium => "250x250#", :thumb => "100x100>" }, :default_url => "batman.png",
       :storage => :s3,
@@ -26,4 +31,7 @@ class Activity < ActiveRecord::Base
   
   belongs_to :user
   has_many :orders
+
 end
+
+Activity.import

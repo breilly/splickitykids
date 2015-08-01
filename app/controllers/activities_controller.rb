@@ -11,11 +11,21 @@ class ActivitiesController < ApplicationController
   # GET /activities.json
   def index
     @activities = Activity.all.order("created_at DESC")
+    if params[:q].present?
+        @search = Activity.search(params[:q].split.join(' AND '))
+    else
+      @search = []
+    end
   end
 
   # GET /activities/1
   # GET /activities/1.json
   def show
+    if params[:q].present?
+        @search = Activity.search(params[:q].split.join(' AND '))
+    else
+      @search = []
+    end
   end
 
   # GET /activities/new

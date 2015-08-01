@@ -19,10 +19,13 @@ gem 'simple_form'
 gem 'momentjs-rails', '~> 2.9',  :github => 'derekprior/momentjs-rails'
 gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem 'stripe'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 group :production do
   gem 'pg', '~> 0.18.1'
   gem 'rails_12factor'
+  gem 'bonsai-elasticsearch-rails'
 end
 
 group :development, :test do

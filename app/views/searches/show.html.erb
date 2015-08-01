@@ -1,11 +1,8 @@
-<div class="jumbotron">
-  <div class="row">
-    <div class="col-md-6 col-md-push-6">
-      <h1>Activities for kids</h1>
-      <br>
-      <form class="form-group form-group-lg" action="/search">
-        <div c>
-        	<%= form_for search_path, method: 'get' do %>
+<h1>Find an activity</h1>
+
+      <form>
+        <div class="form-group form-group-lg">
+        	<%= form_tag(search_path, method: 'get') do %>
   				<div class="form-group form-group-lg">
   					<%= text_field_tag(:q, params[:q], class: "form-control") %>
   				</div>
@@ -18,15 +15,23 @@
         <!--<div class="form-group form-group-lg">
           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Search by zip code">
         </div>
-        <button type="submit" class="btn btn-success">Search</button> -->
+        <button type="submit" class="btn btn-success">Search</button>-->
       </form>
-	</div>
-  </div>
-</div>
+ 
+
+ 
+<h1>Results</h1>
+<ul>
+  <% @search.each do |activity| %>
+    <li>
+      <%= link_to activity.name, activity_path(activity._id) %>
+    </li>
+  <% end %>
+</ul>
 
 <div class="center">
 	<div class="row">
-	  <% @activities.each do |activity| %>
+	  <% @search.each do |activity| %>
 		<div class="col-md-3">
 		  <div class="thumbnail">
 		    <%= link_to image_tag(activity.image.url(:medium)), activity %>

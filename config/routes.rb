@@ -5,11 +5,18 @@ Rails.application.routes.draw do
     resources :orders, only: [:new, :create]
   end
 
+  resource :search, only: [:show]
+
+ #resources :activities do
+ # resource :search, only: [:show]
+ #end
+
   get 'pages/about'
   get 'pages/contact'
   get 'seller' => 'activities#seller'
   get 'sales' => 'orders#sales'
   get 'purchases' => 'orders#purchases'
+  #get 'search', to: 'search#show'
   
   root 'activities#index'
 
