@@ -19,27 +19,20 @@
       </form>
  
 
- 
+ <!-- TODO: Need to update the elasticsearch index for image, date formatting, and user full_name -->
 <h1>Results</h1>
-<ul>
-  <% @search.each do |activity| %>
-    <li>
-      <%= link_to activity.name, activity_path(activity._id) %>
-    </li>
-  <% end %>
-</ul>
 
 <div class="center">
 	<div class="row">
 	  <% @search.each do |activity| %>
 		<div class="col-md-3">
 		  <div class="thumbnail">
-		    <%= link_to image_tag(activity.image.url(:medium)), activity %>
+		    <%#= link_to image_tag(activity.image.url(:medium)), activity %>
 			<div class="caption">
 			  <h3><%= activity.name %></h3>
-			  <p><%= activity.start_date.strftime("%m/%d/%Y") %></p>
+			  <p><%#= activity.start_date.strftime("%m/%d/%Y") %></p>
 			  <p><%= number_to_currency(activity.price) %></p>
-			  <p><%= "Sold by #{activity.user.full_name}" %></p> 
+			  <p><%#= "Sold by #{activity.user.full_name}" %></p> 
 			</div>
 		  </div>
 		</div>
