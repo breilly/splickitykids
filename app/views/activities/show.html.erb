@@ -12,8 +12,9 @@
     <p><%= number_to_currency(@activity.price) %></p>
     <p><%= @activity.description %></p>
     <br>
+
     <div class="center">
-      <%= link_to 'Buy Now', new_activity_order_path(@activity), class: 'btn btn-primary', data: { no_turbolink: true } %>
+      <%= link_to 'Register', new_activity_order_path(@activity), class: 'btn btn-primary', data: { no_turbolink: true } %>
     </div>
   </div>
 </div>

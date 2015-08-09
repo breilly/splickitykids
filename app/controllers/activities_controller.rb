@@ -21,6 +21,8 @@ class ActivitiesController < ApplicationController
   # GET /activities/1
   # GET /activities/1.json
   def show
+    @kids = Kid.all
+    #respond_with(@kids)
     if params[:q].present?
         @search = Activity.search(params[:q].split.join(' AND '))
     else

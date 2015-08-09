@@ -15,6 +15,7 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
     @activity = Activity.find(params[:activity_id])
+    @kids = Kid.all
     respond_with(@order)
   end
 
@@ -22,10 +23,13 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     @activity = Activity.find(params[:activity_id])
     @seller = @activity.user
+    @kid = Kid.all
+    #@kids = Kid.all
     
     @order.activity_id = @activity.id
     @order.buyer_id = current_user.id
     @order.seller_id = @seller.id
+    @order.kid_id = @kid.first.id
     
     Stripe.api_key = ENV["STRIPE_API_KEY"]
     token = params[:stripeToken]
@@ -37,7 +41,7 @@ class OrdersController < ApplicationController
         :card => token,
         :description => current_user.email
         )
-      flash[:notice] = "Thanks for ordering!"
+      flash[:notice] = "Thanks for registering!"
     rescue Stripe::CardError => e
       flash[:danger] = e.message
     end

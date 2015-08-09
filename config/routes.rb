@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  
+  resources :kids
+  
+
+  devise_for :users 
   resources :activities do
     resources :orders, only: [:new, :create]
   end
