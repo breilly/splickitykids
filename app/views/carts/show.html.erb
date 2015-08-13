@@ -1,0 +1,4 @@
+<% @cart.temp_orders.each do |c| %>
+Activity Name: <%= Activity.find(c.activity_id).name %>, Quantity: <%= c.quantity %>, <%= link_to 'Remove', cart_path(:temp_order_id=>c.id), :method=>:delete %><br />
+<% end %>
+

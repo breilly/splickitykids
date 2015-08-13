@@ -32,6 +32,7 @@ class Activity < ActiveRecord::Base
   belongs_to :user
   has_many :orders
   has_many :kids
+  has_many :temp_orders
 
 end
 
