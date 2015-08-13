@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :sales, class_name: "Order", foreign_key: "seller_id"
   has_many :purchases, class_name: "Order", foreign_key: "buyer_id"
   has_many :kids
+  has_one :cart
          
   def full_name
   	first_name + " " + last_name

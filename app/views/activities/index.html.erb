@@ -19,7 +19,8 @@
 
 <div class="center">
 	<div class="row">
-	  <% @activities.each do |activity| %>
+	  <% @activities.each do |a| %>
+	  	<% activity = Activity.find(a.id) %>
 		<div class="col-md-3">
 		  <div class="thumbnail">
 		    <%= link_to image_tag(activity.image.url(:medium)), activity %>

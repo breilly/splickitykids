@@ -10,6 +10,12 @@ Rails.application.routes.draw do
   end
 
   resource :search, only: [:show]
+  resources :carts do
+    collection do
+      get 'add_to_cart'
+      post 'add'
+    end
+  end
 
  #resources :activities do
  # resource :search, only: [:show]

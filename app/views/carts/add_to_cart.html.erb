@@ -1,0 +1,7 @@
+<%= @activity.name %>
+<%= form_tag add_carts_path do %>
+	Kids: <%= select_tag "kid_ids", options_from_collection_for_select(Kid.all, 'id', 'first_name',@temp_order.kids.map{ |j| j.id }), :multiple => true %>
+	Quantity: <%= number_field_tag "quantity", nil, in: 1..10 %> 
+	<%= hidden_field_tag "activity_id", params[:activity_id] %>
+	<%= submit_tag "Add" %>
+<% end %>
