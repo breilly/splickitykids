@@ -1,7 +1,28 @@
-<%= @activity.name %>
-<%= form_tag add_carts_path do %>
-	Kids: <%= select_tag "kid_ids", options_from_collection_for_select(Kid.all, 'id', 'first_name',@temp_order.kids.map{ |j| j.id }), :multiple => true %>
-	Quantity: <%= number_field_tag "quantity", nil, in: 1..10 %> 
+<h1>Add To Cart</h1>
+
+<div class="row">
+<p>
+	<strong>Activity name:</strong>
+	<%= @activity.name %>
+</p>
+
+
+	<%= form_tag add_carts_path do %>
+		<div class="form-group form-group-lg">
+			<strong>Kids:</strong>
+			<%= select_tag "kid_ids", options_from_collection_for_select(Kid.all, 'id', 'first_name',@temp_order.kids.map{ |j| j.id }), :multiple => true, class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<strong>Quantity:</strong>
+			<%= number_field_tag "quantity", nil, in: 1..10,class: "form-control" %>
+		</div>
+</div>
+<hr>
+<div class="row">
 	<%= hidden_field_tag "activity_id", params[:activity_id] %>
-	<%= submit_tag "Add" %>
+	<div class="actions">
+		<%= submit_tag "Add", class: "btn btn-lg btn-primary"%>
+	</div>
+</div>
+
 <% end %>

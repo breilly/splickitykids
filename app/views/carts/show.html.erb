@@ -1,4 +1,20 @@
-<% @cart.temp_orders.each do |c| %>
-Activity Name: <%= Activity.find(c.activity_id).name %>, Quantity: <%= c.quantity %>, <%= link_to 'Remove', cart_path(:temp_order_id=>c.id), :method=>:delete %><br />
-<% end %>
+<h3>Activity</h3>
+<div class="row">
+	<div class="col-md-12">
 
+		<table class="table table-striped table-bordered">
+			<tr>
+				<th class='center'>Activity Name</th>
+				<th class='center'>Quantity</th>
+				<th class='center'>Action</th>
+			</tr>
+<% @cart.temp_orders.each do |c| %>
+				<tr>
+					<td class='center'><%= Activity.find(c.activity_id).name %></td>
+					<td class='center'><%= c.quantity %></td>
+					<td class='center'><%= link_to 'Remove', cart_path(:temp_order_id=>c.id), :method=>:delete %></td>
+				</tr>
+<% end %>
+		</table>
+		</div>
+	</div>
