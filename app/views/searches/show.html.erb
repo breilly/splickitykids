@@ -25,9 +25,8 @@
 <div class="center">
 	<div class="row">
 		
-	  <% @search.each do |a| %>
-	  <% activity = Activity.find(a.id) %>
-		<div class="col-md-3">
+	  <% @search.each do |activity| %>
+	    <div class="col-md-3">
 		  <div class="thumbnail">
 		    <%= link_to image_tag(activity.image.url(:medium)), activity %>
 			<div class="caption">

@@ -1,0 +1,16 @@
+<%= form_tag complete_order_carts_path, :id=>'new_cart' do %>
+	<%= text_field_tag :address, nil, class: "form-control", placeholder: "Address", label: false %>
+	<%= text_field_tag :city, nil, class: "form-control", placeholder: "City", label: false %>
+	<%= text_field_tag :state, nil, class: "form-control", placeholder: "State", label: false %>
+	<%= label_tag :card_number, "Credit Card Number" %>
+	<%= text_field_tag :card_number, nil, { :name => nil, :'data-stripe' => "number", class: "form-control" } %>
+	<%= label_tag :card_code, "CVC" %>
+	<%= text_field_tag :card_code, nil, { :name => nil, :'data-stripe' => "cvc", class: "form-control" } %>
+	<%= label_tag nil, "Expiration Date" %>
+	<%= select_month nil, { use_two_digit_numbers: true }, { :name => nil, :'data-stripe' => "exp-month", class: "form-control" } %>
+	<%= select_year nil, { start_year: Date.today.year, end_year: Date.today.year+10 }, { :name => nil, :'data-stripe' => "exp-year", class: "form-control" } %>
+	<%= hidden_field_tag :cart_id, params[:cart_id] %>
+	<%= hidden_field_tag :total_cart_amount, @total_cart_amount %>
+	Total Amount: <%= @total_cart_amount %>
+	<%= submit_tag "Complete Order" %>
+<% end %>

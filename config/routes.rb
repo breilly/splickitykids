@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     collection do
       get 'add_to_cart'
       post 'add'
+      get 'place_order'
+      post 'complete_order'
     end
   end
 

@@ -1,4 +1,9 @@
-<% @cart.temp_orders.each do |c| %>
-Activity Name: <%= Activity.find(c.activity_id).name %>, Quantity: <%= c.quantity %>, <%= link_to 'Remove', cart_path(:temp_order_id=>c.id), :method=>:delete %><br />
+<% if @cart.temp_orders.count > 0 %>
+	<% @cart.temp_orders.each do |c| %>
+	Activity Name: <%= Activity.find(c.activity_id).name %>, Quantity: <%= c.quantity %>, <%= link_to 'Remove', cart_path(:id=>@cart.id, :temp_order_id=>c.id), :method=>:delete %><br />
+	<% end %>
+	<%= link_to 'Place Order', place_order_carts_path(:cart_id=>@cart.id) %>
+<% else %>
+<h2>Your cart is empty!</h2>
 <% end %>
 

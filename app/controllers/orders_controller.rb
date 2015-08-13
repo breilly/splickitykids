@@ -33,6 +33,8 @@ class OrdersController < ApplicationController
     Stripe.api_key = ENV["STRIPE_API_KEY"]
     token = params[:stripeToken]
     
+    puts token
+    
     begin
       charge = Stripe::Charge.create(
         :amount => (@activity.price * 100).floor,
@@ -47,8 +49,10 @@ class OrdersController < ApplicationController
     
     respond_to do |format|
       if @order.save
-        params[:kid_ids].each do |k|
-          KidOrder.create!(:kid_id => k.to_i, :order_id=>@order.id)
+        if params[:kid_ids]
+          params[:kid_ids].each do |k|
+            KidOrder.create!(:kid_id => k.to_i, :order_id=>@order.id)
+          end  
         end
         format.html { redirect_to root_url }
       else
