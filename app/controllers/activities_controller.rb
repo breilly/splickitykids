@@ -12,7 +12,7 @@ class ActivitiesController < ApplicationController
   def index
     @activities = Activity.all.order("created_at DESC")
     if params[:q].present?
-        @search = Activity.search(params[:q].split.join(' AND '))
+        @search = Activity.search(params[:q].split.join(' AND ')).records
     else
       @search = []
     end
