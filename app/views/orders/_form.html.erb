@@ -26,7 +26,7 @@
 
 	  <div class="form-inputs">
         <%#= f.association :kids, :collection => @kids, class: "form-control", label: false %>
-        <%= select_tag "kid_ids", options_from_collection_for_select(Kid.all, 'id', 'first_name',@order.kids.map{ |j| j.id }), :multiple => true %>
+        <%= select_tag "kid_ids", options_from_collection_for_select(Kid.all, 'id', 'first_name',@order.kids.map{ |j| j.id }),class: "form-control selection", :multiple => true, label: false %>
 		<%= f.input :address, class: "form-control", placeholder: "Address", label: false %>
 		<%= f.input :city, class: "form-control", placeholder: "City", label: false %>
 		<%= f.input :state, class: "form-control", placeholder: "State", label: false %>
