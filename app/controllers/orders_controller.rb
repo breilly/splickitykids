@@ -29,8 +29,7 @@ class OrdersController < ApplicationController
     @order.activity_id = @activity.id
     @order.buyer_id = current_user.id
     @order.seller_id = @seller.id
-    @order.kid_id = @kid.first.id
-    
+        
     Stripe.api_key = ENV["STRIPE_API_KEY"]
     token = params[:stripeToken]
     
@@ -46,10 +45,11 @@ class OrdersController < ApplicationController
       flash[:danger] = e.message
     end
     
-    @order.save
-    
     respond_to do |format|
       if @order.save
+        params[:kid_ids].each do |k|
+          KidOrder.create!(:kid_id => k.to_i, :order_id=>@order.id)
+        end
         format.html { redirect_to root_url }
       else
         format.html { render :new }
@@ -64,6 +64,6 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(:address, :city, :state)
+      params.require(:order).permit(:address, :city, :state, :kid_ids)
     end
 end
