@@ -6,6 +6,10 @@ class OrdersController < ApplicationController
 
   def sales
     @orders = Order.all.where(seller: current_user).order("created_at DESC")
+    # Append the orders made through cart
+    Order.all.where(seller: nil).each do |o|
+      @orders += o.temp_orders.where.not(order_id: nil).joins(:activity).where("activities.user_id = #{current_user.id}").order("created_at DESC")
+    end
   end
 
   def purchases
@@ -49,6 +53,7 @@ class OrdersController < ApplicationController
     
     respond_to do |format|
       if @order.save
+        Payment.create!(:order_id=>@order.id, :amount_recieved=>(@activity.price).floor, :seller_id=>@order.seller_id, :splickitykids_amount=>(@activity.price * 0.1).floor, :seller_amount => (@activity.price * 0.9).floor) 
         if params[:kid_ids]
           params[:kid_ids].each do |k|
             KidOrder.create!(:kid_id => k.to_i, :order_id=>@order.id)

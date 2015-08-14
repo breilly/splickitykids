@@ -11,7 +11,7 @@ class CartsController < ApplicationController
     end
     activity = Activity.find(params[:activity_id].to_i)
     total_amount = activity.price.to_i * params[:quantity].to_i
-    temp_order = TempOrder.create!(:cart_id=>cart.id, :activity_id=> params[:activity_id], :quantity=>params[:quantity], :amount=>activity.price.to_i, :total_amount=>total_amount, :kid_ids=>[])
+    temp_order = TempOrder.create!(:seller_id=>activity.user.id, :cart_id=>cart.id, :activity_id=> params[:activity_id], :quantity=>params[:quantity], :amount=>activity.price.to_i, :total_amount=>total_amount, :kid_ids=>[])
     if params[:kid_ids]
       params[:kid_ids].each do |k|
         KidTempOrder.create!(:kid_id => k.to_i, :temp_order_id=>temp_order.id)
@@ -64,6 +64,7 @@ class CartsController < ApplicationController
       if @order.save
         @cart.temp_orders.each do |t|
           t.update_attribute(:order_id, @order.id)
+          Payment.create!(:temp_order_id=>t.id, :amount_recieved=>(t.activity.price).floor, :seller_id=>t.activity.user.id, :splickitykids_amount=>(t.activity.price * 0.1 * 100).floor, :seller_amount => (t.activity.price * 0.9 * 100).floor)
         end
         @cart.destroy
         format.html { redirect_to root_url }

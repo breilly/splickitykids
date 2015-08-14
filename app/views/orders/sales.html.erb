@@ -6,6 +6,8 @@
   <tr>
     <th class='center'>Image</th>
     <th class='center'>Activity</th>
+    <th class='center'>Amount to Seller</th>
+    <th class='center'>Amount to Splickitykids</th>
     <th class='center'>Price</th>
     <th class='center'>Customer</th>
     <th class='center'>Date Sold</th>
@@ -13,10 +15,14 @@
 
 <% @orders.each do |order| %>
   <tr>
+  	<% payment = Payment.where(:order_id => order.id).first %>
+  	<% payment = Payment.where(:temp_order_id => order.order.id).first if payment.blank? %>
     <td class='center'><%= image_tag order.activity.image.url(:thumb) %></td>
     <td class='center'><%= order.activity.name %></td>
-    <td class='center'><%= number_to_currency(order.activity.price) %></td>
-    <td class='center'><%= order.buyer.full_name %></td>
+    <td class='center'><%= number_to_currency(payment.seller_amount) %></td>
+    <td class='center'><%= number_to_currency(payment.splickitykids_amount) %></td>
+    <td class='center'><%= number_to_currency(order.activity.price) %></td>    
+    <td class='center'><%= order.try(:buyer) ? order.buyer.full_name : order.order.buyer.full_name %></td>
     <td class='center'><%= order.created_at.strftime("%B %-d, %Y") %></td>
   </tr>
 <% end %>
