@@ -10,14 +10,34 @@ class CartsController < ApplicationController
       cart = Cart.create!(:user_id=>current_user.id)
     end
     activity = Activity.find(params[:activity_id].to_i)
-    total_amount = activity.price.to_i * params[:quantity].to_i
-    temp_order = TempOrder.create!(:seller_id=>activity.user.id, :cart_id=>cart.id, :activity_id=> params[:activity_id], :quantity=>params[:quantity], :amount=>activity.price.to_i, :total_amount=>total_amount, :kid_ids=>[])
+    total_amount = activity.price.to_i * params[:kid_ids].count
+    temp_order = TempOrder.create!(:seller_id=>activity.user.id, :cart_id=>cart.id, :activity_id=> params[:activity_id], :quantity=>params[:kid_ids].count, :amount=>activity.price.to_i, :total_amount=>total_amount, :kid_ids=>[])
     if params[:kid_ids]
       params[:kid_ids].each do |k|
         KidTempOrder.create!(:kid_id => k.to_i, :temp_order_id=>temp_order.id)
       end
     end
     redirect_to cart_path(cart)
+  end
+  
+  def edit
+    @temp_order = TempOrder.find(params[:temp_order_id])
+    @activity = @temp_order.activity
+  end
+  
+  def update
+    cart = Cart.find(params[:id])
+    # remove all existing kids
+    KidTempOrder.where(:temp_order_id=>params[:temp_order_id].to_i).each do |t|
+      t.destroy
+    end
+    # add only selected kids
+    if params[:kid_ids]
+      params[:kid_ids].each do |k|
+        KidTempOrder.create!(:kid_id => k.to_i, :temp_order_id=>params[:temp_order_id].to_i)
+      end
+    end  
+    redirect_to cart_path(cart) 
   end
   
   def show
