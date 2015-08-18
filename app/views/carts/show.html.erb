@@ -29,7 +29,11 @@
 		</table>
 		</div>
 	</div>
-	<%= link_to 'Place Order', place_order_carts_path(:cart_id=>@cart.id) %>
+	<div>
+		<%= link_to 'Place Order', place_order_carts_path(:cart_id=>@cart.id), class: 'btn btn-primary' %>
+		<%= link_to 'Add More Activity',activities_path, class: 'btn btn-primary' %>
+	</div>
+
 <% else %>
 <h2>Your cart is empty!</h2>
 <% end %>
