@@ -29,7 +29,7 @@ class CartsController < ApplicationController
     cart = Cart.find(params[:id])
     # remove all existing kids
     KidTempOrder.where(:temp_order_id=>params[:temp_order_id].to_i).each do |t|
-      t.destroy
+      t.delete
     end
     # add only selected kids
     if params[:kid_ids]
@@ -46,9 +46,9 @@ class CartsController < ApplicationController
   
   def destroy
     @cart = Cart.find(params[:id])
-    if @cart.temp_orders.find(params[:temp_order_id]).destroy
+    if @cart.temp_orders.find(params[:temp_order_id]).delete
       KidTempOrder.where(:temp_order_id=>params[:temp_order_id]).each do |k|
-        k.destroy
+        k.delete
       end
     end
     redirect_to cart_path(@cart) 
