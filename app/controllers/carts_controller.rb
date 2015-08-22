@@ -1,4 +1,6 @@
 class CartsController < ApplicationController
+  before_action :authenticate_user!
+  
   def add_to_cart
     @activity = Activity.find(params[:activity_id])
     @temp_order = TempOrder.new
@@ -86,7 +88,7 @@ class CartsController < ApplicationController
           t.update_attribute(:order_id, @order.id)
           Payment.create!(:temp_order_id=>t.id, :amount_recieved=>(t.activity.price).floor, :seller_id=>t.activity.user.id, :splickitykids_amount=>(t.activity.price * 0.1 * 100).floor, :seller_amount => (t.activity.price * 0.9 * 100).floor)
         end
-        @cart.destroy
+        @cart.delete
         format.html { redirect_to root_url }
       else
         format.html { render :show }

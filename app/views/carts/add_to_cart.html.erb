@@ -10,7 +10,7 @@
 	<%= form_tag add_carts_path do %>
 		<div class="form-group form-group-lg">
 			<strong>Kids:</strong>
-			<%= select_tag "kid_ids", options_from_collection_for_select(Kid.all, 'id', 'first_name',@temp_order.kids.map{ |j| j.id }), :multiple => true, class: "form-control" %>
+			<%= select_tag "kid_ids", options_from_collection_for_select(Kid.where(:user_id=>current_user.id), 'id', 'first_name',@temp_order.kids.map{ |j| j.id }), :multiple => true, class: "form-control" %>
 		</div>
 </div>
 <hr>

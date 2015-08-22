@@ -16,7 +16,7 @@
 <% @orders.each do |order| %>
   <tr>
   	<% payment = Payment.where(:order_id => order.id).first %>
-  	<% payment = Payment.where(:temp_order_id => order.order.id).first if payment.blank? %>
+  	<% payment = Payment.where(:temp_order_id => order.id).first if payment.blank? %>
     <td class='center'><%= image_tag order.activity.image.url(:thumb) %></td>
     <td class='center'><%= order.activity.name %></td>
     <td class='center'><%= number_to_currency(payment.seller_amount) %></td>

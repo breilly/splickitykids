@@ -6,13 +6,13 @@
 		<table class="table table-striped table-bordered">
 			<tr>
 				<th class='center'>Activity Name</th>
-				<th class='center'>Quantity</th>
+				<th class='center'>Kids</th>
 				<th class='center'>Action</th>
 			</tr>
 			<% @cart.temp_orders.each do |c| %>
 				<tr>
 					<td class='center'><%= Activity.find(c.activity_id).name %></td>
-					<td class='center'><%= c.kids.count %></td>
+					<td class='center'><%= c.kids.pluck(:first_name).join(', ') %></td>
 					<td class='center'>
 						 <div class="btn-group">
         					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
