@@ -4,6 +4,7 @@
 <table class="table table-striped table-bordered">
   <tr>
     <th class='center'>Image</th>
+    <th class="center">Kids</th>
     <th class='center'>Name</th>
     <th class='center'>Description</th>
     <th class='center'>Price</th>
@@ -11,8 +12,13 @@
   </tr>
 
 <% @activities.each do |activity| %>
+	<% kids = [] %>
+	<% activity.temp_orders.where(:order_id=>nil).each do |t| %>
+		<% kids << t.kids %>
+	<% end %>
   <tr>
     <td class='center'><%= image_tag activity.image.url(:thumb) %></td>
+    <td class="center"><%= kids.first.pluck(:first_name).join(', ') unless kids.first.blank? %></td>
     <td class='center'><%= activity.name %></td>
     <td class='center'><%= activity.description %></td>
     <td class='center'><%= number_to_currency(activity.price) %></td>
@@ -40,5 +46,5 @@
 
 
 <% if user_signed_in? %>
-  <%= link_to 'New Activity', new_activity_path, class: "btn btn-link" %>
+  <%= link_to 'New Activity', new_activity_path, class: "btn btn-primary" %>
 <% end %>

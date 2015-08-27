@@ -5,7 +5,7 @@ class KidsController < ApplicationController
   respond_to :html
 
   def index
-    @kids = Kid.all
+    @kids = current_user.kids
     respond_with(@kids)
   end
 

@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
     @activity = Activity.find(params[:activity_id])
-    @kids = Kid.all
+    @kids = current_user.kids
     respond_with(@order)
   end
 

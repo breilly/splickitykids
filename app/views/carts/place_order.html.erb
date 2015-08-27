@@ -1,4 +1,7 @@
 <%= form_tag complete_order_carts_path, :id=>'new_cart' do %>
+	<div id="stripe_error" class="alert alert-danger" style="display:none">
+	      <noscript>Javascript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+	    </div>
 	<%= text_field_tag :address, nil, class: "form-control", placeholder: "Address", label: false %>
 	<%= text_field_tag :city, nil, class: "form-control", placeholder: "City", label: false %>
 	<%= text_field_tag :state, nil, class: "form-control", placeholder: "State", label: false %>
@@ -12,5 +15,19 @@
 	<%= hidden_field_tag :cart_id, params[:cart_id] %>
 	<%= hidden_field_tag :total_cart_amount, @total_cart_amount %>
 	Total Amount: <%= @total_cart_amount %>
-	<%= submit_tag "Complete Order" %>
+	<%= submit_tag "Complete Order", :id=>'new_cart_submit', :class=>'btn btn-lg btn-primary' %>
 <% end %>
+
+<script type="text/javascript">
+$(document).ready(function(){    
+    //Check if the current URL contains '#'
+    if(document.URL.indexOf("#")==-1){
+        // Set the URL to whatever it was plus "#".
+        url = document.URL+"#";
+        location = "#";
+
+        //Reload the page
+        location.reload(true);
+    }
+});
+</script>
