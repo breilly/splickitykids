@@ -6,6 +6,7 @@
   <tr>
     <th class='center'>Image</th>
     <th class='center'>Activity</th>
+    <th class='center'>Kids</th>
     <th class='center'>Price</th>
     <th class='center'>Seller</th>
     <th class='center'>Date Purchased</th>
@@ -15,6 +16,7 @@
   <tr>
     <td class='center'><%= image_tag order.activity.image.url(:thumb) %></td>
     <td class='center'><%= order.activity.name %></td>
+    <td class='center'><%= order.kids.pluck(:first_name).join(', ') %></td>
     <td class='center'><%= number_to_currency(order.activity.price) %></td>
     <td class='center'><%= order.seller.try(:full_name) %></td>
     <td class='center'><%= order.created_at.strftime("%B %-d, %Y") %></td>
