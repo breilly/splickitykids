@@ -16,6 +16,9 @@
 	<% activity.temp_orders.where(:order_id=>nil).each do |t| %>
 		<% kids << t.kids %>
 	<% end %>
+	<% activity.orders.each do |t| %>
+		<% kids << t.kids %>
+	<% end %>
   <tr>
     <td class='center'><%= image_tag activity.image.url(:thumb) %></td>
     <td class="center"><%= kids.first.pluck(:first_name).join(', ') unless kids.first.blank? %></td>

@@ -70,7 +70,7 @@ class CartsController < ApplicationController
     
     begin
       charge = Stripe::Charge.create(
-        :amount => (params[:total_cart_amount].to_i * 100).floor,
+        :amount => (params[:total_cart_amount].to_i).floor,
         :currency => "usd",
         :card => token,
         :description => current_user.email
@@ -86,7 +86,7 @@ class CartsController < ApplicationController
       if @order.save
         @cart.temp_orders.each do |t|
           t.update_attribute(:order_id, @order.id)
-          Payment.create!(:temp_order_id=>t.id, :amount_recieved=>(t.activity.price).floor, :seller_id=>t.activity.user.id, :splickitykids_amount=>(t.activity.price * 0.1 * 100).floor, :seller_amount => (t.activity.price * 0.9 * 100).floor)
+          Payment.create!(:temp_order_id=>t.id, :amount_recieved=>(t.activity.price).floor, :seller_id=>t.activity.user.id, :splickitykids_amount=>(t.activity.price * 0.1).floor, :seller_amount => (t.activity.price * 0.9).floor)
         end
         @cart.delete
         format.html { redirect_to root_url }

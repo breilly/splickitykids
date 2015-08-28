@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
     
     begin
       charge = Stripe::Charge.create(
-        :amount => (@activity.price * params[:kid_ids].count * 100).floor,
+        :amount => (@activity.price * params[:kid_ids].count).floor,
         :currency => "usd",
         :card => token,
         :description => current_user.email
