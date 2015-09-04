@@ -13,7 +13,7 @@
 
 <% @activities.each do |activity| %>
 	<% kids = [] %>
-	<% activity.temp_orders.where(:order_id=>nil).each do |t| %>
+	<% activity.temp_orders.each do |t| %>
 		<% kids << t.kids %>
 	<% end %>
 	<% activity.orders.each do |t| %>
