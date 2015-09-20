@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150808212637) do
+ActiveRecord::Schema.define(version: 20150814074951) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -32,6 +32,23 @@ ActiveRecord::Schema.define(version: 20150808212637) do
     t.string   "state"
     t.string   "zip_code"
     t.string   "category"
+    t.integer  "temp_order_id"
+  end
+
+  create_table "carts", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "kid_orders", force: true do |t|
+    t.integer "kid_id"
+    t.integer "order_id"
+  end
+
+  create_table "kid_temp_orders", force: true do |t|
+    t.integer "kid_id"
+    t.integer "temp_order_id"
   end
 
   create_table "kids", force: true do |t|
@@ -53,6 +70,29 @@ ActiveRecord::Schema.define(version: 20150808212637) do
     t.integer  "buyer_id"
     t.integer  "seller_id"
     t.integer  "kid_id"
+  end
+
+  create_table "payments", force: true do |t|
+    t.integer  "amount_recieved"
+    t.integer  "seller_id"
+    t.integer  "splickitykids_amount"
+    t.integer  "seller_amount"
+    t.integer  "order_id"
+    t.integer  "temp_order_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "temp_orders", force: true do |t|
+    t.integer  "cart_id"
+    t.integer  "quantity"
+    t.integer  "activity_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "amount"
+    t.integer  "total_amount"
+    t.integer  "order_id"
+    t.integer  "seller_id"
   end
 
   create_table "users", force: true do |t|
