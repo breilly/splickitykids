@@ -7,8 +7,8 @@
   <div class="col-md-6">
     <h3><%= @activity.name %></h3>
     <p><strong>Category: </strong><%= @activity.category %></p>
-	  <p><strong>Start date: </strong><%= @activity.start_date.strftime("%m/%d/%Y") %></p>
-	  <p><strong>End date: </strong><%= @activity.end_date.strftime("%m/%d/%Y") %></p>
+	  <p><strong>Start date: </strong><%= @activity.start_date %></p>
+	  <p><strong>End date: </strong><%= @activity.end_date %></p>
     <p><%= number_to_currency(@activity.price) %></p>
     <p><%= @activity.description %></p>
     <br>

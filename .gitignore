@@ -17,6 +17,9 @@
 
 # Ignore application configuration
 /config/application.yml
+/config/application.sample.yml
+/config/s3.yml
+/secrets.yml
 
 # Ignore files uploaded on localhost
 /public/system
