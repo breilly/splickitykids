@@ -23,7 +23,8 @@ class Activity < ActiveRecord::Base
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   end
   
-  validates :name, :description, :price, :start_date, :end_date, :spots, :address, :city, :state, :zip_code, :category, presence: true
+  validates :name, :description, :price, :start_date, :start_hour, :start_min, :start_am_pm, :end_date, :end_hour, :end_min, 
+    :end_am_pm, :spots, :address, :city, :state, :zip_code, :category, presence: true
   validates :price, numericality: { greater_than: 0 }
   validates_attachment_presence :image
   validates_attachment :image,
@@ -33,6 +34,14 @@ class Activity < ActiveRecord::Base
   has_many :orders
   has_many :kids
   has_many :temp_orders
+
+  def start_time
+    start_hour + ":" + start_min + " " + start_am_pm
+  end
+
+  def end_time
+    end_hour + ":" + end_min + " " + end_am_pm
+  end
 
 end
 

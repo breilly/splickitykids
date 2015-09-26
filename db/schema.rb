@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922023027) do
+ActiveRecord::Schema.define(version: 20150924184546) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -33,6 +33,13 @@ ActiveRecord::Schema.define(version: 20150922023027) do
     t.string   "zip_code"
     t.string   "category"
     t.integer  "temp_order_id"
+    t.string   "start_hour"
+    t.string   "end_hour"
+    t.string   "start_min"
+    t.string   "end_min"
+    t.string   "start_am_pm"
+    t.string   "end_am_pm"
+    t.string   "schedule_options"
   end
 
   create_table "carts", force: true do |t|

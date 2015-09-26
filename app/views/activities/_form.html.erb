@@ -12,48 +12,76 @@
     </div>
   <% end %>
 
-  <div class="form-group form-group-lg">
-    <%= f.input :name, class: "form-control", placeholder: "Activity name", label: false %>
-  </div>
-  <div class="form-group form-group-lg">
-    <%= f.input :description, class: "form-control", placeholder: "Activity description", label: false %>
-  </div>
-  <hr>
   <div class="row">
-    <div class="form-group form-group-lg col-xs-4">
-	  <%= f.input :address, class: "form-control", placeholder: "Address", label: false %>
-    </div>
-    <div class="form-group form-group-lg col-xs-4">
-	  <%= f.input :city, class: "form-control", placeholder: "City", label: false %>
-    </div>
-    <div class="form-group form-group-lg col-xs-2">
-	  <%= f.input :state, collection: (us_states), class: 'form-control', prompt: "State", label: false %>
-    </div>
-    <div class="form-group form-group-lg col-xs-2">
-	  <%= f.input :zip_code, class: "form-control", placeholder: "Zip code", label: false %>
-    </div>
-  </div>
-  <hr>
-  <div class="row">
-    <div class="form-group form-group-lg col-xs-3">
-      <%= f.input :start_date, class: "form-control", placeholder: "Start Date", label: false, :input_html => { :data => {:provide => "datepicker"}} %>
+    <div class="form-group form-group-lg col-xs-6">
+      <%= f.input :name, class: "form-control", placeholder: "Activity name", label: false %>
     </div>
     <div class="form-group form-group-lg col-xs-3">
-      <%= f.input :end_date, class: "datepicker", placeholder: "End Date", label: false, :input_html => { :data => {:provide => "datepicker"}} %>
-    </div>
-    <div class="form-group form-group-lg col-xs-2">
       <%= f.input :price, class: "form-control", placeholder: "Price", label: false %>
-  	</div>
-    <div class="form-group form-group-lg col-xs-2">
+    </div>
+    <div class="form-group form-group-lg col-xs-3">
       <%= f.input :spots, class: "form-control", placeholder: "Spots", label: false %>
-  	</div> 
-    <div class="form-group form-group-lg col-xs-2">
-    <%= f.input :category, collection: (categories), class: 'form-control', prompt: "Category", label: false %>
+    </div> 
+  </div>
+  <div class="row">
+    <div class="form-group form-group-lg col-xs-12">
+      <%= f.input :description, class: "form-control", placeholder: "Activity description", label: false %>
     </div>
   </div>
-  <div class="form-group form-group-lg">
-    <%= f.file_field :image, class: "form-control" %>
+  <hr>
+  <div class="row">
+    <div class="form-group form-group-lg col-xs-4">
+	   <%= f.input :address, class: "form-control", placeholder: "Address", label: false %>
+    </div>
+    <div class="form-group form-group-lg col-xs-4">
+	   <%= f.input :city, class: "form-control", placeholder: "City", label: false %>
+    </div>
+    <div class="form-group form-group-lg col-xs-2">
+	   <%= f.input :state, collection: (us_states), class: 'form-control', prompt: "State", label: false %>
+    </div>
+    <div class="form-group form-group-lg col-xs-2">
+	   <%= f.input :zip_code, class: "form-control", placeholder: "Zip code", label: false %>
+    </div>
   </div>
+  <hr>
+  <div class="row">
+    <!--<div>
+      <%#= f.input :schedule_options, collection: (schedule_options), class: 'form-control', as: :radio_buttons %>
+    </div>-->
+    <div class="form-group form-group-lg col-xs-3">
+      <%= f.input :start_date, class: "form-control", placeholder: "Start date", label: false, :input_html => { :data => {:provide => "datepicker"}} %>
+    </div>
+    <div class="form-group form-group-lg col-xs-2">
+      <%= f.input :start_hour, collection: (hours), class: 'form-control', prompt: "Start hour", label: false %>
+    </div>
+    <div class="form-group form-group-lg col-xs-2">
+      <%= f.input :start_min, collection: (minutes), class: 'form-control', prompt: "Start minute", label: false %>
+    </div>
+    <div class="form-group form-group-lg col-xs-2">
+      <%= f.input :start_am_pm, collection: (am_pm), class: 'form-control', prompt: "Time of day", label: false %>
+    </div>
+    <div class="form-group form-group-lg col-xs-3">
+      <%= f.input :category, collection: (categories), class: 'form-control', prompt: "Category", label: false %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group form-group-lg col-xs-3">
+      <%= f.input :end_date, class: "datepicker", placeholder: "End date", label: false, :input_html => { :data => {:provide => "datepicker"}} %>
+    </div>
+    <div class="form-group form-group-lg col-xs-2">
+      <%= f.input :end_hour, collection: (hours), class: 'form-control', prompt: "End hour", label: false %>
+    </div>
+    <div class="form-group form-group-lg col-xs-2">
+      <%= f.input :end_min, collection: (minutes), class: 'form-control', prompt: "End minute", label: false %>
+    </div>
+    <div class="form-group form-group-lg col-xs-2">
+      <%= f.input :end_am_pm, collection: (am_pm), class: 'form-control', prompt: "Time of day", label: false %>
+    </div>
+    <div class="form-group form-group-lg col-xs-3">
+      <%= f.file_field :image, class: "form-control" %>
+    </div>
+  </div>
+  
   <div class="actions">
     <%= f.submit class: "btn btn-lg btn-primary"%>
   </div>

@@ -74,4 +74,45 @@ module ActivitiesHelper
       'Theater'
     ]
   end
+
+  def hours
+    [
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '10',
+      '11',
+      '12'
+    ]
+  end
+
+  def minutes
+    [
+      '00',
+      '15',
+      '30',
+      '45'
+    ]
+  end
+
+  def am_pm
+    [
+      'AM',
+      'PM'
+    ]
+  end
+
+  def schedule_options
+    [
+      'All day',
+      'Recurring',
+      'One time'
+    ]
+  end
 end
