@@ -14,8 +14,8 @@
 	<%= select_year nil, { start_year: Date.today.year, end_year: Date.today.year+10 }, { :name => nil, :'data-stripe' => "exp-year", class: "form-control" } %>
 	<%= hidden_field_tag :cart_id, params[:cart_id] %>
 	<%= hidden_field_tag :total_cart_amount, @total_cart_amount %>
-	Total Amount: <%= @total_cart_amount %>
-	<%= submit_tag "Complete Order", :id=>'new_cart_submit', :class=>'btn btn-lg btn-primary' %>
+	<h4>Total Amount: $<%= @total_cart_amount %></h4>
+	<%= submit_tag "Complete Order", :id=>'new_cart_submit', :class=>'btn btn-lg btn-primary' %>	<span class="glyphicon glyphicon-lock">Securely processed by Stripe</span>
 <% end %>
 
 <script type="text/javascript">
