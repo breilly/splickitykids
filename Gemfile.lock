@@ -38,11 +38,11 @@ GEM
       uuidtools (~> 2.1)
     bcrypt (3.1.10)
     bonsai-elasticsearch-rails (0.0.4)
-    bootstrap-datepicker-rails (1.4.0)
-      railties (>= 3.0)
     bootstrap-sass (3.3.3)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
+    bootstrap3-datetimepicker-rails (4.15.35)
+      momentjs-rails (>= 2.8.1)
     builder (3.2.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -104,6 +104,8 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.6.2)
     minitest (5.5.1)
+    momentjs-rails (2.10.6)
+      railties (>= 3.1)
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -203,8 +205,8 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk (~> 1.6.9)
   bonsai-elasticsearch-rails
-  bootstrap-datepicker-rails
   bootstrap-sass (~> 3.3.3)
+  bootstrap3-datetimepicker-rails (~> 4.15.35)
   coffee-rails (~> 4.0.0)
   devise
   elasticsearch-model
@@ -212,6 +214,7 @@ DEPENDENCIES
   figaro
   jbuilder (~> 2.0)
   jquery-rails
+  momentjs-rails (>= 2.9.0)
   paperclip (~> 4.2)
   pg (~> 0.18.1)
   rails (= 4.1.1)

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.2.0"
+ruby "2.1.5"
 
 gem 'rails', '4.1.1'
 gem 'sass-rails', '~> 4.0.3'
@@ -16,8 +16,9 @@ gem 'paperclip', '~> 4.2'
 gem "figaro"
 gem "devise"
 gem 'simple_form'
-#gem 'momentjs-rails', '>= 2.9.0'
-gem 'bootstrap-datepicker-rails'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.15.35'
+#gem 'bootstrap-datepicker-rails'
 #gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem 'stripe'
 gem 'elasticsearch-model'

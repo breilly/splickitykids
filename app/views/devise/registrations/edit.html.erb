@@ -18,6 +18,11 @@
     <%= f.email_field :email, class: "form-control" %>
   </div>
 
+  <div class="form-group">
+    <%= f.label :timezone %>
+    <%= f.time_zone_select :timezone %>
+  </div>
+
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>

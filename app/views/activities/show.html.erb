@@ -1,3 +1,8 @@
+<script src="moment.js"></script>
+<script>
+  moment("2015-10-12").format('MMMM Do YYYY, h:mm A');
+</script>
+
 <div class="row">
   <div class="col-md-6">
     <div class="thumbnail">
@@ -7,8 +12,10 @@
   <div class="col-md-6">
     <h3><%= @activity.name %></h3>
     <p><strong>Category: </strong><%= @activity.category %></p>
-	  <p><strong>Start date: </strong><%= @activity.start_date %> <%= @activity.start_time %></p>
-	  <p><strong>End date: </strong><%= @activity.end_date %> <%= @activity.end_time %></p>
+	  <p id='#startsat'>
+      <strong>Start date: </strong><%= @activity.starts_at %>
+    </p>
+	  <p><strong>End date: </strong><%= @activity.ends_at %></p>
     <p><%= number_to_currency(@activity.price) %></p>
     <p><%= @activity.description %></p>
     <br>
