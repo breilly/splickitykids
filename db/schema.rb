@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012022552) do
+ActiveRecord::Schema.define(version: 20151016145422) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -42,6 +42,28 @@ ActiveRecord::Schema.define(version: 20151012022552) do
     t.string   "schedule_options"
     t.datetime "starts_at"
     t.datetime "ends_at"
+    t.boolean  "is_all_day"
+    t.date     "from_date"
+    t.time     "from_time"
+    t.date     "to_date"
+    t.time     "to_time"
+    t.string   "repeats"
+    t.integer  "repeats_every_n_days"
+    t.integer  "repeats_every_n_weeks"
+    t.integer  "repeats_weekly_each_days_of_the_week_mask"
+    t.integer  "repeats_every_n_months"
+    t.string   "repeats_monthly"
+    t.integer  "repeats_monthly_on_ordinals_mask"
+    t.integer  "repeats_monthly_on_days_of_the_week_mask"
+    t.integer  "repeats_every_n_years"
+    t.integer  "repeats_yearly_each_months_of_the_year_mask"
+    t.boolean  "repeats_yearly_on"
+    t.integer  "repeats_yearly_on_ordinals_mask"
+    t.integer  "repeats_yearly_on_days_of_the_week_mask"
+    t.string   "repeat_ends"
+    t.date     "repeat_ends_on"
+    t.string   "time_zone"
+    t.integer  "repeats_monthly_each_days_of_the_month_mask"
   end
 
   create_table "carts", force: true do |t|

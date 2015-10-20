@@ -9,14 +9,18 @@
     <div class="thumbnail">
       <%= image_tag @activity.image.url %>
     </div>
+    <p><strong>Description: </strong><%= @activity.description %></p>
+    <p><strong>Category: </strong><%= @activity.category %></p>
+    <p><strong>Price: </strong><%= number_to_currency(@activity.price) %></p>
+    <br>
   </div>
   <div class="col-md-6">
     <h3><%= @activity.name %></h3>
-    <p><strong>Category: </strong><%= @activity.category %></p>
-	  <p><strong>Start date: </strong><%= @activity.starts_at.strftime("%B %d %Y, %l:%M %p %Z") %></p>
-	  <p><strong>End date: </strong><%= @activity.ends_at.strftime("%B %d %Y, %l:%M %p %Z") %></p>
-    <p><%= number_to_currency(@activity.price) %></p>
-    <p><%= @activity.description %></p>
+	  <p><strong>Begins: </strong><%= @activity.from_date.strftime("%B %d %Y") %><%= @activity.from_time.strftime(", %l:%M %p") %> <%= @activity.time_zone %></p>
+	  <p><strong>Ends: </strong><%= @activity.to_date.strftime("%B %d %Y") %><%= @activity.to_time.strftime(", %l:%M %p") %> <%= @activity.time_zone %></p>   
+    <% if @activity.repeats == 'weekly' %>
+      <!-- <p><strong>Repeats: </strong><%= @activity.repeats_weekly_each_days_of_the_week_mask %></p> -->
+    <% end %>
     <br>
 
     <div class="center">

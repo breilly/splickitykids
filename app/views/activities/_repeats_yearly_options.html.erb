@@ -1,0 +1,36 @@
+<fieldset class="activity_option" id="repeats_yearly_options">
+  <%= f.number_field :repeats_every_n_years %>
+  <div class="control-group">
+    <label class="control-label">Each</label>
+    <div class="controls">
+      <% Activity::MonthsOfTheYear.each do |month_of_the_year| %>
+        <%= label_tag "activity_repeats_yearly_each_months_of_the_year_#{month_of_the_year}", month_of_the_year.humanize, :class => 'checkbox inline' do %>
+          <%= check_box_tag "activity[repeats_yearly_each_months_of_the_year][#{month_of_the_year}]", month_of_the_year, f.object.repeats_yearly_each_months_of_the_year.include?(month_of_the_year), {:name => "activity[repeats_yearly_each_months_of_the_year][]"} %>
+          <%= month_of_the_year.humanize %>
+        <% end %>
+      <% end %>
+      <%= hidden_field_tag "activity[repeats_yearly_each_months_of_the_year][]", "" %>
+    </div>
+  </div>
+  <%= f.check_box :repeats_yearly_on %>
+  <div class="control-group" id="activity_repeats_yearly_on_options">
+    <label class="control-label">On the</label>
+    <div class="controls">
+      <% Activity::Ordinals.each_with_index do |ordinal,index| %>
+        <%= label_tag "activity_repeats_yearly_on_ordinals_#{ordinal}", ordinal, :class => 'checkbox inline' do %>
+          <%= check_box_tag "activity[repeats_yearly_on_ordinals][#{ordinal}]", ordinal, f.object.repeats_yearly_on_ordinals.include?(ordinal), {:name => "activity[repeats_yearly_on_ordinals][]"} %>
+          <%= Activity::HumanOrdinals[index] %>
+        <% end %>
+      <% end %>
+      <%= hidden_field_tag "activity[repeats_yearly_on_ordinals][]", "" %>
+      <hr/>
+      <% Activity::DaysOfTheWeek.each do |day_of_the_week| %>
+        <%= label_tag "activity_repeats_yearly_on_days_of_the_week_#{day_of_the_week}", day_of_the_week.humanize, :class => 'checkbox inline' do %>
+          <%= check_box_tag "activity[repeats_yearly_on_days_of_the_week][#{day_of_the_week}]", day_of_the_week, f.object.repeats_yearly_on_days_of_the_week.include?(day_of_the_week), {:name => "activity[repeats_yearly_on_days_of_the_week][]"} %>
+          <%= day_of_the_week.humanize %>
+        <% end %>
+      <% end %>
+      <%= hidden_field_tag "activity[repeats_yearly_on_days_of_the_week][]", "" %>
+    </div>
+  </div>
+</fieldset>

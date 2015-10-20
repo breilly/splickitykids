@@ -1,0 +1,23 @@
+<div id="calendar" style="margin:1em 0;"></div>
+<% content_for :last_javascripts do %>
+  <script>
+    
+      $('#calendar').fullCalendar({
+        activitySources: [
+          // your event source
+          {
+              url: '/activity_instances.json',
+              data: {
+                  custom_param1: 'something',
+                  custom_param2: 'somethingelse'
+              },
+              error: function() {
+                  alert('there was an error while fetching events!');
+              }
+          }
+          // any other sources...
+        ]
+      });
+
+  </script>
+<% end %>

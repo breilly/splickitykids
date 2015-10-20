@@ -88,9 +88,19 @@ class ActivitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def activity_params
-      params.require(:activity).permit(:name, :description, :price, :schedule_options, :starts_at, :ends_at, #:start_date, :start_hour, :start_min, :start_am_pm, 
+      params.require(:activity).permit(:name, :description, :price, :schedule_options, :from_date, :from_time, 
+        :to_date, :to_time, :is_all_day, :repeat_ends, :repeat_ends_on, :repeats, :repeats_every_n_days, :repeats_every_n_weeks,
+        :repeats_every_n_months, :repeats_monthly, :repeats_monthly_on_ordinals, :repeats_every_n_years, :repeats_yearly_on, 
+        :time_zone, :spots, :address, :city, :state, :zip_code, :category, :image,
+        :repeats_weekly_each_days_of_the_week => [], 
+        :repeats_monthly_each_days_of_the_month => [], 
+        :repeats_monthly_on_days_of_the_week => [], 
+        :repeats_yearly_each_months_of_the_year => [], 
+        :repeats_yearly_on_days_of_the_week => [], 
+        :repeats_yearly_on_ordinals => []
+        #:starts_at, :ends_at, #:start_date, :start_hour, :start_min, :start_am_pm, 
         #:end_date, :end_hour, :end_min, :end_am_pm, 
-        :spots, :address, :city, :state, :zip_code, :category, :image)
+        )
     end
     
     def check_user

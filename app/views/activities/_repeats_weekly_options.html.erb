@@ -1,0 +1,15 @@
+<fieldset class="activity_option" id="repeats_weekly_options">
+  <%= f.number_field :repeats_every_n_weeks %>
+  <div class="control-group">
+    <label class="control-label">Each</label>
+    <div class="controls">
+      <% Activity::DaysOfTheWeek.each do |day_of_the_week| %>
+        <%= label_tag "activity_repeats_weekly_each_days_of_the_week_#{day_of_the_week}", day_of_the_week.humanize, :class => 'checkbox inline' do %>
+          <%= check_box_tag "activity[repeats_weekly_each_days_of_the_week][#{day_of_the_week}]", day_of_the_week, f.object.repeats_weekly_each_days_of_the_week.include?(day_of_the_week), {:name => "activity[repeats_weekly_each_days_of_the_week][]"} %>
+          <%= day_of_the_week.humanize %>
+        <% end %>
+      <% end %>
+      <%= hidden_field_tag "activity[repeats_weekly_each_days_of_the_week][]", "" %>
+    </div>
+  </div>
+</fieldset>

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby "2.1.5"
 
-gem 'rails', '4.1.1'
+gem 'rails', '4.1.4'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -23,6 +23,10 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.15.35'
 gem 'stripe'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+gem 'ice_cube'
+gem 'squeel'
+gem 'bootstrap_form'
+gem 'jquery-turbolinks'
 
 group :production do
   gem 'pg', '~> 0.18.1'

@@ -3,6 +3,7 @@ require 'elasticsearch/model'
 class Activity < ActiveRecord::Base
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
+  include IceCubeMethods
 
   if Rails.env.development?
     has_attached_file :image, :styles => { :medium => "250x250#", :thumb => "100x100>" }, :default_url => "batman.png",
@@ -23,7 +24,7 @@ class Activity < ActiveRecord::Base
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   end
   
-  validates :name, :description, :price, :starts_at, :ends_at, #:start_date, #:start_hour, :start_min, :start_am_pm, :end_date, :end_hour, :end_min, 
+  validates :name, :description, :price, #:starts_at, :ends_at, #:start_date, #:start_hour, :start_min, :start_am_pm, :end_date, :end_hour, :end_min, 
     #:end_am_pm, 
     :spots, :address, :city, :state, :zip_code, :category, presence: true
   validates :price, numericality: { greater_than: 0 }
