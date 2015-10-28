@@ -31,7 +31,8 @@ class KidsController < ApplicationController
 
   def update
     @kid.update(kid_params)
-    respond_with(@kid)
+    #respond_with(@kid)
+    redirect_to kids_path
   end
 
   def destroy
@@ -45,6 +46,6 @@ class KidsController < ApplicationController
     end
 
     def kid_params
-      params.require(:kid).permit(:first_name, :last_name, :dob, :user_id)
+      params.require(:kid).permit(:first_name, :last_name, :dob, :user_id, :image)
     end
 end

@@ -4,7 +4,7 @@
 
 <table class="table table-striped table-bordered">
   <tr>
-    <th class='center'>Image</th>
+    <!--<th class='center'>Image</th>-->
     <th class='center'>Activity</th>
     <th class='center'>Kids</th>
     <th class='center'>Price</th>
@@ -14,7 +14,7 @@
 
 <% @orders.each do |order| %>
   <tr>
-    <td class='center'><%= image_tag order.activity.image.url(:thumb) %></td>
+    <!--<td class='center'><%#= image_tag order.activity.image.url(:thumb) %></td>-->
     <td class='center'><%= order.activity.name %></td>
     <td class='center'><%= order.kids.pluck(:first_name).join(', ') %></td>
     <td class='center'><%= number_to_currency(order.activity.price) %></td>

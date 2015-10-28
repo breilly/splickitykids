@@ -56,6 +56,10 @@ class OrdersController < ApplicationController
     
     respond_to do |format|
       if @order.save
+
+        # Sends email to user when order is created.
+        #OrderMailer.order_email(@order.buyer_id).deliver
+
         Payment.create!(:order_id=>@order.id, :amount_recieved=>(@activity.price).floor, :seller_id=>@order.seller_id, :splickitykids_amount=>(@activity.price * 0.1).floor, :seller_amount => (@activity.price * 0.9).floor) 
         if params[:kid_ids]
           params[:kid_ids].each do |k|

@@ -67,6 +67,7 @@ class CartsController < ApplicationController
     @order.buyer_id = current_user.id
     Stripe.api_key = ENV["STRIPE_API_KEY"]
     token = params[:stripeToken]
+    #@user = current_user
     
     begin
       charge = Stripe::Charge.create(
@@ -84,6 +85,10 @@ class CartsController < ApplicationController
     end
     respond_to do |format|
       if @order.save
+
+        # Sends email to user when order is created.
+        #OrderMailer.order_email(@order, @user).deliver
+        
         @cart.temp_orders.each do |t|
           t.update_attribute(:order_id, @order.id)
           Payment.create!(:temp_order_id=>t.id, :amount_recieved=>(t.activity.price).floor, :seller_id=>t.activity.user.id, :splickitykids_amount=>(t.activity.price * 0.1).floor, :seller_amount => (t.activity.price * 0.9).floor)

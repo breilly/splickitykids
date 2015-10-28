@@ -2,12 +2,13 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :first_name %>
-    <%= f.input :last_name %>
-    <%= f.input :dob, :start_year => (Time.new.year - 16) %>
+    <%= f.input :first_name, class: "form-control" %>
+    <%= f.input :last_name, class: "form-control" %>
+    <%= f.input :dob, :start_year => (Time.new.year - 16), class: "form-control" %>
     <%= f.hidden_field :user_id %>
+    <%= f.file_field :image, class: "form-control" %>
   </div>
-
+  <br>
   <div class="form-actions">
     <%= f.button :submit, :class=>'btn btn-lg btn-primary' %>
   </div>
