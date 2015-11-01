@@ -6,7 +6,8 @@
       <form class="form-group form-group-lg" action="/search">
         <%= form_for search_path, method: 'get' do %>
   			<div class="form-group form-group-lg">
-  				<%= text_field_tag(:q, params[:q], class: "form-control") %>
+  				<%= text_field_tag(:q, params[:q], class: "form-control", placeholder: "Search by activity or zip code") %>
+  				<p>
   			</div>
   			<div class="form-group form-group-lg">
   				<%= submit_tag('Search', class: 'btn btn-success') %>
