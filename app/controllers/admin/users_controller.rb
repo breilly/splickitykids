@@ -44,7 +44,7 @@ class Admin::UsersController < Admin::AdminController
     params[:user].delete(:password_confirmation) if params[:user][:password].blank? and params[:user][:password_confirmation].blank?
     respond_to do |format|
       if @user.update(admin_user_params)
-        UserMailer.send_update_user_mail(@user)
+        UserMailer.send_update_user_mail(@user).deliver
         format.html { redirect_to admin_users_url(page: params[:page]), notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -67,10 +67,17 @@ class Admin::UsersController < Admin::AdminController
   def change_status
     new_status = @user.account_active? ? false : true
     @user.account_active = new_status
-    @user.save
-    respond_to do |format|
-      format.html { redirect_to admin_users_url(page: params[:page]), notice: 'User status was successfully changed.' }
-      format.json { head :no_content }
+    if @user.save
+      UserMailer.send_activation_user_mail(@user).deliver if new_status
+      respond_to do |format|
+        format.html { redirect_to admin_users_url(page: params[:page]), notice: 'User status was successfully changed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to admin_users_url(page: params[:page]), notice: 'User status was not changed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
