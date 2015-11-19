@@ -45,6 +45,7 @@
         <% else %>
           <li><%= link_to "Sign in", new_user_session_path %></li>
           <li><%= link_to "Sign up", new_user_registration_path %></li>
+          <li><%= link_to "Vendor sign up", new_user_registration_path(vendor: 1) %></li>
         <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->

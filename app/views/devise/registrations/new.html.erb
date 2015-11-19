@@ -1,5 +1,9 @@
 <h2>Sign up</h2>
-
+<% if params[:vendor] == "1" %>
+  <% resource.role = "vendor" %>
+<% else %>
+  <% resource.role = "registered" %>
+<% end %>
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
@@ -30,6 +34,10 @@
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
   </div>
+  
+  <% if params[:vendor] == "1" %>
+    <%= f.hidden_field :role %>
+  <% end %>
 
   <div class="form-group">
     <%= f.submit "Sign up", class: "btn btn-primary" %>
