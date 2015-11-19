@@ -45,6 +45,7 @@ GEM
       momentjs-rails (>= 2.8.1)
     bootstrap_form (2.3.0)
     builder (3.2.2)
+    cancancan (1.13.1)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.7)
@@ -103,6 +104,9 @@ GEM
       railties (>= 3.1.0)
       turbolinks
     json (1.8.3)
+    kaminari (0.16.3)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -115,6 +119,7 @@ GEM
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    mysql2 (0.3.18)
     netrc (0.10.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
@@ -220,6 +225,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.3)
   bootstrap3-datetimepicker-rails (~> 4.15.35)
   bootstrap_form
+  cancancan (~> 1.10)
   coffee-rails (~> 4.0.0)
   devise
   elasticsearch-model
@@ -229,7 +235,9 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks
+  kaminari
   momentjs-rails (>= 2.9.0)
+  mysql2 (= 0.3.18)
   paperclip (~> 4.2)
   pg (~> 0.18.1)
   rails (= 4.1.4)
@@ -243,3 +251,6 @@ DEPENDENCIES
   stripe
   turbolinks
   uglifier (>= 1.3.0)
+
+BUNDLED WITH
+   1.10.6

@@ -1,0 +1,20 @@
+<% flash.each do |key, value|
+unless value.blank?
+%>
+  <div class="flash alert alert-<%= key %> alert-dismissable in" >
+    <a href="#" data-dismiss="alert" class="close">×</a>
+      <ul>
+        <% if value.is_a?(Array)
+          value.each do |val| %>
+          <li><%= val %></li>
+         <% 
+          end
+         else %>
+           <li><%= value %></li>
+         <% end %>
+      </ul>
+  </div>
+   <% end %>
+<% end 
+flash.clear
+%>

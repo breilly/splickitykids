@@ -23,3 +23,5 @@
 
 # Ignore files uploaded on localhost
 /public/system
+/.ruby-gemset
+/.ruby-version

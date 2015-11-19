@@ -27,6 +27,8 @@ gem 'ice_cube'
 gem 'squeel'
 gem 'bootstrap_form'
 gem 'jquery-turbolinks'
+gem 'cancancan', '~> 1.10'
+gem 'kaminari'
 
 group :production do
   gem 'pg', '~> 0.18.1'
@@ -36,6 +38,7 @@ end
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'mysql2', '0.3.18'
 end
 
 # Use ActiveModel has_secure_password

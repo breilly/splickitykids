@@ -1,0 +1,59 @@
+<h1>Users</h1>
+
+<%= form_tag admin_users_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search], :placeholder => 'User Search' %>
+    <%= submit_tag "Search", :first_name => nil, :class=>'btn btn-primary' %>
+  </p>
+<% end %>
+
+<div class="row sub-header">
+  <div class="col-md-6">
+    <%= paginate @users %>
+  </div>
+
+  <div class="col-md-6 text-right">
+    <%= link_to '+Add User', new_admin_user_path, :class=>'btn btn-primary' %>
+  </div>
+</div>
+
+
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>S.No</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% 
+      page = (params[:page].to_i < 1 ) ? 1 : params[:page]
+      @users.each_with_index do |user, index| %>
+      <tr>
+        <td><%= ((page.to_i - 1 )* 25) + index + 1 %></td>
+        <td><%= user.first_name %> <%= user.last_name %></td>
+        <td><%= user.email %> </td>
+        <td>
+        <% if user.admin? %>
+          <%= "Admin" %>
+        <% else %>
+          <%= user.role %>
+        <% end %>
+        </td>
+        <td>
+        <% str = user.account_active? ? "Deactivate" : "Activate" %>
+        <%= link_to str, change_status_admin_user_path(user, page: params[:page]) %>
+        </td>
+        
+        <td><%= link_to 'Edit', edit_admin_user_path(user, page: params[:page]) %></td>
+        <td><%= link_to 'Delete', admin_user_url(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

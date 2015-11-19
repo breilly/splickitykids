@@ -5,8 +5,24 @@ class ApplicationController < ActionController::Base
   
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_filter :set_timezone
-
+  
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
+  
   protected
+  
+  def after_sign_up_path_for(resource)
+    root_path
+  end
+
+  def after_sign_in_path_for(resource)
+    if current_user.admin?
+      admin_root_path
+    else
+      root_path
+    end
+  end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit({ roles: [] }, :first_name, :last_name, :email, :password, :password_confirmation) }

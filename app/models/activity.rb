@@ -47,4 +47,3 @@ class Activity < ActiveRecord::Base
 
 end
 
-Activity.import

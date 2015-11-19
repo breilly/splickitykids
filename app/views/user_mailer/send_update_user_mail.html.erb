@@ -1,0 +1,11 @@
+Hi <%= @user.full_name %>,<br/><br/>
+Your Profile has been updated at splickitykids.com . Details are given below. <br/><br/>
+
+Email: <%= @user.email %><br/><br/>
+<% if @user.password.present? %>
+  Password: <%= @user.password %><br/><br/>
+<% end %>
+First Name: <%= @user.first_name %><br/><br/>
+<% if @user.last_name.present? %>
+  Last Name: <%= @user.last_name %><br/><br/>
+<% end %>

@@ -1,0 +1,71 @@
+<%= form_for([:admin, @user], :html => {class: "form-horizontal"}) do |f| %>
+  <%=hidden_field_tag :page, params[:page]%>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">First Name</label>
+
+      <div class="col-lg-4">
+        <%= f.text_field :first_name, :autofocus => true, :placeholder => 'First Name', :class => "form-control" %>
+      </div>
+      <div class="col-lg-6"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Last Name</label>
+
+      <div class="col-lg-4">
+        <%= f.text_field :last_name, :placeholder => 'Last Name', :class => "form-control" %>
+      </div>
+      <div class="col-lg-6"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+
+      <div class="col-lg-4">
+        <%= f.email_field :email, :placeholder => 'Email address', :class => "form-control" %>
+      </div>
+      <div class="col-lg-6"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Password</label>
+
+      <div class="col-lg-4">
+        <%= f.password_field :password, :placeholder => 'Password', :class => "form-control" %>
+      </div>
+      <div class="col-lg-6"></div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputEmail" class="col-lg-2 control-label">Confirm Password</label>
+
+      <div class="col-lg-4">
+        <%= f.password_field :password_confirmation, :placeholder => 'Password confirmation', :class => "form-control" %>
+      </div>
+      <div class="col-lg-6"></div>
+    </div>
+    
+    
+     <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <%= f.submit :class => 'btn btn-primary' %>
+        <%= link_to 'Back', admin_users_url, :class => 'btn btn-grey' %>
+
+      </div>
+    </div>
+  </fieldset>
+<% end %>
