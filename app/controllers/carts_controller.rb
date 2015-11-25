@@ -86,12 +86,16 @@ class CartsController < ApplicationController
     respond_to do |format|
       if @order.save
 
+        buyer = current_user
         # Sends email to user when order is created.
         #OrderMailer.order_email(@order, @user).deliver
+        OrderMailer.send_order_email_to_buyer(@order, buyer).deliver
         
         @cart.temp_orders.each do |t|
           t.update_attribute(:order_id, @order.id)
-          Payment.create!(:temp_order_id=>t.id, :amount_recieved=>(t.activity.price).floor, :seller_id=>t.activity.user.id, :splickitykids_amount=>(t.activity.price * 0.1).floor, :seller_amount => (t.activity.price * 0.9).floor)
+          activity_seller = t.activity.user
+          Payment.create!(:temp_order_id=>t.id, :amount_recieved=>(t.activity.price).floor, :seller_id=>activity_seller.id, :splickitykids_amount=>(t.activity.price * 0.1).floor, :seller_amount => (t.activity.price * 0.9).floor)
+          OrderMailer.send_order_email_to_seller(t, buyer, activity_seller).deliver
         end
         @cart.delete
         format.html { redirect_to root_url }
