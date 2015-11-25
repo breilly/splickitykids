@@ -1,8 +1,8 @@
 class SearchesController < ApplicationController
   def show
     if params[:q].present?
-    	sanitize_string(params[:q])
-        @search = Activity.search(params[:q].split.join(' AND ')).records
+    	str = sanitize_string(params[:q])
+        @search = Activity.search(str.split.join(' AND ')).records
     else
       @search = []
     end
