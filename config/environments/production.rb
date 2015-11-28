@@ -112,5 +112,5 @@ Rails.application.configure do
   }
   
   # Required for Devise. Remember to change to actual host.
-  config.action_mailer.default_url_options = { host: 'splickitykids.herokuapp.com', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'splickitykids.herokuapp.com' }
 end
