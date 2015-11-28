@@ -1,5 +1,5 @@
 class OrderMailer < ActionMailer::Base
-  default from: "blair@splickitykids.com"
+  default from: "Blair@splickitykids.com"
 
   #def order_email(user)	
   	#@user = user
