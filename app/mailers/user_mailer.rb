@@ -9,5 +9,5 @@ class UserMailer < ApplicationMailer
     @user = user
     mail(to: @user.email, subject: "Your Profile has been activated!")
   end
-  
+
 end

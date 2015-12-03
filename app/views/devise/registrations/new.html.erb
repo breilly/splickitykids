@@ -4,10 +4,19 @@
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
 
+    <div class="alert alert-info" role="alert">
+      <p>We're so glad your signing-up to share your activities for kids on splickity! After you sign-up, your business will need to be verified and approved by us before your account is activated. Please plan for up to a 24 hour turn-around on this process - we're a small business too afterall!</p>
+    </div>
+
     <div class="form-group">
       <%= f.label :company_name %>
       <%= f.text_field :company_name, autofocus: true, class: "form-control" %>
     </div>
+
+    <div class="form-group">
+      <%= f.label :ein %>
+      <%= f.text_field :ein, class: "form-control" %>
+    </div>    
 
     <div class="form-group">
       <%= f.label :first_name %>
