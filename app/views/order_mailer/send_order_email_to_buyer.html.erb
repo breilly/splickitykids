@@ -1,12 +1,11 @@
-Hi <%= @buyer.full_name %>,<br/><br/>
-Your order has been placed at splickitykids.com. Details are given below. <br/><br/>
+<p>Hi <%= @buyer.full_name %>,</p>
+<p>Your order has been placed at splickitykids.com. Details are given below.</p>
 
 <% @order.temp_orders.each do |order_detail| %>
-Your Activity Name - <%= order_detail.activity.name %>
-Vendor Email: <%= order_detail.activity.user.email %><br/><br/>
-<br/><br/>
+<p><strong>Activity Name:</strong> <%= order_detail.activity.name %></p>
+<p><strong>Vendor Email:</strong> <%= order_detail.activity.user.email %></p>
 <% end %>
 
 
-Thanks
-SplickityKids Team
+<p>Thanks</p>
+<p>SplickityKids Team</p>

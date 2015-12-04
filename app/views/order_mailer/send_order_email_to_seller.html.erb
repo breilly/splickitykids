@@ -1,10 +1,9 @@
-Hi <%= @seller.full_name %>,<br/><br/>
+<p>Hi <%= @seller.full_name %>,</p>
 
-Your activity - <%= @order_detail.activity.name %> has been purchased at splickitykids.com. Details are given below. <br/><br/>
+<p>Congratulations!  Someone signed up for your activity at splickitykids.com.  Details are given below.</p>
+<p><strong>Activity:</strong> <%= @order_detail.activity.name %></p>
+<p><strong>Customer name:</strong> <%= @buyer.full_name %></p>
+<p><strong>Customer email:</strong> <%= @buyer.email %></p>
 
-Buyer email: <%= @buyer.email %><br/><br/>
-
-
-
-Thanks
-SplickityKids Team
+<p>Thanks</p>
+<p>SplickityKids Team</p>
