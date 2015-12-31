@@ -1,148 +1,99 @@
-<%= bootstrap_form_for @activity, html: {novalidate: 'novalidate'} do |f| %>
-  <div class="row">
-    <div class="form-group form-group-lg col-xs-6">
-      <%= f.text_field :name, class: "form-control" %>
-      <%= f.text_area :description, rows: 5, class: "form-control" %>
-      <%= f.number_field :price, class: "form-control" %>
-      <%= f.number_field :spots, class: "form-control" %>
-      <%= f.text_field :address, class: "form-control" %>
-      <%= f.text_field :city, class: "form-control" %>
-      <%= f.select :state, collection: (us_states), class: 'form-control', prompt: "State" %>
-      <%= f.text_field :zip_code, class: "form-control" %>
-      <%= f.select :category, collection: (categories), class: 'form-control', prompt: "Category" %>
-      <%= f.file_field :image, class: "form-control" %>
-    </div> 
-      <%#= f.select :location_id, options_from_collection_for_select(Place.all, 'id', 'name', f.object.location_id), include_blank: true %>
-      <%#= f.select :host_id, options_from_collection_for_select(Place.all, 'id', 'name', f.object.host_id), include_blank: true %>
-    <div class="form-group form-group-lg col-xs-6">
-      <%= f.check_box :is_all_day %>
-      <%= f.date_select :from_date, {}, {style: 'width:auto;'} %>
-      <div class="activity_time">
-        <%= f.time_select :from_time, {:minute_step => 15}, {style: 'width:auto;'} %>
+  <%= form_for(@activity, html: {novalidate: 'novalidate'}) do |f| %>
+    <div class="row">
+      <div class="form-group form-group-lg col-xs-6">
+        <div class="form-group  col-xs-12">
+          <%= f.label :name %>
+          <%= f.text_field :name, autofocus: true, class: "form-control" %>
+        </div>
+
+        <div class="form-group  col-xs-12">
+          <%= f.label :description %>
+          <%= f.text_area :description, rows: 5, class: "form-control" %>
+        </div>    
+
+        <div class="form-group col-xs-6">
+          <%= f.label :price %>
+          <%= f.number_field :price, class: "form-control" %>
+        </div>
+        
+        <div class="form-group col-xs-6">
+          <%= f.label :spots %>
+          <%= f.number_field :spots, class: "form-control" %>
+        </div>
+
+        <div class="form-group col-xs-12">
+          <%= f.label :address %>
+          <%= f.text_field :address, class: "form-control" %>
+        </div>
+
+        <div class="form-group col-xs-12">
+          <%= f.label :city %>
+          <%= f.text_field :city, class: "form-control" %>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <%= f.label :state %>
+          <%= f.select :state, options_for_select(us_states), {}, class: "form-control" %>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <%= f.label :zip_code %>
+          <%= f.text_field :zip_code, class: "form-control" %>
+        </div>
+
+        <div class="form-group col-xs-4">
+          <%= f.label :category %>
+          <%= f.select :category, options_for_select(categories), {}, class: "form-control" %>
+        </div>
+        
+        <div class="form-group col-xs-12">
+          <%= f.label :image %>
+          <%= f.file_field :image, class: "form-control" %>
+        </div>
+
+        <div class="form-group col-xs-6">
+          <%= f.submit "Sign up", class: "btn btn-primary" %>
+          <%= link_to 'Back', activities_path, class: "btn btn-info" %>
+        </div>
       </div>
-      <%= f.date_select :to_date, {}, {style: 'width:auto;'} %>
-      <div class="activity_time">
-        <%= f.time_select :to_time, {:minute_step => 15}, {style: 'width:auto;'} %>
-      </div>
-      <div class="activity_time">
-        <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, :default => "Central Time (US & Canada)" %>
-      </div>
-      <%= f.select :repeats, Activity::RepeatsOptions %>
-      <%= render partial: 'repeats_daily_options', locals: {f: f} %>
-      <%= render partial: 'repeats_weekly_options', locals: {f: f} %>
-      <%= render partial: 'repeats_monthly_options', locals: {f: f} %>
-      <%= render partial: 'repeats_yearly_options', locals: {f: f} %>
-      <div class="activity_option" id="repeats_options">
-        <%= f.select :repeat_ends, Activity::RepeatEndsOptions %>
+      <div class="form-group form-group-lg col-xs-6">
+        <div class="form-group col-xs-7">
+          <%=f.label "Starts" %>
+          <%= f.date_select :from_date %>
+        </div>
+        <div class="form-group col-xs-5">
+           <strong>at</strong> 
+          <%= f.time_select :from_time, {:minute_step => 15}, class: "form-control" %>
+        </div>
+        <div class="form-group col-xs-7">
+          <%=f.label "Ends" %>
+          <%= f.date_select :to_date %>
+        </div>
+        <div class="form-group col-xs-5">
+          <strong>at</strong> 
+          <%= f.time_select :to_time, {:minute_step => 15}, class: "form-control" %>
+        </div>
+        <div class="form-group col-xs-12">
+          <%= f.label "Time zone" %>
+          <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, {}, :default => "Central Time (US & Canada)", class: "form-control" %>
+        </div>
+
+        <div class="form-group  col-xs-6">
+          <%=f.label "Repeats?" %>
+          <%= f.select :repeats, Activity::RepeatsOptions, {}, class: "form-control" %>
+          <%= render partial: 'repeats_daily_options', locals: {f: f} %>
+          <%= render partial: 'repeats_weekly_options', locals: {f: f} %>
+          <%= render partial: 'repeats_monthly_options', locals: {f: f} %>
+          <%= render partial: 'repeats_yearly_options', locals: {f: f} %>
+        <div class="activity_option" id="repeats_options">
+          <%= f.label "Repeat ends?" %>
+          <%= f.select :repeat_ends, Activity::RepeatEndsOptions %>
         <div id="activity_repeat_ends_on">
           <%= f.date_select :repeat_ends_on, {}, {style: 'width:auto;'} %>
         </div>
       </div>
+        </div>
     </div>
-  </div>
-  <div class="form-actions">
-    <%= f.submit class: "btn btn-lg btn-primary"%>  
-  </div>
-<% end %>
-<%# content_for :last_javascripts do %>
-  <script>
-    
-    $(function() {
-      var toggle_repeats_yearly_on = function(){
-        if($('#activity_repeats_yearly_on').is(':checked')){
-          $('#activity_repeats_yearly_on_options').show();
-        } else {
-          $('#activity_repeats_yearly_on_options').hide();
-        }
-      }
-      toggle_repeats_yearly_on();
-      $('#activity_repeats_yearly_on').on('change',function(){
-        toggle_repeats_yearly_on();
-      });
-      var toggle_activity_times = function(){
-        if($('#activity_is_all_day').is(':checked')){
-          $('.activity_time').hide();
-        } else {
-          $('.activity_time').show();
-        }
-      }
-      toggle_activity_times();
-      $('#activity_is_all_day').on('change',function(){
-        toggle_activity_times();
-      });
-      var toggle_activity_options = function(){
-        $('.activity_option').hide();
-        switch ($('#activity_repeats').val())
-        {
-        case 'never':
-          // Nothing
-          break;
-        case 'daily':
-          $('#repeats_options').show();
-          $('#repeats_daily_options').show();
-          break;
-        case 'weekly':
-          $('#repeats_options').show();
-          $('#repeats_weekly_options').show();
-          break;
-        case 'monthly':
-          $('#repeats_options').show();
-          $('#repeats_monthly_options').show();
-          break;
-        case 'yearly':
-          $('#repeats_options').show();
-          $('#repeats_yearly_options').show();
-          break;
-        }
-      }
-      toggle_activity_options();
-      $('#activity_repeats').on('change',function(){
-        toggle_activity_options();
-      });
-      var toggle_repeat_ends_on = function(){
-        switch ($('#activity_repeat_ends').val())
-        {
-        case 'never':
-          $('#activity_repeat_ends_on').hide();
-          break;
-        case 'on':
-          $('#activity_repeat_ends_on').show();
-          break;
-        }
-      }
-      toggle_repeat_ends_on();
-      $('#activity_repeat_ends').on('change',function(){
-        toggle_repeat_ends_on();
-      });
-      var toggle_repeats_monthly = function(){
-        switch ($('#activity_repeats_monthly').val())
-        {
-        case 'each':
-          $('#activity_repeats_monthly_each').show();
-          $('#activity_repeats_monthly_on').hide();
-          break;
-        case 'on':
-          $('#activity_repeats_monthly_each').hide();
-          $('#activity_repeats_monthly_on').show();
-          break;
-        }
-      }
-      toggle_repeats_monthly();
-      $('#activity_repeats_monthly').on('change',function(){
-        toggle_repeats_monthly();
-      });
-    });
+  <% end %>
 
-  </script>
-<%# end %>
-<%# content_for :first_styles do %>
-  <!-- <css>
     
-    #repeats_options {display:none;}
-    #repeats_daily_options {display:none;}
-    #repeats_weekly_options {display:none;}
-    #repeats_monthly_options {display:none;}
-    #repeats_yearly_options {display:none;}
-
-  </css> -->
-<%# end %>

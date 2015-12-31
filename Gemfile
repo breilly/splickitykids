@@ -17,8 +17,8 @@ gem "figaro"
 gem "devise"
 gem 'simple_form'
 gem 'momentjs-rails', '>= 2.9.0'
-gem 'bootstrap3-datetimepicker-rails', '~> 4.15.35'
-#gem 'bootstrap-datepicker-rails'
+#gem 'bootstrap3-datetimepicker-rails', '~> 4.15.35'
+gem 'bootstrap-datepicker-rails'
 #gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem 'stripe'
 gem 'elasticsearch-model'
@@ -29,6 +29,8 @@ gem 'bootstrap_form'
 gem 'jquery-turbolinks'
 gem 'cancancan', '~> 1.10'
 gem 'kaminari'
+gem 'bootstrap-timepicker-rails-addon', '~> 0.5.1'
+
 
 group :production do
   gem 'pg', '~> 0.18.1'

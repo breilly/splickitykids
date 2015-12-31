@@ -1,5 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap-timepicker";
 
 body {
   background-color: #F5F5F1;
@@ -53,4 +54,10 @@ table {
 
 .glyphicon.glyphicon-calendar {
     font-size: 1.9em;
+}
+
+.datetime select:nth-child(1) {
+  width: 30%;
+  margin-right: 10px; 
+  float: left;
 }

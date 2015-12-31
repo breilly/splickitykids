@@ -16,8 +16,8 @@ module IceCubeMethods
     base.send :validate, :from_must_come_before_to
   end
   
-  RepeatsOptions = ['never','daily','weekly','monthly','yearly']
-  RepeatEndsOptions = ['never','on']
+  RepeatsOptions = ['no','daily','weekly','monthly','yearly']
+  RepeatEndsOptions = ['no','yes']
   RepeatMonthlyOptions = ['each','on']
   DaysOfTheWeek = %w[sunday monday tuesday wednesday thursday friday saturday]
   DaysOfTheMonth = (1..31).to_a

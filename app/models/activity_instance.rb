@@ -12,25 +12,25 @@ class ActivityInstance
     # line 5 = Event repeats indefinitely, then all we care about is that it has started at somepoint in the last
     results = Activity.where{
       ( 
-        (repeats == 'never') & 
+        (repeats == 'no') & 
         (from_date >= begin_date) & 
         (from_date <= end_date)
       ) | ( 
-        (repeats == 'never') & 
+        (repeats == 'no') & 
         (to_date >= begin_date) & 
         (to_date <= end_date)
       ) | ( 
-        (repeats == 'never') & 
+        (repeats == 'no') & 
         (from_date <= begin_date) & 
         (to_date >= end_date)
       ) | ( 
-        (repeats != 'never') & 
+        (repeats != 'no') & 
         (from_date <= end_date) & 
-        (repeat_ends == 'on') & 
+        (repeat_ends == 'yes') & 
         (repeat_ends_on >= begin_date)
       ) | ( 
-        (repeats != 'never') & 
-        (repeat_ends == 'never') & 
+        (repeats != 'no') & 
+        (repeat_ends == 'no') & 
         (from_date <= end_date)
       )  
     }
