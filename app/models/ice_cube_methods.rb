@@ -1,18 +1,18 @@
 module IceCubeMethods
   def self.included(base)
     base.send :validates, :repeats, :presence => true
-    base.send :validates, :repeats_every_n_days, :presence => true, :if => lambda { |e| e.repeats == "daily" }
-    base.send :validates, :repeats_every_n_weeks, :presence => true, :if => lambda { |e| e.repeats == "weekly" }
+    #base.send :validates, :repeats_every_n_days, :presence => true, :if => lambda { |e| e.repeats == "daily" }
+    #base.send :validates, :repeats_every_n_weeks, :presence => true, :if => lambda { |e| e.repeats == "weekly" }
     base.send :validate, :must_have_at_least_one_repeats_weekly_each_days_of_the_week, :if => lambda { |e| e.repeats == "weekly" }
-    base.send :validates, :repeats_every_n_months, :presence => true, :if => lambda { |e| e.repeats == "monthly" }
-    base.send :validates, :repeats_monthly, :presence => true, :if => lambda { |e| e.repeats == "monthly" }
-    base.send :validate, :must_have_at_least_one_repeats_monthly_each_days_of_the_month, :if => lambda { |e| e.repeats == "monthly" && e.repeats_monthly == 'each' }
+    #base.send :validates, :repeats_every_n_months, :presence => true, :if => lambda { |e| e.repeats == "monthly" }
+    #base.send :validates, :repeats_monthly, :presence => true, :if => lambda { |e| e.repeats == "monthly" }
+    #base.send :validate, :must_have_at_least_one_repeats_monthly_each_days_of_the_month, :if => lambda { |e| e.repeats == "monthly" && e.repeats_monthly == 'each' }
     base.send :validate, :must_have_at_least_one_repeats_monthly_on_ordinals, :if => lambda { |e| e.repeats == "monthly" && e.repeats_monthly == 'on' }
     base.send :validate, :must_have_at_least_one_repeats_monthly_on_days_of_the_week, :if => lambda { |e| e.repeats == "monthly" && e.repeats_monthly == 'on' }
-    base.send :validates, :repeats_every_n_years, :presence => true, :if => lambda { |e| e.repeats == "yearly" }
+    #base.send :validates, :repeats_every_n_years, :presence => true, :if => lambda { |e| e.repeats == "yearly" }
     base.send :validate, :must_have_at_least_one_repeats_yearly_each_months_of_the_year, :if => lambda { |e| e.repeats == "yearly" }
     base.send :validate, :must_have_at_least_one_repeats_yearly_on_ordinals, :if => lambda { |e| e.repeats == "yearly" && e.repeats_yearly_on }
-    base.send :validate, :must_have_at_least_one_repeats_yearly_on_days_of_the_week, :if => lambda { |e| e.repeats == "yearly" && e.repeats_yearly_on }
+    #base.send :validate, :must_have_at_least_one_repeats_yearly_on_days_of_the_week, :if => lambda { |e| e.repeats == "yearly" && e.repeats_yearly_on }
     base.send :validate, :from_must_come_before_to
   end
   
@@ -195,7 +195,7 @@ private
   
   def from_must_come_before_to
     if from > to
-      errors.add(:to_date, "must come after the from date")
+      errors.add(:to_time, "must come after the starts time")
     end
   end
   

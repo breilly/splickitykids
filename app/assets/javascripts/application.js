@@ -91,15 +91,15 @@ $(function() {
         toggle_activity_options();
       });
       var toggle_repeat_ends_on = function(){
-        switch ($('#activity_repeat_ends').val())
-        {
-        case 'no':
-          $('#activity_repeat_ends_on').hide();
-          break;
-        case 'yes':
+      //  switch ($('#activity_repeat_ends').val())
+      //  {
+      //  case 'no':
+      //    $('#activity_repeat_ends_on').hide();
+      //    break;
+      //  case 'yes':
           $('#activity_repeat_ends_on').show();
-          break;
-        }
+      //    break;
+      //  }
       }
       toggle_repeat_ends_on();
       $('#activity_repeat_ends').on('change',function(){

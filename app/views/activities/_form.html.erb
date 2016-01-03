@@ -1,81 +1,68 @@
-  <%= form_for(@activity, html: {novalidate: 'novalidate'}) do |f| %>
+  <%= simple_form_for(@activity, html: {novalidate: 'novalidate'}) do |f| %>
     <div class="row">
+      <%= f.error_notification %>
       <div class="form-group form-group-lg col-xs-6">
         <div class="form-group  col-xs-12">
-          <%= f.label :name %>
-          <%= f.text_field :name, autofocus: true, class: "form-control" %>
+          <%= f.input :name, autofocus: true, class: "form-control" %>
         </div>
 
         <div class="form-group  col-xs-12">
-          <%= f.label :description %>
-          <%= f.text_area :description, rows: 5, class: "form-control" %>
+          <%= f.input :description, rows: 5, class: "form-control" %>
         </div>    
 
         <div class="form-group col-xs-6">
-          <%= f.label :price %>
-          <%= f.number_field :price, class: "form-control" %>
+          <%= f.input :price, class: "form-control" %>
         </div>
         
         <div class="form-group col-xs-6">
-          <%= f.label :spots %>
-          <%= f.number_field :spots, class: "form-control" %>
+          <%= f.input :spots, class: "form-control" %>
         </div>
 
         <div class="form-group col-xs-12">
-          <%= f.label :address %>
-          <%= f.text_field :address, class: "form-control" %>
+          <%= f.input :address, class: "form-control" %>
         </div>
 
         <div class="form-group col-xs-12">
-          <%= f.label :city %>
-          <%= f.text_field :city, class: "form-control" %>
+          <%= f.input :city, class: "form-control" %>
         </div>
 
         <div class="form-group col-xs-4">
-          <%= f.label :state %>
-          <%= f.select :state, options_for_select(us_states), {}, class: "form-control" %>
+          <%= f.input :state, collection: (us_states), class: "form-control" %>
         </div>
 
         <div class="form-group col-xs-4">
-          <%= f.label :zip_code %>
-          <%= f.text_field :zip_code, class: "form-control" %>
+          <%= f.input :zip_code, class: "form-control" %>
         </div>
 
         <div class="form-group col-xs-4">
-          <%= f.label :category %>
-          <%= f.select :category, options_for_select(categories), {}, class: "form-control" %>
+          <%= f.input :category, collection: (categories), class: "form-control" %>
         </div>
         
         <div class="form-group col-xs-12">
-          <%= f.label :image %>
+          <%= f.label "Activity photo" %>
           <%= f.file_field :image, class: "form-control" %>
         </div>
 
         <div class="form-group col-xs-6">
-          <%= f.submit "Sign up", class: "btn btn-primary" %>
-          <%= link_to 'Back', activities_path, class: "btn btn-info" %>
+          <%= f.button :submit, label: "Create activity", class: "btn btn-primary" %>
+          <%= link_to 'Cancel', activities_path, class: "btn btn-danger" %>
         </div>
       </div>
       <div class="form-group form-group-lg col-xs-6">
         <div class="form-group col-xs-7">
-          <%=f.label "Starts" %>
-          <%= f.date_select :from_date %>
+          <%= f.input :from_date, as: :date, label: "Starts" %>
         </div>
         <div class="form-group col-xs-5">
-           <strong>at</strong> 
-          <%= f.time_select :from_time, {:minute_step => 15}, class: "form-control" %>
+          <%= f.input :from_time, as: :time, class: "form-control", label: "at" %>
         </div>
         <div class="form-group col-xs-7">
-          <%=f.label "Ends" %>
-          <%= f.date_select :to_date %>
+          <%= f.input :to_date, as: :date, label: "Ends" %>
         </div>
         <div class="form-group col-xs-5">
-          <strong>at</strong> 
-          <%= f.time_select :to_time, {:minute_step => 15}, class: "form-control" %>
+          <%= f.input :to_time, as: :time, class: "form-control", label: "at" %>
         </div>
         <div class="form-group col-xs-12">
-          <%= f.label "Time zone" %>
-          <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, {}, :default => "Central Time (US & Canada)", class: "form-control" %>
+          <%= f.input :time_zone, as: :time_zone, label: "Time zone", :default => "Central Time (US & Canada)", class: "form-control" %>
         </div>
 
         <div class="form-group  col-xs-6">
@@ -86,9 +73,10 @@
           <%= render partial: 'repeats_monthly_options', locals: {f: f} %>
           <%= render partial: 'repeats_yearly_options', locals: {f: f} %>
         <div class="activity_option" id="repeats_options">
-          <%= f.label "Repeat ends?" %>
-          <%= f.select :repeat_ends, Activity::RepeatEndsOptions %>
+          
+          <%#= f.select :repeat_ends, Activity::RepeatEndsOptions %>
         <div id="activity_repeat_ends_on">
+          <%= f.label "Repeat ends" %>
           <%= f.date_select :repeat_ends_on, {}, {style: 'width:auto;'} %>
         </div>
       </div>

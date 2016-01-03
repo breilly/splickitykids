@@ -16,10 +16,16 @@
   </div>
   <div class="col-md-6">
     <h3><%= @activity.name %></h3>
-	  <p><strong>Begins: </strong><%= @activity.from_date.strftime("%B %d %Y") %><%= @activity.from_time.strftime(", %l:%M %p") %> <%= @activity.time_zone %></p>
-	  <p><strong>Ends: </strong><%= @activity.to_date.strftime("%B %d %Y") %><%= @activity.to_time.strftime(", %l:%M %p") %> <%= @activity.time_zone %></p>   
-    <% if @activity.repeats == 'weekly' %>
-      <!-- <p><strong>Repeats: </strong><%= @activity.repeats_weekly_each_days_of_the_week_mask %></p> -->
+	  <p><strong>Begins: </strong><%= @activity.from_date.strftime("%B %d, %Y") %><%= @activity.from_time.strftime(" at %l:%M %p") %> <%= @activity.time_zone %></p>
+	  <p><strong>Ends: </strong><%= @activity.to_date.strftime("%B %d, %Y") %><%= @activity.to_time.strftime(" at %l:%M %p") %> <%= @activity.time_zone %></p>   
+    <% if @activity.repeats == 'daily' %>
+      <p><strong>Repeats: </strong>Daily until </strong><%= @activity.repeat_ends_on.strftime("%B %d, %Y") %></p>
+    <% elsif @activity.repeats == 'weekly' %>
+      <p><strong>Repeats: </strong>Every <%= @activity.repeats_weekly_each_days_of_the_week.join(", ").titleize %> until </strong><%= @activity.repeat_ends_on.strftime("%B %d, %Y") %></p>
+    <% elsif @activity.repeats == 'monthly' %>
+      <p><strong>Repeats: </strong>Each month until </strong><%= @activity.repeat_ends_on.strftime("%B %d, %Y") %></p>
+    <% elsif @activity.repeats == 'yearly' %>
+      <p><strong>Repeats: </strong>Every <%= @activity.repeats_yearly_each_months_of_the_year.join(", ").titleize %> until </strong><%= @activity.repeat_ends_on.strftime("%B %d, %Y") %></p>
     <% end %>
     <br>
 

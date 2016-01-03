@@ -26,7 +26,7 @@ class Activity < ActiveRecord::Base
   
   validates :name, :description, :price, #:starts_at, :ends_at, #:start_date, #:start_hour, :start_min, :start_am_pm, :end_date, :end_hour, :end_min, 
     #:end_am_pm, 
-    :spots, :address, :city, :state, :zip_code, :category, presence: true
+    :spots, :address, :city, :state, :zip_code, :category, :time_zone, :from_date, :to_date, :from_time, :to_time, presence: true
   validates :price, numericality: { greater_than: 0 }
   validates_attachment_presence :image
   validates_attachment :image,

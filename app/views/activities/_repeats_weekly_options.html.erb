@@ -1,8 +1,7 @@
 <fieldset class="activity_option" id="repeats_weekly_options">
-  <%= f.label 'For # of weeks' %>
-  <%= f.select :repeats_every_n_weeks, options_for_select(daily_repeats), {}, class: "form-control" %>
+  <%#= f.label 'For # of weeks' %>
+  <%#= f.select :repeats_every_n_weeks, options_for_select(daily_repeats), {}, class: "form-control" %>
   <div class="control-group">
-    <br/>
     <label class="control-label">Every</label>
     <div class="controls">
       <% Activity::DaysOfTheWeek.each do |day_of_the_week| %>

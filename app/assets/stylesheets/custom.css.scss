@@ -56,8 +56,16 @@ table {
     font-size: 1.9em;
 }
 
+.glyphicon.glyphicon-time {
+    font-size: 1.9em;
+}
+
 .datetime select:nth-child(1) {
   width: 30%;
   margin-right: 10px; 
   float: left;
+}
+
+abbr[title="required"] {
+  display: none;
 }

@@ -1,6 +1,6 @@
 <fieldset class="activity_option" id="repeats_monthly_options">
-  <%= f.label 'For # of months' %>
-  <%= f.select :repeats_every_n_months, options_for_select(monthly_repeats), {}, class: "form-control" %>
+  <%#= f.label 'For # of months' %>
+  <%#= f.select :repeats_every_n_months, options_for_select(monthly_repeats), {}, class: "form-control" %>
   <%#= f.select :repeats_monthly, Activity::RepeatMonthlyOptions %>
   <!--<div class="control-group" id="activity_repeats_monthly_each">
     <label class="control-label">Each</label>
@@ -15,7 +15,6 @@
     </div>
   </div>-->
   <div class="control-group" id="activity_repeats_monthly_on">
-    <br/>
     <label class="control-label">Every</label>
     <div class="controls">
       <%# Activity::Ordinals.each_with_index do |ordinal,index| %>
