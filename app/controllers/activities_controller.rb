@@ -10,6 +10,7 @@ class ActivitiesController < ApplicationController
   # GET /activities
   # GET /activities.json
   def index
+    @home_page = true
     @activities = Activity.all.order("created_at DESC")
     if params[:q].present?
         @search = Activity.search(params[:q].split.join(' AND ')).records

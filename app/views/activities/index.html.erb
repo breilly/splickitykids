@@ -1,37 +1,19 @@
-<div class="jumbotron">
-  <div class="row">
-    <div class="col-md-6 col-md-push-6">
-      <h1>Activities for kids</h1>
-      <br>
-      <form class="form-group form-group-lg" action="/search">
-        <%= form_for search_path, method: 'get' do %>
-  			<div class="form-group form-group-lg">
-  				<%= text_field_tag(:q, params[:q], class: "form-control", placeholder: "Search by activity or zip code") %>
-  				<p>
-  			</div>
-  			<div class="form-group form-group-lg">
-  				<%= submit_tag('Search', class: 'btn btn-success') %>
-  			</div>
-		<% end %>
-      </form>
-	</div>
-  </div>
-</div>
 
-<div class="center">
-	<div class="row">
-	  <% @activities.each do |activity| %>
-	  	<div class="col-md-3">
-		  <div class="thumbnail">
-		    <%= link_to image_tag(activity.image.url(:medium)), activity %>
-			<div class="caption">
-			  <h3><%= activity.name %></h3>
-			  <p><%= activity.start_date %></p>
-			  <p><%= number_to_currency(activity.price) %></p>
-			  <p><%= "Sold by #{activity.user.full_name}" %></p> 
+	<div class="center">
+		<div class="row">
+		  <% @activities.each do |activity| %>
+		  	<div class="col-md-3">
+			  <div class="thumbnail">
+			    <%= link_to image_tag(activity.image.url(:medium)), activity %>
+				<div class="caption">
+				  <h3><%= activity.name %></h3>
+				  <p><%= activity.start_date %></p>
+				  <p><%= number_to_currency(activity.price) %></p>
+				  <p><%= "Sold by #{activity.user.full_name}" %></p> 
+				</div>
+			  </div>
 			</div>
-		  </div>
+		  <% end %>
 		</div>
-	  <% end %>
 	</div>
-</div>
+

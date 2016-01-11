@@ -89,6 +89,7 @@ class Admin::UsersController < Admin::AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :phone_number, :password, :password_confirmation, :date_of_birth, :city, :zip_code, :street_address, :state_name, :country_id, :state_id)
+      params.require(:user).permit(:first_name, :last_name, :email, :phone_number, :password, :password_confirmation, 
+        :date_of_birth, :city, :zip_code, :street_address, :state_name, :country_id, :state_id, :company_name)
     end
 end

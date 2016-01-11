@@ -10,6 +10,11 @@ body {
 
 .navbar-default {
   background-color: #EFEFEB;
+  margin-bottom: 0;
+}
+
+.navbar {
+  margin-bottom: 0px !important;
 }
 
 .navbar-default .navbar-brand {
@@ -42,9 +47,11 @@ body {
 }
 
 .jumbotron {
-  background-image: url('https://d1j1smmjasrwse.cloudfront.net/images/8503405051_f7daf632d9_o.jpg');
+  background-image: url('https://d1j1smmjasrwse.cloudfront.net/images/person-842429_1920_jj.jpg');
   background-size: cover;
   height: 500px;
+  margin-top: 0px;
+  padding-top: 0px;
 }
   
 table {
@@ -68,4 +75,8 @@ table {
 
 abbr[title="required"] {
   display: none;
+}
+
+.well {
+   background-color: rgba(245, 245, 245, 0.4) !important;
 }

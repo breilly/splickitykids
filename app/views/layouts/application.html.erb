@@ -12,6 +12,28 @@
 <body>
 
 <%= render 'layouts/header' %>
+<% if current_page?(root_path) %>
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="well col-md-5 center">
+        <h1>Activities for kids</h1>
+        <br>
+        <form class="form-group form-group-lg" action="/search">
+          <%= form_for search_path, method: 'get' do %>
+            <div class="form-group form-group-lg">
+              <%= text_field_tag(:q, params[:q], class: "form-control", placeholder: "Search by activity or zip code") %>
+            </div>
+            <div class="form-group form-group-lg">
+              <%= submit_tag('Search', class: 'btn btn-success') %>
+            </div>
+          <% end %>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
 
 <div class="container">
   <% flash.each do |name, msg| %>
