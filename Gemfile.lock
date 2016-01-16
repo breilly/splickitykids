@@ -45,6 +45,8 @@ GEM
       sass (>= 3.2.19)
     bootstrap-timepicker-rails-addon (0.5.1)
       railties (>= 3.1, < 5.0)
+    bootstrap-typeahead-rails (0.10.5.1)
+      railties (>= 3.0)
     bootstrap_form (2.3.0)
     builder (3.2.2)
     cancancan (1.13.1)
@@ -226,6 +228,7 @@ DEPENDENCIES
   bootstrap-datepicker-rails
   bootstrap-sass (~> 3.3.3)
   bootstrap-timepicker-rails-addon (~> 0.5.1)
+  bootstrap-typeahead-rails
   bootstrap_form
   cancancan (~> 1.10)
   coffee-rails (~> 4.0.0)
