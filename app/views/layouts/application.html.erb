@@ -35,6 +35,40 @@
 </div>
 <% end %>
 
+<% if current_page?(new_user_session_path) %>
+<div class="jumbotron jumbotron_sign_in">
+  <div class="container">
+    <div class="row">
+      <div class="well col-md-6 center">
+        <h1 class="lightened">It's nice to see you again!</h1>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<% if current_page?(new_user_registration_path(@user, :vendor => "1")) %>
+  <div class="jumbotron jumbotron_vendors">
+    <div class="container">
+      <div class="row">
+        <div class="well col-md-5 center">
+          <h1 class="lightened">You're small.  We're small.</h1>
+          <h1 class="lightened">Let's get big together!</h1>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+<% elsif current_page?(new_user_registration_path) %>
+  <div class="jumbotron jumbotron_families">
+    <div class="container">
+      <div class="row">
+      </div>
+    </div>
+  </div>
+<% end %>
+
 <div class="container">
   <% flash.each do |name, msg| %>
     <% if msg.is_a?(String) %>
