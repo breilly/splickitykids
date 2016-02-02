@@ -8,7 +8,7 @@
     <th class='center'>Activity</th>
     <th class='center'>Kids</th>
     <th class='center'>Amount to Vendor</th>
-    <th class='center'>Amount to Splickitykids</th>
+    <!--<th class='center'>Amount to Splickitykids</th>-->
     <th class='center'>Price</th>
     <th class='center'>Customer</th>
     <th class='center'>Date Sold</th>
@@ -23,7 +23,7 @@
     <td class='center'><%= order.activity.name %></td>
     <td class='center'><%= order.kids.pluck(:first_name).join(', ') %></td>
     <td class='center'><%= number_to_currency(payment.seller_amount) %></td>
-    <td class='center'><%= number_to_currency(payment.splickitykids_amount) %></td>
+    <!--<td class='center'><%= number_to_currency(payment.splickitykids_amount) %></td>-->
     <td class='center'><%= number_to_currency(order.activity.price) %></td>    
     <td class='center'><%= order.try(:buyer) ? order.buyer.full_name : order.order.buyer.full_name %></td>
     <td class='center'><%= order.created_at.strftime("%B %-d, %Y") %></td>
