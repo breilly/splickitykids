@@ -14,13 +14,13 @@
       <p><%= @activity.from_date.strftime("%A, %B %d, %Y") %><%= @activity.from_time.strftime(" from %l:%M %p") %> to<br/><%= @activity.to_date.strftime("%A, %B %d, %Y") %><%= @activity.to_time.strftime(" at %l:%M %p") %><br/><%= @activity.time_zone %></p>  
     <% end %> 
     <% if @activity.repeats == 'daily' %>
-      <p>Takes place daily until <%= @activity.repeat_ends_on.strftime("%B %d, %Y") %></p>
+      <p>Takes place daily through <%= @activity.repeat_ends_on.strftime("%B %d, %Y") %></p>
     <% elsif @activity.repeats == 'weekly' %>
-      <p>Takes place every <%= @activity.repeats_weekly_each_days_of_the_week.join(", ").titleize %> until <%= @activity.repeat_ends_on.strftime("%B %d, %Y") %></p>
+      <p>Takes place every <%= @activity.repeats_weekly_each_days_of_the_week.join(", ").titleize %> through <%= @activity.repeat_ends_on.strftime("%B %d, %Y") %></p>
     <% elsif @activity.repeats == 'monthly' %>
-      <p>Takes place each month until <%= @activity.repeat_ends_on.strftime("%B %d, %Y") %></p>
+      <p>Takes place each month through <%= @activity.repeat_ends_on.strftime("%B %d, %Y") %></p>
     <% elsif @activity.repeats == 'yearly' %>
-      <p>Takes place every <%= @activity.repeats_yearly_each_months_of_the_year.join(", ").titleize %> until <%= @activity.repeat_ends_on.strftime("%B, %Y") %></p>
+      <p>Takes place every <%= @activity.repeats_yearly_each_months_of_the_year.join(", ").titleize %> through <%= @activity.repeat_ends_on.strftime("%B, %Y") %></p>
     <% end %>
     <br>
 
