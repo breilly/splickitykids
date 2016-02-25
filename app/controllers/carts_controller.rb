@@ -71,16 +71,16 @@ class CartsController < ApplicationController
       if @order.save
         buyer = current_user
         carts.where(is_paid: true).each do |c|
-          order_details = OrderDetail.create(order_id: @order.id, kid_id: c.kid_id, activity_id: c.activity_id, price: c.price, stripe_response: c.stripe_response, plan: c.plan, repeats: c.repeats)
+          order_details = OrderDetail.create(order_id: @order.id, kid_id: c.kid_id, activity_id: c.activity_id, price: c.price, stripe_response: c.stripe_response, plan: c.plan, repeats: c.repeats, stripe_customer_token: c.stripe_customer_token)
           activity_seller = c.activity.user
-          Payment.create!(order_id: @order.id, order_detail_id: order_details.id, amount_recieved: c.price, seller_id: activity_seller.id, splickitykids_amount: (c.price * 0.0).floor, seller_amount: (c.price * 1.0).floor, stripe_user_token: c.stripe_user_token)
+          Payment.create!(order_id: @order.id, order_detail_id: order_details.id, kid_id: c.kid_id, amount_recieved: c.price, seller_id: activity_seller.id, buyer_id: current_user.id, activity_id: c.activity_id, splickitykids_amount: (c.price * 0.0).floor, seller_amount: (c.price * 1.0).floor, stripe_customer_token: c.stripe_customer_token, recurring_type: c.repeats, plan: c.plan)
           OrderMailer.send_order_email_to_seller(order_details, current_user, activity_seller).deliver
           c.delete
         end
         # Sends email to user when order is created.
         #OrderMailer.order_email(@order, @user).deliver
         OrderMailer.send_order_email_to_buyer(@order, buyer).deliver
-        format.html { redirect_to root_url }
+        format.html { redirect_to root_url and return}
       else
         format.html { render :show }
         format.json { render json: @order.errors, status: :unprocessable_entity }
@@ -111,28 +111,23 @@ class CartsController < ApplicationController
   end
   
   def subscriptions_payment(token)
+  p "oooooooooooooooooooooooooooooooooo"
     current_user.carts.where.not(repeats: nil).where.not(repeats: "no").where.not(plan: nil).where(is_paid: false).each do |cart|
+    p cart
       begin
-        p token
-        p cart.plan
-        p current_user.email
         customer = Stripe::Customer.create(
           :source => token,
           :plan => cart.plan,
           :email => current_user.email
           )
-          
-          p customer
-          dasdads
-        flash[:notice] = "Thanks for subscription!"
-        cart.update(is_paid: true, stripe_user_token: customer.stripe_user_token, stripe_response: customer)
+        p customer
+        p flash[:notice] = "Thanks for subscription!"
+        c = cart.update(is_paid: true, stripe_customer_token: customer.id, stripe_response: customer)
+        p c
       rescue Stripe::CardError => e
-        p "vvvvvvvvvvv"
-        sfssss
         flash[:danger] = e.message
       rescue Stripe::InvalidRequestError => e
-        flash[:danger] = "There was a problem connecting to stripe. Please try again!"  
-        p ffffffff
+        flash[:danger] = "There was a problem connecting to stripe. Please try again! \n" + e.message  
         redirect_to place_order_carts_url and return
       end
     end
