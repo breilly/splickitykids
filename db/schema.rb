@@ -75,7 +75,9 @@ ActiveRecord::Schema.define(version: 20160220105151) do
     t.integer  "price"
     t.string   "repeats"
     t.string   "plan"
+    t.boolean  "is_paid",               default: false
     t.text     "stripe_response"
+    t.string   "stripe_customer_token"
   end
 
   create_table "delayed_jobs", force: true do |t|
@@ -93,6 +95,16 @@ ActiveRecord::Schema.define(version: 20160220105151) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "kid_orders", force: true do |t|
+    t.integer "kid_id"
+    t.integer "order_id"
+  end
+
+  create_table "kid_temp_orders", force: true do |t|
+    t.integer "kid_id"
+    t.integer "temp_order_id"
+  end
 
   create_table "kids", force: true do |t|
     t.string   "first_name"
@@ -117,6 +129,7 @@ ActiveRecord::Schema.define(version: 20160220105151) do
     t.text     "stripe_response"
     t.string   "plan"
     t.string   "repeats"
+    t.string   "stripe_customer_token"
   end
 
   create_table "orders", force: true do |t|
@@ -125,13 +138,7 @@ ActiveRecord::Schema.define(version: 20160220105151) do
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "activity_id"
     t.integer  "buyer_id"
-    t.integer  "seller_id"
-    t.integer  "kid_id"
-    t.integer  "price"
-    t.integer  "amount"
-    t.string   "repeat"
   end
 
   create_table "payments", force: true do |t|
@@ -146,8 +153,21 @@ ActiveRecord::Schema.define(version: 20160220105151) do
     t.integer  "activity_id"
     t.integer  "buyer_id"
     t.string   "recurring_type"
-    t.integer  "plan"
-    t.string   "stripe_user_token"
+    t.string   "plan"
+    t.string   "stripe_customer_token"
+    t.integer  "order_detail_id"
+  end
+
+  create_table "temp_orders", force: true do |t|
+    t.integer  "cart_id"
+    t.integer  "quantity"
+    t.integer  "activity_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "amount"
+    t.integer  "total_amount"
+    t.integer  "order_id"
+    t.integer  "seller_id"
   end
 
   create_table "users", force: true do |t|
