@@ -53,8 +53,8 @@
               <li><%= link_to "Edit profile", edit_user_registration_path %></li>
               <li><%= link_to "Kids", kids_path %></li>
               <li><%= link_to "Purchase history", purchases_path %></li>
-              <% if current_user.cart %>
-              	<li><%= link_to "My Cart", cart_path(:id=>current_user.cart.id) %></li>
+              <% if current_user %>
+              	<li><%= link_to "My Cart", carts_url %></li>
               <% end %>
               <li class="divider"></li>
               <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>

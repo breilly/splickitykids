@@ -23,4 +23,12 @@ class Kid < ActiveRecord::Base
   	  :path => "images/:id/:style.:extension"
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   end
+  
+  def name
+    name = []
+    name << self.first_name.capitalize unless self.first_name.blank?
+    name << self.last_name.capitalize unless self.last_name.blank?
+    name.join(" ")
+  end
+  
 end

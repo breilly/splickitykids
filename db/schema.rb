@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160109234010) do
+ActiveRecord::Schema.define(version: 20160220105151) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
     t.text     "description"
-    t.decimal  "price"
+    t.decimal  "price",                                       precision: 10, scale: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image_file_name"
@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 20160109234010) do
     t.string   "state"
     t.string   "zip_code"
     t.string   "category"
-    t.integer  "temp_order_id"
     t.string   "start_hour"
     t.string   "end_hour"
     t.string   "start_min"
@@ -64,12 +63,19 @@ ActiveRecord::Schema.define(version: 20160109234010) do
     t.date     "repeat_ends_on"
     t.string   "time_zone"
     t.integer  "repeats_monthly_each_days_of_the_month_mask"
+    t.string   "plan"
   end
 
   create_table "carts", force: true do |t|
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "activity_id"
+    t.integer  "kid_id"
+    t.integer  "price"
+    t.string   "repeats"
+    t.string   "plan"
+    t.text     "stripe_response"
   end
 
   create_table "delayed_jobs", force: true do |t|
@@ -86,17 +92,7 @@ ActiveRecord::Schema.define(version: 20160109234010) do
     t.datetime "updated_at"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
-
-  create_table "kid_orders", force: true do |t|
-    t.integer "kid_id"
-    t.integer "order_id"
-  end
-
-  create_table "kid_temp_orders", force: true do |t|
-    t.integer "kid_id"
-    t.integer "temp_order_id"
-  end
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "kids", force: true do |t|
     t.string   "first_name"
@@ -111,6 +107,18 @@ ActiveRecord::Schema.define(version: 20160109234010) do
     t.datetime "image_updated_at"
   end
 
+  create_table "order_details", force: true do |t|
+    t.integer  "order_id"
+    t.integer  "kid_id"
+    t.integer  "activity_id"
+    t.integer  "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "stripe_response"
+    t.string   "plan"
+    t.string   "repeats"
+  end
+
   create_table "orders", force: true do |t|
     t.string   "address"
     t.string   "city"
@@ -121,6 +129,9 @@ ActiveRecord::Schema.define(version: 20160109234010) do
     t.integer  "buyer_id"
     t.integer  "seller_id"
     t.integer  "kid_id"
+    t.integer  "price"
+    t.integer  "amount"
+    t.string   "repeat"
   end
 
   create_table "payments", force: true do |t|
@@ -129,21 +140,14 @@ ActiveRecord::Schema.define(version: 20160109234010) do
     t.integer  "splickitykids_amount"
     t.integer  "seller_amount"
     t.integer  "order_id"
-    t.integer  "temp_order_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "temp_orders", force: true do |t|
-    t.integer  "cart_id"
-    t.integer  "quantity"
+    t.integer  "kid_id"
     t.integer  "activity_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "amount"
-    t.integer  "total_amount"
-    t.integer  "order_id"
-    t.integer  "seller_id"
+    t.integer  "buyer_id"
+    t.string   "recurring_type"
+    t.integer  "plan"
+    t.string   "stripe_user_token"
   end
 
   create_table "users", force: true do |t|
@@ -174,8 +178,8 @@ ActiveRecord::Schema.define(version: 20160109234010) do
     t.string   "website"
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

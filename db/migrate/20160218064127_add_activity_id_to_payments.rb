@@ -11,8 +11,5 @@ class AddActivityIdToPayments < ActiveRecord::Migration
     add_column :carts, :activity_id, :integer
     add_column :carts, :kid_id, :integer
     add_column :carts, :price, :integer
-    add_column :orders, :price, :integer
-    add_column :orders, :amount, :integer
-    add_column :orders, :repeat, :string
   end
 end

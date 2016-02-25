@@ -65,6 +65,9 @@ $(function() {
         $('.activity_option').hide();
         switch ($('#activity_repeats').val())
         {
+        case '':
+          // Nothing
+          break;
         case 'no':
           // Nothing
           break;

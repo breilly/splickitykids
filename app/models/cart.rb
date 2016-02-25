@@ -1,4 +1,7 @@
 class Cart < ActiveRecord::Base
-  has_many :temp_orders
   belongs_to :user
+  belongs_to :activity
+  belongs_to :kid
+  
+  serialize :stripe_response,JSON
 end
