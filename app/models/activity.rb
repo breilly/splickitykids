@@ -4,6 +4,9 @@ class Activity < ActiveRecord::Base
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
   include IceCubeMethods
+  
+  #Stripe interval: must be one of day, month, week, or year
+  STRIPE_INTERVAL = {'daily'=>'day','weekly'=>'week','monthly'=>'month','yearly'=>'year'}
 
   if Rails.env.development?
     has_attached_file :image, :styles => { :medium => "250x250#", :thumb => "100x100>" }, :default_url => "batman.png",

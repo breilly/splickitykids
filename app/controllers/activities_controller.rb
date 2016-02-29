@@ -45,9 +45,9 @@ class ActivitiesController < ApplicationController
   def create
     @activity = Activity.new(activity_params)
     @activity.user_id = current_user.id
-
     respond_to do |format|
       if @activity.save
+        create_stripe_plan
         format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
         format.json { render :show, status: :created, location: @activity }
       else
@@ -78,6 +78,22 @@ class ActivitiesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to :back, notice: 'Activity was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+  
+  def create_stripe_plan
+    if @activity.valid? && @activity.repeats != "no" && @activity.repeats != ''
+      p plan = @activity.name.gsub(" ","-") + "-" + current_user.id.to_s + "-" + @activity.id.to_s
+      p interval = Activity::STRIPE_INTERVAL[@activity.repeats]
+      subscription = Stripe::Plan.create(
+        :amount => (@activity.price.to_i)*100,
+        :interval => interval,
+        :name => @activity.name,
+        :currency => 'usd',
+        :id => plan # This ensures that the plan is unique in stripe
+      )
+      @activity.update_attribute(:plan,plan)
+      p subscription
     end
   end
 

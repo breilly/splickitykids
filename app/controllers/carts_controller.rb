@@ -1,6 +1,7 @@
 class CartsController < ApplicationController
   before_action :authenticate_user!
-  
+  require 'json'
+    
   def index
     @carts = current_user.carts
   end
@@ -52,7 +53,7 @@ class CartsController < ApplicationController
   end
   
   def place_order
-    carts = current_user.carts
+    carts = current_user.carts.where(is_paid: false)
     @total_cart_amount = carts.collect{|t| t.price}.sum
   end
   
@@ -64,9 +65,14 @@ class CartsController < ApplicationController
     token = params[:stripeToken]
     #@user = current_user
     
-    one_time_payment(token)
-    subscriptions_payment(token)
-    
+    error1 = one_time_payment(token)
+    error2 = subscriptions_payment(token)
+    if (!error1.blank? && error1.length > 0) || (!error2.blank? && error2.length > 0)
+      flash[:danger] = error1 if !error1.blank? && error1.length > 0
+      flash[:danger] = error2 if !error2.blank? && error2.length > 0
+      redirect_to place_order_carts_url and return
+    end
+
     respond_to do |format|
       if @order.save
         buyer = current_user
@@ -91,6 +97,7 @@ class CartsController < ApplicationController
   
   def one_time_payment(token)
     one_time_cart_amount = current_user.carts.where("is_paid = false and (repeats is null OR repeats = ?)", "no").collect{|t| t.price}.sum
+    one_time_cart_amount = one_time_cart_amount * 100
     return if one_time_cart_amount <= 0
     
     begin
@@ -99,38 +106,38 @@ class CartsController < ApplicationController
         :currency => "usd",
         :card => token,
         :description => current_user.email
-        )
+      )
       flash[:notice] = "Thanks for registering!"
-      current_user.carts.where("repeats is null OR repeats = ?", "no").update_all(is_paid: true, stripe_response: charge)
+      current_user.carts.where("repeats is null OR repeats = ?", "no").update_all(is_paid: true)
     rescue Stripe::CardError => e
-      flash[:danger] = e.message
+      return e.message
     rescue Stripe::InvalidRequestError => e
-      flash[:danger] = "There was a problem connecting to stripe. Please try again!"  
-      redirect_to place_order_carts_url and return
+      return "There was a problem connecting to stripe. Please try again! \n" + e.message  
     end
+    return
   end
   
   def subscriptions_payment(token)
-  p "oooooooooooooooooooooooooooooooooo"
-    current_user.carts.where.not(repeats: nil).where.not(repeats: "no").where.not(plan: nil).where(is_paid: false).each do |cart|
-    p cart
+    carts = current_user.carts.where.not(repeats: nil).where.not(repeats: "no").where.not(plan: nil).where(is_paid: false)
+    return if carts.blank?
+    
+    carts.each do |cart|
       begin
         customer = Stripe::Customer.create(
           :source => token,
           :plan => cart.plan,
           :email => current_user.email
           )
-        p customer
-        p flash[:notice] = "Thanks for subscription!"
-        c = cart.update(is_paid: true, stripe_customer_token: customer.id, stripe_response: customer)
-        p c
+        flash[:notice] = "Thanks for subscription!"
+        cart.update(is_paid: true, stripe_customer_token: customer.id, stripe_response: customer)
       rescue Stripe::CardError => e
-        flash[:danger] = e.message
+        return e.message
       rescue Stripe::InvalidRequestError => e
-        flash[:danger] = "There was a problem connecting to stripe. Please try again! \n" + e.message  
-        redirect_to place_order_carts_url and return
+        error = "There was a problem connecting to stripe subscription. Please try again! <br>" + e.message 
+        return error
       end
     end
+    return
   end
   
   
