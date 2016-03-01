@@ -22,7 +22,8 @@
 <div class="row">
 	<%= hidden_field_tag "activity_id", params[:activity_id] %>
 	<div class="actions">
-		<%= submit_tag "Add", class: "btn btn-lg btn-primary"%>
+	  <% str = (["no", "never"].include? @activity.repeats) ? 'Add' : 'Subscribe' %>
+		<%= submit_tag str, class: "btn btn-lg btn-primary"%>
 	</div>
 </div>
 <% end %>

@@ -20,10 +20,11 @@ class CartsController < ApplicationController
       kid_ids.each do |k|
         current_user.carts.create(activity_id: activity.id, kid_id: k, price: activity.price, repeats: activity.repeats, plan: activity.plan)
       end
+      redirect_to carts_url
     elsif(!kid_ids.blank? && kid_ids.to_i > 0)
         current_user.carts.create(activity_id: activity.id, kid_id: kid_ids, price: activity.price, repeats: activity.repeats, plan: activity.plan)
+        redirect_to place_order_carts_url(activity_id: activity.id)
     end
-    redirect_to carts_url
   end
   
   def edit
@@ -56,8 +57,13 @@ class CartsController < ApplicationController
   end
   
   def place_order
-    carts = current_user.carts.where(is_paid: false)
-    @total_cart_amount = carts.collect{|t| t.price}.sum
+    if(params[:activity_id])
+      @activity = Activity.find_by_id(params[:activity_id])
+      @total_cart_amount = @activity.price
+    else
+      carts = current_user.carts.where(is_paid: false, repeats: "no")
+      @total_cart_amount = carts.collect{|t| t.price}.sum
+    end
   end
   
   def complete_order
@@ -67,9 +73,15 @@ class CartsController < ApplicationController
     Stripe.api_key = ENV["STRIPE_API_KEY"]
     token = params[:stripeToken]
     #@user = current_user
+    if params[:activity_id]
+      activity = Activity.find_by_id(params[:activity_id])
+    end
+    if(activity.nil?)
+      error1 = one_time_payment(token)
+    elsif(activity && !["no","never",nil].include?(activity.repeats))
+      error2 = subscriptions_payment(token)
+    end
     
-    error1 = one_time_payment(token)
-    error2 = subscriptions_payment(token)
     if (!error1.blank? && error1.length > 0) || (!error2.blank? && error2.length > 0)
       flash[:danger] = error1 if !error1.blank? && error1.length > 0
       flash[:danger] = error2 if !error2.blank? && error2.length > 0
