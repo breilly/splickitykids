@@ -12,13 +12,16 @@ class CartsController < ApplicationController
   end
   
   def add
+    kid_ids = params[:kid_ids]
     cart = Cart.where(:user_id=>current_user.id)
     activity = Activity.find(params[:activity_id])
     current_user.carts.where(activity_id: params[:activity_id]).delete_all
-    if params[:kid_ids]
-      params[:kid_ids].each do |k|
+    if(!kid_ids.blank? && kid_ids.class == Array)
+      kid_ids.each do |k|
         current_user.carts.create(activity_id: activity.id, kid_id: k, price: activity.price, repeats: activity.repeats, plan: activity.plan)
       end
+    elsif(!kid_ids.blank? && kid_ids.to_i > 0)
+        current_user.carts.create(activity_id: activity.id, kid_id: kid_ids, price: activity.price, repeats: activity.repeats, plan: activity.plan)
     end
     redirect_to carts_url
   end
