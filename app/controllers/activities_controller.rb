@@ -83,8 +83,9 @@ class ActivitiesController < ApplicationController
   
   def create_stripe_plan
     if @activity.valid? && @activity.repeats != "no" && @activity.repeats != ''
-      p plan = @activity.name.gsub(" ","-") + "-" + current_user.id.to_s + "-" + @activity.id.to_s
-      p interval = Activity::STRIPE_INTERVAL[@activity.repeats]
+      Stripe.api_key = ENV["STRIPE_API_KEY"]
+      plan = @activity.name.gsub(" ","-") + "-" + current_user.id.to_s + "-" + @activity.id.to_s
+      interval = Activity::STRIPE_INTERVAL[@activity.repeats]
       subscription = Stripe::Plan.create(
         :amount => (@activity.price.to_i)*100,
         :interval => interval,
@@ -93,7 +94,6 @@ class ActivitiesController < ApplicationController
         :id => plan # This ensures that the plan is unique in stripe
       )
       @activity.update_attribute(:plan,plan)
-      p subscription
     end
   end
 

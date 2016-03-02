@@ -13,15 +13,12 @@
 
 <% @activities.each do |activity| %>
 	<% kids = [] %>
-	<% activity.temp_orders.each do |t| %>
-		<% kids += t.kids %>
-	<% end %>
-	<% activity.orders.each do |t| %>
-		<% kids += t.kids %>
+	<% activity.order_details.each do |t| %>
+		<% kids << t.kid.first_name %>
 	<% end %>
   <tr>
     <td class='center'><%= image_tag activity.image.url(:thumb) %></td>
-    <td class="center"><%= kids.collect{|k| k.first_name}.sort.join(', ') unless kids.blank? %></td>
+    <td class="center"><%= kids.join(', ') unless kids.blank? %></td>
     <td class='center'><%= activity.name %></td>
     <td class='center'><%= activity.description %></td>
     <td class='center'><%= number_to_currency(activity.price) %></td>

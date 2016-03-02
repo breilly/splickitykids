@@ -5,6 +5,8 @@ class Activity < ActiveRecord::Base
   include Elasticsearch::Model::Callbacks
   include IceCubeMethods
   
+  has_many :order_details
+  
   #Stripe interval: must be one of day, month, week, or year
   STRIPE_INTERVAL = {'daily'=>'day','weekly'=>'week','monthly'=>'month','yearly'=>'year'}
 
