@@ -7,6 +7,10 @@ class CartsController < ApplicationController
   end
   
   def add_to_cart
+    if current_user.kids.size == 0
+      flash[:danger] = "Please add kid."  
+      redirect_to new_kid_url
+    end
     @activity = Activity.find(params[:activity_id])
     @carts = current_user.carts
   end
