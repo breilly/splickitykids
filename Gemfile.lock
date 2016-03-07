@@ -121,7 +121,6 @@ GEM
     multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mysql2 (0.3.20)
     netrc (0.11.0)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
@@ -240,7 +239,6 @@ DEPENDENCIES
   jquery-turbolinks
   kaminari
   momentjs-rails (>= 2.9.0)
-  mysql2 (~> 0.3.18)
   paperclip (~> 4.2)
   pg (~> 0.18.1)
   rails (= 4.1.4)

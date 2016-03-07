@@ -41,7 +41,6 @@ end
 group :development, :test do
   gem 'sqlite3'
   gem 'pg', '~> 0.18.1'
-  gem 'mysql2', '~> 0.3.18'
 end
 
 # Use ActiveModel has_secure_password
