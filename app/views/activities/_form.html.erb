@@ -1,3 +1,4 @@
+<% is_disable = Activity::STRIPE_INTERVAL.include?(@activity.repeats) %>
   <%= simple_form_for(@activity, html: {novalidate: 'novalidate'}) do |f| %>
     <div class="row">
       <%= f.error_notification %>
@@ -11,7 +12,7 @@
         </div>    
 
         <div class="form-group col-xs-6">
-          <%= f.input :price, class: "form-control" %>
+          <%= f.input :price, class: "form-control", readonly: is_disable %>
         </div>
         
         <div class="form-group col-xs-6">
@@ -67,7 +68,7 @@
 
         <div class="form-group  col-xs-6">
           <%=f.label "Repeats?" %>
-          <%= f.select :repeats, Activity::RepeatsOptions, {}, class: "form-control" %>
+          <%= f.select :repeats, Activity::RepeatsOptions, {}, class: "form-control", :disabled => true  %>
           <%= render partial: 'repeats_daily_options', locals: {f: f} %>
           <%= render partial: 'repeats_weekly_options', locals: {f: f} %>
           <%= render partial: 'repeats_monthly_options', locals: {f: f} %>
