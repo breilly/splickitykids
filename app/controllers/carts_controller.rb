@@ -31,7 +31,7 @@ class CartsController < ApplicationController
     end
   end
   
-  def show
+  def showoff
     @cart = Cart.where(:user_id=>current_user.id).first
   end
   
@@ -62,8 +62,8 @@ class CartsController < ApplicationController
     end
     if(activity.nil?)
       error1 = one_time_payment(token)
-    elsif(activity && !["no","never",nil].include?(activity.repeats))
-      error2 = subscriptions_payment(token)
+    elsif(activity && Activity::STRIPE_INTERVAL.include?(activity.repeats))
+      error2 = subscriptions_payment(token, params[:activity_id])
     end
     
     if (!error1.blank? && error1.length > 0) || (!error2.blank? && error2.length > 0)
@@ -97,7 +97,10 @@ class CartsController < ApplicationController
   def one_time_payment(token)
     one_time_cart_amount = current_user.carts.where("is_paid = false and (repeats is null OR repeats = ?)", "no").collect{|t| t.price}.sum
     one_time_cart_amount = one_time_cart_amount * 100
-    return if one_time_cart_amount <= 0
+    if one_time_cart_amount == 0
+      current_user.carts.where("repeats is null OR repeats = ?", "no").update_all(is_paid: true)
+      return
+    end
     
     begin
       charge = Stripe::Charge.create(
@@ -116,11 +119,16 @@ class CartsController < ApplicationController
     return
   end
   
-  def subscriptions_payment(token)
-    carts = current_user.carts.where.not(repeats: nil).where.not(repeats: "no").where.not(plan: nil).where(is_paid: false)
-    return if carts.blank?
+  def subscriptions_payment(token, activity_id)
+    #carts = current_user.carts.where.not(repeats: nil).where.not(repeats: "no").where(is_paid: false) #.where.not(plan: nil)
+    #return if carts.blank?
     
-    carts.each do |cart|
+    #carts.each do |cart|
+    cart = current_user.carts.where(activity_id: activity_id).first
+    
+    if cart.plan.nil?
+      cart.update_attributes(is_paid: true)	
+    else
       begin
         customer = Stripe::Customer.create(
           :source => token,

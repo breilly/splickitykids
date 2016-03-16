@@ -68,7 +68,7 @@
 
         <div class="form-group  col-xs-6">
           <%=f.label "Repeats?" %>
-          <%= f.select :repeats, Activity::RepeatsOptions, {}, class: "form-control", :disabled => true  %>
+          <%= f.select :repeats, Activity::RepeatsOptions, {}, class: "form-control", :disabled => !@activity.new_record?  %>
           <%= render partial: 'repeats_daily_options', locals: {f: f} %>
           <%= render partial: 'repeats_weekly_options', locals: {f: f} %>
           <%= render partial: 'repeats_monthly_options', locals: {f: f} %>

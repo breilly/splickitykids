@@ -1,4 +1,5 @@
-<%= form_tag complete_order_carts_path, :id=>'new_cart' do %>
+<% frm_name = (@total_cart_amount > 0) ? 'new_cart' : 'new_cart_without_pay'  %>
+<%= form_tag complete_order_carts_path, :id=> frm_name do %>
 	<div id="stripe_error" class="alert alert-danger" style="display:none">
 	      <noscript>Javascript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
 	    </div>
@@ -6,18 +7,27 @@
 	<%= text_field_tag :address, nil, class: "form-control", placeholder: "Address", label: false %>
 	<%= text_field_tag :city, nil, class: "form-control", placeholder: "City", label: false %>
 	<%= text_field_tag :state, nil, class: "form-control", placeholder: "State", label: false %>
-	<%= label_tag :card_number, "Credit Card Number" %>
-	<%= text_field_tag :card_number, nil, { :name => nil, :'data-stripe' => "number", class: "form-control" } %>
-	<%= label_tag :card_code, "CVC" %>
-	<%= text_field_tag :card_code, nil, { :name => nil, :'data-stripe' => "cvc", class: "form-control" } %>
-	<%= label_tag nil, "Expiration Date" %>
-	<%= select_month nil, { use_two_digit_numbers: true }, { :name => nil, :'data-stripe' => "exp-month", class: "form-control" } %>
-	<%= select_year nil, { start_year: Date.today.year, end_year: Date.today.year+10 }, { :name => nil, :'data-stripe' => "exp-year", class: "form-control" } %>
-	<%= hidden_field_tag :cart_id, params[:cart_id] %>
-	<%= hidden_field_tag :total_cart_amount, @total_cart_amount %>
-	<h4>Total Amount: $<%= @total_cart_amount %></h4>
-	<%= submit_tag "Complete Order", :id=>'new_cart_submit', :class=>'btn btn-lg btn-primary' %>	<span class="glyphicon glyphicon-lock">Securely processed by Stripe</span>
+	
+  <% if @total_cart_amount > 0 %>
+	
+	  <%= label_tag :card_number, "Credit Card Number" %>
+	  <%= text_field_tag :card_number, nil, { :name => nil, :'data-stripe' => "number", class: "form-control" } %>
+	  <%= label_tag :card_code, "CVC" %>
+	  <%= text_field_tag :card_code, nil, { :name => nil, :'data-stripe' => "cvc", class: "form-control" } %>
+	  <%= label_tag nil, "Expiration Date" %>
+	  <%= select_month nil, { use_two_digit_numbers: true }, { :name => nil, :'data-stripe' => "exp-month", class: "form-control" } %>
+	  <%= select_year nil, { start_year: Date.today.year, end_year: Date.today.year+10 }, { :name => nil, :'data-stripe' => "exp-year", class: "form-control" } %>
+	  <%= hidden_field_tag :cart_id, params[:cart_id] %>
+	  <%= hidden_field_tag :total_cart_amount, @total_cart_amount %>
+	  <h4>Total Amount: $<%= @total_cart_amount %></h4>
+  <% end %>
+	<%= submit_tag "Complete Order", :id=>'new_cart_submit', :class=>'btn btn-lg btn-primary' %>	
+	
 <% end %>
+
+<% if @total_cart_amount > 0 %>
+
+<span class="glyphicon glyphicon-lock">Securely processed by Stripe</span>
 
 <script type="text/javascript">
 $(document).ready(function(){    
@@ -32,3 +42,4 @@ $(document).ready(function(){
     }
 });
 </script>
+<% end %>

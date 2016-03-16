@@ -47,7 +47,7 @@ class ActivitiesController < ApplicationController
     @activity.user_id = current_user.id
     respond_to do |format|
       if @activity.save
-        create_stripe_plan
+        create_stripe_plan if @activity.price > 0
         format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
         format.json { render :show, status: :created, location: @activity }
       else

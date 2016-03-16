@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
   end
 
   def purchases
-    @orders = Order.all.where(buyer: current_user).where.not(activity: nil).order("created_at DESC")
+    @orders = Order.where(buyer: current_user).where.not(activity: nil).order("created_at DESC")
     Order.all.where(buyer: current_user).where(activity: nil).each do |o|
       @orders += o.temp_orders.where(order_id: o.id)
     end
