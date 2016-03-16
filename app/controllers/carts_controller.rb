@@ -31,26 +31,6 @@ class CartsController < ApplicationController
     end
   end
   
-  def edit
-    #@temp_order = TempOrder.find(params[:temp_order_id])
-    #@activity = @temp_order.activity
-  end
-  
-  def update
-    cart = Cart.find(params[:id])
-    # remove all existing kids
-    KidTempOrder.where(:temp_order_id=>params[:temp_order_id].to_i).each do |t|
-      t.delete
-    end
-    # add only selected kids
-    if params[:kid_ids]
-      params[:kid_ids].each do |k|
-        KidTempOrder.create!(:kid_id => k.to_i, :temp_order_id=>params[:temp_order_id].to_i)
-      end
-    end  
-    redirect_to cart_path(cart) 
-  end
-  
   def show
     @cart = Cart.where(:user_id=>current_user.id).first
   end
