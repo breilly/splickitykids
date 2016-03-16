@@ -31,10 +31,6 @@ class CartsController < ApplicationController
     end
   end
   
-  def showoff
-    @cart = Cart.where(:user_id=>current_user.id).first
-  end
-  
   def destroy
     @cart = current_user.carts.find(params[:id]).delete
     redirect_to carts_url
