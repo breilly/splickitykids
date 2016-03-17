@@ -13,10 +13,9 @@ class OrdersController < ApplicationController
   end
 
   def purchases
-    @orders = Order.where(buyer: current_user).where.not(activity: nil).order("created_at DESC")
-    Order.all.where(buyer: current_user).where(activity: nil).each do |o|
-      @orders += o.temp_orders.where(order_id: o.id)
-    end
+   #p @orders = current_user.orders.joins(order_details: [:kid,activity: :user])
+   @order_details = OrderDetail.joins(:order).where(order: {buyer_id: current_user})
+   #.select("orders.id,order_details.activity_id,order_details.kid_id,order_details.created_at,order_details.price")
   end
 
   def new
