@@ -25,7 +25,7 @@ class Activity < ActiveRecord::Base
       :s3_credentials => "#{::Rails.root.to_s}/config/s3.yml",
   	  :url => ':s3_alias_url',
       :s3_host_alias => 'd1j1smmjasrwse.cloudfront.net',
-  	  :path => "images/:id/:style.:extension"
+  	  :path => "images/:id/:style.:extension",
       :s3_protocol => :https
     validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   end
