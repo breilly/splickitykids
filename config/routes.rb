@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get 'seller' => 'activities#seller'
   get 'sales' => 'orders#sales'
   get 'purchases' => 'orders#purchases'
+  get 'unsubscribe' => 'orders#unsubscribe'
   #get 'search', to: 'search#show'
   
   root 'activities#index'
