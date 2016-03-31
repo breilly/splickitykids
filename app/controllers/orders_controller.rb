@@ -17,6 +17,17 @@ class OrdersController < ApplicationController
    @order_details = OrderDetail.joins(:order).where(order: {buyer_id: current_user})
    #.select("orders.id,order_details.activity_id,order_details.kid_id,order_details.created_at,order_details.price")
   end
+  
+  def unsubscribe
+    order = current_user.orders.where(id: params[:id]).first
+    order_detail = order.order_details.first
+    stripe_customer_token = order_detail.stripe_customer_token
+    customer = Stripe::Customer.retrieve(stripe_customer_token)
+    customer.cancel_subscription()
+    order_detail.update_attributes(payment_status: false)
+    flash[:notice] = "Activity " + order_detail.activity.name + " has been unsubscribed."
+    redirect_to purchases_path
+  end
 
   def new
     @order = Order.new

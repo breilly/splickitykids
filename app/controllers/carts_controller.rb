@@ -37,11 +37,11 @@ class CartsController < ApplicationController
   end
   
   def place_order
-    if(params[:activity_id])
+    if(params[:activity_id]) #for subscription
       @activity = Activity.find_by_id(params[:activity_id])
       @total_cart_amount = @activity.price
-    else
-      carts = current_user.carts.where(is_paid: false, repeats: "no")
+    else #for one time payment
+      carts = current_user.carts.where(is_paid: false).where.not(repeats: Activity::STRIPE_INTERVAL.values)
       @total_cart_amount = carts.collect{|t| t.price}.sum
     end
   end
@@ -72,7 +72,7 @@ class CartsController < ApplicationController
       if @order.save
         buyer = current_user
         carts.where(is_paid: true).each do |c|
-          order_details = OrderDetail.create(order_id: @order.id, kid_id: c.kid_id, activity_id: c.activity_id, price: c.price, stripe_response: c.stripe_response, plan: c.plan, repeats: c.repeats, stripe_customer_token: c.stripe_customer_token)
+          order_details = OrderDetail.create(order_id: @order.id, kid_id: c.kid_id, activity_id: c.activity_id, price: c.price, stripe_response: c.stripe_response, plan: c.plan, repeats: c.repeats, stripe_customer_token: c.stripe_customer_token, payment_status: true)
           activity_seller = c.activity.user
           Payment.create!(order_id: @order.id, order_detail_id: order_details.id, kid_id: c.kid_id, amount_recieved: c.price, seller_id: activity_seller.id, buyer_id: current_user.id, activity_id: c.activity_id, splickitykids_amount: (c.price * 0.0).floor, seller_amount: (c.price * 1.0).floor, stripe_customer_token: c.stripe_customer_token, recurring_type: c.repeats, plan: c.plan)
           OrderMailer.send_order_email_to_seller(order_details, current_user, activity_seller).deliver
@@ -91,10 +91,10 @@ class CartsController < ApplicationController
   end
   
   def one_time_payment(token)
-    one_time_cart_amount = current_user.carts.where("is_paid = false and (repeats is null OR repeats = ?)", "no").collect{|t| t.price}.sum
+    one_time_cart_amount = current_user.carts.where("is_paid = false").where.not(repeats: Activity::STRIPE_INTERVAL.values).collect{|t| t.price}.sum
     one_time_cart_amount = one_time_cart_amount * 100
     if one_time_cart_amount == 0
-      current_user.carts.where("repeats is null OR repeats = ?", "no").update_all(is_paid: true)
+      current_user.carts.where.not(repeats: Activity::STRIPE_INTERVAL.values).update_all(is_paid: true)
       return
     end
     
@@ -106,7 +106,7 @@ class CartsController < ApplicationController
         :description => current_user.email
       )
       flash[:notice] = "Thanks for registering!"
-      current_user.carts.where("repeats is null OR repeats = ?", "no").update_all(is_paid: true)
+      current_user.carts.where.not(repeats: Activity::STRIPE_INTERVAL.values).update_all(is_paid: true)
     rescue Stripe::CardError => e
       return e.message
     rescue Stripe::InvalidRequestError => e
