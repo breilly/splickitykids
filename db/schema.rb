@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160220105151) do
+ActiveRecord::Schema.define(version: 20160326165606) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 20160220105151) do
     t.string   "plan"
     t.string   "repeats"
     t.string   "stripe_customer_token"
+    t.boolean  "payment_status",        default: false
   end
 
   create_table "orders", force: true do |t|
