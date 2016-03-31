@@ -8,7 +8,11 @@
 				<div class="caption">
 				  <h3><%= activity.name %></h3>
 				  <p><%= activity.start_date %></p>
-				  <p><%= number_to_currency(activity.price) %></p>
+				  <% if activity.price > 0 %>
+				  	<p><%= number_to_currency(activity.price) %></p>
+				  <% else %>
+				  	<p>Free</p>
+				  <% end %>
 				  <p><%= "#{activity.user.company_name}" %></p> 
 				</div>
 			  </div>
