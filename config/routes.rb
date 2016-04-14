@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get 'purchases' => 'orders#purchases'
   get 'unsubscribe' => 'orders#unsubscribe'
   #get 'search', to: 'search#show'
+  get '/blog' => redirect("https://splickitykids.com/blog/")
   
   root 'activities#index'
   
