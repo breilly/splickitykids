@@ -91,7 +91,7 @@ class CartsController < ApplicationController
   end
   
   def one_time_payment(token)
-    one_time_cart_amount = current_user.carts.where("is_paid = false").where.not(repeats: Activity::STRIPE_INTERVAL.values).collect{|t| t.price}.sum
+    one_time_cart_amount = current_user.carts.where("is_paid = ?", false).where.not(repeats: Activity::STRIPE_INTERVAL.values).collect{|t| t.price}.sum
     one_time_cart_amount = one_time_cart_amount * 100
     if one_time_cart_amount == 0
       current_user.carts.where.not(repeats: Activity::STRIPE_INTERVAL.values).update_all(is_paid: true)
