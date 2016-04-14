@@ -30,8 +30,6 @@ gem 'jquery-turbolinks'
 gem 'cancancan', '~> 1.10'
 gem 'kaminari'
 gem 'bootstrap-timepicker-rails-addon', '~> 0.5.1'
-gem 'rack-reverse-proxy', :require => 'rack/reverse_proxy'
-
 
 group :production do
   gem 'pg', '~> 0.18.1'
