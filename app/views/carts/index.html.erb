@@ -15,9 +15,9 @@ if @carts.count > 0 %>
 			</tr>
 			<% @carts.each do |cart| %>
 				<tr>
-					<td class='center'><%#= cart.activity.name %></td>
-					<td class='center'><%#= cart.kid.name %></td>
-					<td class='center'>$<%#= cart.activity.price %> USD</td>
+					<td class='center'><%= cart.activity.name %></td>
+					<td class='center'><%= cart.kid.name %></td>
+					<td class='center'>$<%= cart.activity.price %> USD</td>
 					<td class='center'>
 						 <div class="btn-group">
         					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
