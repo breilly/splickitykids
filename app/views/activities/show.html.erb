@@ -28,7 +28,7 @@
       <% if current_user == @activity.user %>
         <%= link_to 'Edit activity', edit_activity_path(@activity), class: "btn btn-success" %> | <%= link_to 'Back', activities_path, class: "btn btn-info" %>
       <% else %>
-        <% str = (["no", "never"].include? @activity.repeats) ? 'Add to Cart' : 'Subscribe' %>
+        <% str = (["no", "never"].include? @activity.repeats) ? 'Add to Cart' : 'Add to Cart' %>
           <%= link_to str, add_to_cart_carts_path(:activity_id=>@activity.id), class: 'btn btn-success', data: { no_turbolink: true } %> | <%= link_to 'Back', activities_path, class: "btn btn-info" %>
       <% end %>     
       <%#= link_to 'Register', new_activity_order_path(@activity), class: 'btn btn-primary', data: { no_turbolink: true } %>
