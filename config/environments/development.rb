@@ -21,9 +21,9 @@ Rails.application.configure do
     :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
     :address              => "mail.splickitykids.com",
     :port                 => 26,
-    :domain               => "http://localhost:3000",
+    :domain               => "https://splickitykids.com",
     :user_name            => "ben+splickitykids.com",
-    :password             => "KZ(RO-tc(2a",
+    :password             => "2015$tiReswing",
     :authentication       => :plain,
     :enable_starttls_auto => true
   }
