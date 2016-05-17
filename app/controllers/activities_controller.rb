@@ -45,6 +45,22 @@ class ActivitiesController < ApplicationController
   def create
     @activity = Activity.new(activity_params)
     @activity.user_id = current_user.id
+
+    if current_user.account.blank?
+      Stripe.api_key = ENV["STRIPE_API_KEY"]
+      token = params[:stripeToken]
+
+      account = Stripe::Account.create( 
+        :managed => true, 
+        :country => 'US', 
+        :email => current_user.email,
+        :business_name => current_user.company_name
+      ) 
+    end
+
+    current_user.account = account.id 
+    current_user.save 
+
     respond_to do |format|
       if @activity.save
         create_stripe_plan if @activity.price > 0

@@ -46,5 +46,5 @@
 
 
 <% if user_signed_in? %>
-  <%= link_to 'New Activity', new_activity_path, class: "btn btn-primary" %>
+  <%= link_to 'New Activity', new_activity_path, class: "btn btn-primary", data: { no_turbolink: true } %>
 <% end %>

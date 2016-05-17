@@ -2,6 +2,10 @@
   <%= simple_form_for(@activity, html: {novalidate: 'novalidate'}) do |f| %>
     <div class="row">
       <%= f.error_notification %>
+
+      <div id="stripe_error" class="alert alert-danger" style="display:none">
+        <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+      </div>
       <div class="form-group form-group-lg col-xs-6">
         <div class="form-group  col-xs-12">
           <%= f.input :name, autofocus: true, class: "form-control" %>
@@ -43,6 +47,24 @@
           <%= f.label "Activity photo" %>
           <%= f.file_field :image, class: "form-control" %>
         </div>
+
+        <% if current_user.account.blank? %>
+          <br>
+
+          <h1>Bank Account Information</h1>
+
+          <div class="form-group">
+            <%= hidden_field_tag :country, nil, { :name => nil, :'data-stripe' => "country", value: "US" } %>
+          </div>
+          <div class="form-group col-xs-6">
+            <%= label_tag :routing_number %>
+            <%= text_field_tag :routing_number, nil, { :name => nil, :'data-stripe' => "routingNumber", class: "form-control" } %>
+          </div>
+          <div class="form-group col-xs-6">
+            <%= label_tag :account_number %>
+            <%= text_field_tag :account_number, nil, { :name => nil, :'data-stripe' => "accountNumber", class: "form-control" } %>
+          </div>
+        <% end %>
 
         <div class="form-group col-xs-6">
           <%= f.button :submit, label: "Create activity", class: "btn btn-primary" %>

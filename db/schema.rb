@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160326165606) do
+ActiveRecord::Schema.define(version: 20160517022556) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -197,6 +197,7 @@ ActiveRecord::Schema.define(version: 20160326165606) do
     t.string   "company_name"
     t.string   "ein"
     t.string   "website"
+    t.string   "account"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
