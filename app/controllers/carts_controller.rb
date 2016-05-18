@@ -76,7 +76,7 @@ class CartsController < ApplicationController
           activity_seller = c.activity.user
           
           transfer =  Stripe::Transfer.create(
-            :amount => (c.price * 95).floor,
+            :amount => (c.price * 100).floor,
             :currency => "usd",
             :destination => activity_seller.account,
             :description => c.activity.name
