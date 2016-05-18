@@ -7,7 +7,7 @@ end
   resources :kids
   
 
-  devise_for :users 
+  devise_for :users, controllers: { registrations: "registrations", sessions: "sessions" }
   resources :activities do
     resources :orders, only: [:new, :create]
   end

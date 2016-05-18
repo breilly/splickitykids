@@ -77,7 +77,11 @@
     <div class="alert alert-warning" role="alert">
       <p>We're so glad you’re signing-up to share your activities for kids on splickity! After you sign-up, your business will need to be verified and approved by us before your account is activated. As you know, we’re a small business too, so please plan for up to a 24 hour turnaround on this process.</p>
     </div>
-
+    
+    <div class="form-group">
+      <%= recaptcha_tags %>
+    </div>
+    
     <div class="form-group">
       <%= f.submit "Sign up", class: "btn btn-primary" %>
     </div>

@@ -161,6 +161,8 @@ GEM
     rake (10.4.2)
     rdoc (4.2.1)
       json (~> 1.4)
+    recaptcha (2.0.0)
+      json
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
     rest-client (1.8.0)
@@ -243,6 +245,7 @@ DEPENDENCIES
   pg (~> 0.18.1)
   rails (= 4.1.4)
   rails_12factor
+  recaptcha
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   simple_form
