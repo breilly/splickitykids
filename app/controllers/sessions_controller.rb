@@ -7,7 +7,7 @@ class SessionsController < Devise::SessionsController
         true
       else
         self.resource = resource_class.new sign_in_params
-        respond_with_navigational(resource) { redirect_to 'https://splickitykids.com/users/sign_up?vendor=1' }
+        respond_with_navigational(resource) { render :new }
       end 
     end
 end

@@ -7,7 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
         true
       else
         self.resource = resource_class.new sign_up_params
-        respond_with_navigational(resource) { redirect_to 'https://splickitykids.com/users/sign_up?vendor=1' }
+        respond_with_navigational(resource) { rendor :new }
       end 
     end
 end
