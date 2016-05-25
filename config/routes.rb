@@ -7,7 +7,7 @@ end
   resources :kids
   
 
-  devise_for :users, controllers: { registrations: "registrations", sessions: "sessions" }
+  devise_for :users, controllers: { registrations: "registrations", sessions: "sessions" } 
   resources :activities do
     resources :orders, only: [:new, :create]
   end
@@ -25,9 +25,9 @@ end
  #resources :activities do
  # resource :search, only: [:show]
  #end
-
-  get 'pages/about'
-  get 'pages/contact'
+  get 'terms', to: "pages#terms"
+  get 'about', to: 'pages#about'
+  get 'contact', to: 'pages#contact'
   get 'seller' => 'activities#seller'
   get 'sales' => 'orders#sales'
   get 'purchases' => 'orders#purchases'

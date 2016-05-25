@@ -44,7 +44,7 @@
         </div>
         
         <div class="form-group col-xs-12">
-          <%= f.label "Activity photo" %>
+          <%= f.label "Activity photo: (JPG or PNG)" %>
           <%= f.file_field :image, class: "form-control" %>
         </div>
 
@@ -66,10 +66,18 @@
           </div>
         <% end %>
 
-        <div class="form-group col-xs-6">
-          <%= f.button :submit, label: "Create activity", class: "btn btn-primary" %>
-          <%= link_to 'Cancel', activities_path, class: "btn btn-danger" %>
-        </div>
+        <% if current_user.account.blank? %>
+          <div class="form-group col-xs-12">
+            <%= f.button :submit, label: "Create activity", class: "btn btn-primary" %>
+            <%= link_to 'Cancel', activities_path, class: "btn btn-danger" %>
+            <p class="light">By providing your bank account information, you agree to our <%= link_to "Terms of Service", terms_path, target: '_blank' %> and the <a href="https://stripe.com/connect/account-terms" target="_blank">Stripe Connected Account Agreement</a>.</p>
+          </div>
+        <% else %>
+          <div class="form-group col-xs-6">
+            <%= f.button :submit, label: "Create activity", class: "btn btn-primary" %>
+            <%= link_to 'Cancel', activities_path, class: "btn btn-danger" %>
+          </div>
+        <% end %>
       </div>
       <div class="form-group form-group-lg col-xs-6">
         <div class="form-group col-xs-7">
