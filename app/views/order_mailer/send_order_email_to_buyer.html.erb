@@ -3,7 +3,7 @@
 
 <% @order.order_details.each do |order_detail| %>
 <p><strong>Activity Name:</strong> <%= order_detail.activity.name %></p>
-<p><strong>Vendor Email:</strong> <%= order_detail.activity.user.email %></p>
+<p><strong>Vendor Email:</strong> <%= order_detail.activity.vendor.email %></p>
 <% end %>
 
 

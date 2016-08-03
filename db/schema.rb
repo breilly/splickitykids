@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517022556) do
+ActiveRecord::Schema.define(version: 20160531025935) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20160517022556) do
     t.string   "time_zone"
     t.integer  "repeats_monthly_each_days_of_the_month_mask"
     t.string   "plan"
+    t.integer  "vendor_id"
   end
 
   create_table "carts", force: true do |t|
@@ -203,5 +204,35 @@ ActiveRecord::Schema.define(version: 20160517022556) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "vendors", force: true do |t|
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,     null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.string   "company_name"
+    t.string   "website"
+    t.string   "ein"
+    t.string   "account"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.boolean  "account_active",         default: false
+  end
+
+  add_index "vendors", ["confirmation_token"], name: "index_vendors_on_confirmation_token", unique: true
+  add_index "vendors", ["email"], name: "index_vendors_on_email", unique: true
+  add_index "vendors", ["reset_password_token"], name: "index_vendors_on_reset_password_token", unique: true
 
 end

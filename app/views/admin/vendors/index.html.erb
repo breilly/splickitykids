@@ -1,0 +1,53 @@
+<h1>Vendors</h1>
+
+<%= form_tag admin_vendors_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search], :placeholder => 'Vendor Search' %>
+    <%= submit_tag "Search", :first_name => nil, :class=>'btn btn-primary' %>
+  </p>
+<% end %>
+
+<div class="row sub-header">
+  <div class="col-md-6">
+    <%= paginate @vendors %>
+  </div>
+
+  <div class="col-md-6 text-right">
+    <%= link_to '+Add Vendor', new_admin_vendor_path, :class=>'btn btn-primary' %>
+  </div>
+</div>
+
+
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>S.No</th>
+      <th>Company</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% 
+      page = (params[:page].to_i < 1 ) ? 1 : params[:page]
+      @vendors.each_with_index do |vendor, index| %>
+      <tr>
+        <td><%= ((page.to_i - 1 )* 25) + index + 1 %></td>
+        <td><%= vendor.company_name %></td>
+        <td><%= vendor.first_name %> <%= vendor.last_name %></td>
+        <td><%= vendor.email %> </td>
+        <td>
+        <% str = vendor.account_active? ? "Deactivate" : "Activate" %>
+        <%= link_to str, change_status_admin_vendor_path(vendor, page: params[:page]) %>
+        </td>
+        
+        <td><%= link_to 'Edit', edit_admin_vendor_path(vendor, page: params[:page]) %></td>
+        <td><%= link_to 'Delete', admin_vendor_url(vendor), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

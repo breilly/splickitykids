@@ -92,4 +92,5 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:address, :city, :state, :kid_ids)
     end
+
 end

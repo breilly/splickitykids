@@ -1,7 +1,8 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:seller, :new, :create, :edit, :update, :destroy]
-  before_filter :check_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_vendor!, only: [#:seller, 
+    :new, :create, :edit, :update, :destroy]
+  before_filter :check_vendor, only: [:edit, :update, :destroy]
   
   def seller
     @activities = Activity.where(user: current_user).order("created_at DESC")
@@ -44,22 +45,59 @@ class ActivitiesController < ApplicationController
   # POST /activities.json
   def create
     @activity = Activity.new(activity_params)
-    @activity.user_id = current_user.id
+    @activity.vendor_id = current_vendor.id
 
-    if current_user.account.blank?
+    if current_vendor.account.blank?
       Stripe.api_key = ENV["STRIPE_API_KEY"]
       token = params[:stripeToken]
 
-      account = Stripe::Account.create( 
-        :managed => true, 
+     account = Stripe::Account.create( 
+       :managed => true, 
         :country => 'US', 
-        :email => current_user.email,
-        :business_name => current_user.company_name
+        :email => current_vendor.email,
+        :business_name => current_vendor.company_name,
+        :external_account => {
+          :object => "bank_account",
+          :country => "US",
+          :account_number => current_vendor.account_number,
+          :account_holder_name => current_vendor.full_name,
+          :currency => "usd",
+          :routing_number => current_vendor.routing_number,
+          :status => "new",
+          :first_name => current_vendor.first_name,
+          :last_name => current_vendor.last_name,
+          :type => 'company'
+        },
+        :legal_entity => {
+          :dob => {
+            :day => current_vendor.dob_day,
+            :month => current_vendor.dob_month,
+            :year => current_vendor.dob_year
+          },
+          :business_name => current_vendor.company_name,
+          :business_tax_id => current_vendor.ein,
+          :first_name => current_vendor.first_name,
+          :last_name => current_vendor.last_name,
+          :type => 'company',
+          :personal_id_number => current_vendor.ssn,
+          #:ssn_last_4 => '4444',
+          :address => {
+            :city => 'Denver',
+            :line1 => '123 Testing Lane',
+            :postal_code => '80241',
+            :state => 'CO'
+          },
+        },
+        :tos_acceptance => {
+          :date => Time.now.to_i,
+          :ip => request.remote_ip # Assumes you're not using a proxy
+        }
       ) 
+      
     end
 
-    current_user.account = account.id 
-    current_user.save 
+    current_vendor.account = account.id 
+    current_vendor.save 
 
     respond_to do |format|
       if @activity.save
@@ -136,8 +174,8 @@ class ActivitiesController < ApplicationController
         )
     end
     
-    def check_user
-      if current_user != @activity.user
+    def check_vendor
+      if current_vendor != @activity.vendor
         redirect_to root_url, alert: "Sorry, this activity belongs to someone else"
       end
     end

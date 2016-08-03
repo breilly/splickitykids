@@ -38,7 +38,7 @@ class Activity < ActiveRecord::Base
   validates_attachment :image,
   :content_type => { :content_type => ["image/jpeg", "image/gif", "image/png"] }
   
-  belongs_to :user
+  belongs_to :vendor
   has_many :orders
   has_many :kids
   has_many :temp_orders

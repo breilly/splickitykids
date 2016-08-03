@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :vendors, controllers: { registrations: "vendors/registrations", sessions: "vendors/sessions" } 
 constraints subdomain: 'www' do
   get ':any', to: redirect(subdomain: nil, path: '/%{any}'), any: /.*/
 end
@@ -39,6 +40,11 @@ end
   namespace :admin do
     root to: "users#index"
     resources :users do 
+      member do
+        get 'change_status'
+      end
+    end
+    resources :vendors do 
       member do
         get 'change_status'
       end

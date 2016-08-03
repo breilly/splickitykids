@@ -17,17 +17,17 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    if current_user.admin?
-      admin_root_path
-    else
+  #  if current_user.admin?
+  #    admin_root_path
+  #  else
       root_path
-    end
+  #  end
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit({ roles: [] }, :first_name, :last_name, :email, :password, :password_confirmation, :role, :company_name, #:ein, 
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit({ roles: [] }, :first_name, :last_name, :email, :password, :password_confirmation, :role, :company_name, :ein, 
       :website) }
-    devise_parameter_sanitizer.for(:account_update) { |u| u.permit({ roles: [] }, :first_name, :last_name, :email, :password, :password_confirmation, :timezone, :current_password, :company_name, #:ein, 
+    devise_parameter_sanitizer.for(:account_update) { |u| u.permit({ roles: [] }, :first_name, :last_name, :email, :password, :password_confirmation, :timezone, :current_password, :company_name, :ein, 
       :website) }
   end
 
