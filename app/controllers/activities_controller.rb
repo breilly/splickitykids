@@ -5,7 +5,7 @@ class ActivitiesController < ApplicationController
   before_filter :check_vendor, only: [:edit, :update, :destroy]
   
   def seller
-    @activities = Activity.where(user: current_user).order("created_at DESC")
+    @activities = Activity.where(vendor: current_vendor).order("created_at DESC")
   end
 
   # GET /activities
@@ -86,17 +86,32 @@ class ActivitiesController < ApplicationController
             :line1 => '123 Testing Lane',
             :postal_code => '80241',
             :state => 'CO'
-          },
+          }#,
+          #:verification => {
+            #:purpose => 'identity_document',
+            #:document => current_vendor.verification_file
+        #}
         },
         :tos_acceptance => {
           :date => Time.now.to_i,
           :ip => request.remote_ip # Assumes you're not using a proxy
-        }
-      ) 
-      
+        },
+      )
+
+     current_vendor.account = account.id 
     end
 
-    current_vendor.account = account.id 
+    #if current_vendor.account?
+    #  Stripe.api_key = ENV["STRIPE_API_KEY"]
+    #  token = params[:stripeToken]
+
+    #  file_obj = Stripe::FileUpload.create(
+    #    :stripe_account => current_vendor.account,
+    #    :purpose => 'identity_document',
+    #    :file => current_vendor.verification_file
+    #  )
+    #end
+
     current_vendor.save 
 
     respond_to do |format|

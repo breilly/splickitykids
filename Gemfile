@@ -31,6 +31,8 @@ gem 'cancancan', '~> 1.10'
 gem 'kaminari'
 gem 'bootstrap-timepicker-rails-addon', '~> 0.5.1'
 gem "recaptcha", require: "recaptcha/rails"
+gem 'delayed_job_active_record'
+gem 'devise-async'
 
 group :production do
   gem 'pg', '~> 0.18.1'

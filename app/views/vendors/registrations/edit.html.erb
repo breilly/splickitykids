@@ -3,7 +3,8 @@
 
   <div class="form-group form-group-lg col-xs-12">
     <div class="form-group col-xs-12">
-      <h2>Edit <%= current_vendor.company_name %></h2>
+      <h2><%= current_vendor.company_name %> Account</h2>
+      <p class="alert alert-warning" role="alert">Please complete all fields below in order to receive payments for any activities purchased.</p>
     </div>
     <div class="form-group col-xs-12">
       <h3>Company info</h3>
@@ -15,6 +16,10 @@
 
     <div class="form-group col-xs-6">
       <%= f.input :ein, required: true, class: "form-control" %>
+    </div>
+
+    <div class="form-group col-xs-12">
+      <%= f.input :website, required: true, class: "form-control" %>
     </div>
 
     <div class="form-group col-xs-12">
@@ -35,23 +40,28 @@
     </div>
 
     <div class="form-group col-xs-6">
-      <%= label_tag :ssn, "SSN" %>
-      <%= text_field_tag :ssn, nil, { :name => nil, :'data-stripe' => "ssn", class: "form-control" } %>
+      <%= f.input :ssn, class: "form-control", label: "SSN" %>
     </div>
 
     <div class="form-group col-xs-2">
-      <%= label_tag :dob_month, "Date of birth - Month" %>
-      <%= text_field_tag :dob_month, nil, { :name => nil, :'data-stripe' => "dob_month", class: "form-control", placeholder: 'Month' } %>
+      <%= f.input :dob_month, class: "form-control", label: "Date of birth - Month" %>
     </div>
 
     <div class="form-group col-xs-2">
-      <%= label_tag :dob_day, "Day" %>
-      <%= text_field_tag :dob_day, nil, { :name => nil, :'data-stripe' => "dob_day", class: "form-control", placeholder: 'Day' } %>
+      <%= f.input :dob_day, class: "form-control", label: "Day" %>
     </div>
 
     <div class="form-group col-xs-2">
-      <%= label_tag :dob_year, "Year" %>
-      <%= text_field_tag :dob_year, nil, { :name => nil, :'data-stripe' => "dob_year", class: "form-control", placeholder: 'Year' } %>
+      <%= f.input :dob_year, class: "form-control", label: "Year" %>
+    </div>
+
+    <div class="form-group col-xs-12">
+      <%= label_tag "Verification file (JPG or PNG): a driver's license or equivalent " %>
+      <%= f.file_field :verification_file, class: "form-control" %>
+    </div>
+
+    <div class="form-group col-xs-6">
+      <%= image_tag current_vendor.verification_file %>
     </div>
 
     <div class="form-group col-xs-12">
@@ -60,13 +70,11 @@
     </div>
 
     <div class="form-group col-xs-6">
-      <%= label_tag :routing_number %>
-      <%= text_field_tag :routing_number, nil, { :name => nil, :'data-stripe' => "routingNumber", class: "form-control" } %>
+      <%= f.input :routing_number, class: "form-control" %>
     </div>
 
     <div class="form-group col-xs-6">
-      <%= label_tag :account_number %>
-      <%= text_field_tag :account_number, nil, { :name => nil, :'data-stripe' => "accountNumber", class: "form-control" } %>
+      <%= f.input :account_number, class: "form-control" %>
     </div>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

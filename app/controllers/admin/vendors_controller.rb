@@ -40,6 +40,8 @@ class Admin::VendorsController < Admin::AdminController
   # PATCH/PUT /admin/vendors/1
   # PATCH/PUT /admin/vendors/1.json
   def update
+
+
     params[:vendor].delete(:password) if params[:vendor][:password].blank?
     params[:vendor].delete(:password_confirmation) if params[:vendor][:password].blank? and params[:vendor][:password_confirmation].blank?
     respond_to do |format|
@@ -91,7 +93,7 @@ class Admin::VendorsController < Admin::AdminController
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_vendor_params
       params.require(:vendor).permit(:first_name, :last_name, :email, #:phone_number, 
-        :password, :password_confirmation, 
+        :password, :password_confirmation, :verification_file, :ssn, :dob_month, :dob_day, :dob_year, :routing_number, :account_number,
         #:date_of_birth, :city, :zip_code, :street_address, :state_name, :country_id, :state_id, 
         :company_name)
     end

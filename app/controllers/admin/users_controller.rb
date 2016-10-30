@@ -68,7 +68,7 @@ class Admin::UsersController < Admin::AdminController
     new_status = @user.account_active? ? false : true
     @user.account_active = new_status
     if @user.save
-      UserMailer.send_activation_user_mail(@user).deliver if new_status
+      UserMailer.delay.send_activation_user_mail(@user) if new_status
       respond_to do |format|
         format.html { redirect_to admin_users_url(page: params[:page]), notice: 'User status was successfully changed.' }
         format.json { head :no_content }

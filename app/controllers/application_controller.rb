@@ -13,22 +13,23 @@ class ApplicationController < ActionController::Base
   protected
   
   def after_sign_up_path_for(resource)
-    root_path
+    edit_vendor_registration_path
   end
 
   def after_sign_in_path_for(resource)
   #  if current_user.admin?
   #    admin_root_path
   #  else
-      root_path
+      edit_vendor_registration_path
   #  end
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit({ roles: [] }, :first_name, :last_name, :email, :password, :password_confirmation, :role, :company_name, :ein, 
-      :website) }
-    devise_parameter_sanitizer.for(:account_update) { |u| u.permit({ roles: [] }, :first_name, :last_name, :email, :password, :password_confirmation, :timezone, :current_password, :company_name, :ein, 
-      :website) }
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit({ roles: [] }, :first_name, :last_name, :email, :password, 
+      :password_confirmation, :role, :company_name, :website, :verification_file, :ein, :ssn) }
+    devise_parameter_sanitizer.for(:account_update) { |u| u.permit({ roles: [] }, :first_name, :last_name, :email, :password, 
+      :password_confirmation, :timezone, :current_password, :company_name, :ein, :ssn, :dob_month, :dob_day, :dob_year, 
+      :routing_number, :account_number, :website, :verification_file) }
   end
 
   private

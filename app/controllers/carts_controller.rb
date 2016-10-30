@@ -75,6 +75,7 @@ class CartsController < ApplicationController
           order_details = OrderDetail.create(order_id: @order.id, kid_id: c.kid_id, activity_id: c.activity_id, price: c.price, stripe_response: c.stripe_response, plan: c.plan, repeats: c.repeats, stripe_customer_token: c.stripe_customer_token, payment_status: true)
           activity_seller = c.activity.vendor
           
+          Stripe::Account.retrieve(activity_seller.account)
           transfer =  Stripe::Transfer.create(
             :amount => (c.price * 90).floor,
             :currency => "usd",
@@ -84,11 +85,11 @@ class CartsController < ApplicationController
 
           #Payment.create!(order_id: @order.id, order_detail_id: order_details.id, kid_id: c.kid_id, amount_recieved: c.price, seller_id: activity_seller.id, buyer_id: current_user.id, activity_id: c.activity_id, splickitykids_amount: (c.price * 0.0).floor, seller_amount: (c.price * 1.0).floor, stripe_customer_token: c.stripe_customer_token, recurring_type: c.repeats, plan: c.plan)
           c.delete
-          OrderMailer.send_order_email_to_seller(order_details, current_user, activity_seller).deliver
+          OrderMailer.delay.send_order_email_to_seller(order_details, current_user, activity_seller)
         end
         # Sends email to user when order is created.
         #OrderMailer.order_email(@order, @user).deliver
-        OrderMailer.send_order_email_to_buyer(@order, buyer).deliver
+        OrderMailer.delay.send_order_email_to_buyer(@order, buyer)
         format.html { redirect_to root_url and return}
       else
         format.html { render :show }
