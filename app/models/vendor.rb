@@ -7,7 +7,7 @@ class Vendor < ActiveRecord::Base
   validates :first_name, :last_name, :company_name, :email, :website, presence: true
 
   if Rails.env.development?
-    has_attached_file :verification_file, :styles => { :medium => "250x250#", :thumb => "100x100>" }, :default_url => "batman.png",
+    has_attached_file :verification_file, :styles => { :medium => "250x250#", :thumb => "100x100>" }, #:default_url => "batman.png",
       :storage => :s3,
       :s3_credentials => "#{::Rails.root.to_s}/config/s3.yml",
       :url => ':s3_domain_url',
@@ -15,7 +15,7 @@ class Vendor < ActiveRecord::Base
       :path => "images/:id/:style.:extension"
     validates_attachment_content_type :verification_file, :content_type => /\Aimage\/.*\Z/
   else
-    has_attached_file :verification_file, :styles => { :medium => "250x250#", :thumb => "100x100>" }, :default_url => "batman.png",
+    has_attached_file :verification_file, :styles => { :medium => "250x250#", :thumb => "100x100>" }, #:default_url => "batman.png",
       #:download,
       :storage => :s3,
       :s3_credentials => "#{::Rails.root.to_s}/config/s3.yml",
