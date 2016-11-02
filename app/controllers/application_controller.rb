@@ -13,15 +13,26 @@ class ApplicationController < ActionController::Base
   protected
   
   def after_sign_up_path_for(resource)
-    edit_vendor_registration_path
+    case resource
+    when Vendor
+      edit_vendor_registration_path
+    when User
+      root_url
+    end
   end
 
   def after_sign_in_path_for(resource)
   #  if current_user.admin?
   #    admin_root_path
   #  else
-      edit_vendor_registration_path
+  #    edit_vendor_registration_path
   #  end
+    case resource
+    when Vendor
+      edit_vendor_registration_path
+    when User
+      root_url
+    end
   end
 
   def configure_permitted_parameters
