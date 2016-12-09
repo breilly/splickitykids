@@ -23,7 +23,7 @@ class BuildActivityService < ApplicationService
   # Create stripe account if vendor doesnt have activity account yet
   # Make activity object belongs to vendor
   def build_activity
-    create_stripe_account if vendor.account.blank?
+    #create_stripe_account if vendor.account.blank?
     activity.vendor_id = vendor.id
     activity
   end
