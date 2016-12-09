@@ -1,14 +1,16 @@
 Rails.application.routes.draw do
 
-  devise_for :vendors, controllers: { registrations: "vendors/registrations", sessions: "vendors/sessions" } 
-constraints subdomain: 'www' do
-  get ':any', to: redirect(subdomain: nil, path: '/%{any}'), any: /.*/
-end
-  
-  resources :kids
-  
+  devise_for :vendors, controllers: { registrations: "vendors/registrations",
+    sessions: "vendors/sessions", :omniauth_callbacks => "vendors/omniauth_callbacks" }
 
-  devise_for :users, controllers: { registrations: "registrations", sessions: "sessions" } 
+  constraints subdomain: 'www' do
+    get ':any', to: redirect(subdomain: nil, path: '/%{any}'), any: /.*/
+  end
+
+  resources :kids
+
+
+  devise_for :users, controllers: { registrations: "registrations", sessions: "sessions" }
   resources :activities do
     resources :orders, only: [:new, :create]
   end
@@ -34,17 +36,17 @@ end
   get 'purchases' => 'orders#purchases'
   get 'unsubscribe' => 'orders#unsubscribe'
   #get 'search', to: 'search#show'
-  
+
   root 'activities#index'
-  
+
   namespace :admin do
     root to: "users#index"
-    resources :users do 
+    resources :users do
       member do
         get 'change_status'
       end
     end
-    resources :vendors do 
+    resources :vendors do
       member do
         get 'change_status'
       end

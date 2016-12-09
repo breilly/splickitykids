@@ -35,7 +35,7 @@ class ActivitiesController < ApplicationController
   # GET /activities/new
   def new
     @activity = Activity.new
-    if current_vendor.ein.blank? || current_vendor.ssn.blank? || current_vendor.dob_year.blank? || current_vendor.dob_month.blank? || current_vendor.dob_day.blank? || current_vendor.verification_file.blank? || current_vendor.account_number.blank? || current_vendor.routing_number.blank?
+    if current_vendor.account.blank? || current_vendor.ein.blank? || current_vendor.ssn.blank? || current_vendor.dob_year.blank? || current_vendor.dob_month.blank? || current_vendor.dob_day.blank? || current_vendor.verification_file.blank? || current_vendor.account_number.blank? || current_vendor.routing_number.blank?
       redirect_to edit_vendor_registration_path, alert: 'Please complete the missing information below.'
     else
       new_activity_path

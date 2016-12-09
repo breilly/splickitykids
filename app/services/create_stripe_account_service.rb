@@ -34,7 +34,7 @@ class CreateStripeAccountService < ApplicationService
   end
 
   # Create stripe managed account
-  # https://stripe.com/docs/connect/managed-accountshttps://stripe.com/docs/connect/managed-accounts
+  # https://stripe.com/docs/connect/managed-accounts
   def create_stripe_managed_account
     raise "Managed account is disabled for now"
     Stripe::Account.create(

@@ -21,6 +21,7 @@ gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap-datepicker-rails'
 #gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem 'stripe'
+gem 'omniauth-stripe-connect'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'ice_cube'
@@ -56,4 +57,3 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
