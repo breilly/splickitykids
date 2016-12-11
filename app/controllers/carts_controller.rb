@@ -1,20 +1,20 @@
 class CartsController < ApplicationController
   before_action :authenticate_user!
   require 'json'
-    
+
   def index
     @carts = current_user.carts
   end
-  
+
   def add_to_cart
     if current_user.kids.size == 0
-      flash[:danger] = "Please add kid."  
+      flash[:danger] = "Please add kid."
       redirect_to new_kid_url
     end
     @activity = Activity.find(params[:activity_id])
     @carts = current_user.carts
   end
-  
+
   def add
     kid_ids = params[:kid_ids]
     cart = Cart.where(:user_id=>current_user.id)
@@ -30,12 +30,12 @@ class CartsController < ApplicationController
         redirect_to place_order_carts_url(activity_id: activity.id)
     end
   end
-  
+
   def destroy
     @cart = current_user.carts.find(params[:id]).delete
     redirect_to carts_url
   end
-  
+
   def place_order
     if(params[:activity_id]) #for subscription
       @activity = Activity.find_by_id(params[:activity_id])
@@ -45,7 +45,7 @@ class CartsController < ApplicationController
       @total_cart_amount = carts.collect{|t| t.price}.sum
     end
   end
-  
+
   def complete_order
     carts = current_user.carts
     @order = Order.new(:address=>params[:address], :state=>params[:state],:city=>params[:city])
@@ -61,7 +61,7 @@ class CartsController < ApplicationController
     elsif(activity && Activity::STRIPE_INTERVAL.include?(activity.repeats))
       error2 = subscriptions_payment(token, params[:activity_id])
     end
-    
+
     if (!error1.blank? && error1.length > 0) || (!error2.blank? && error2.length > 0)
       flash[:danger] = error1 if !error1.blank? && error1.length > 0
       flash[:danger] = error2 if !error2.blank? && error2.length > 0
@@ -74,12 +74,12 @@ class CartsController < ApplicationController
         carts.where(is_paid: true).each do |c|
           order_details = OrderDetail.create(order_id: @order.id, kid_id: c.kid_id, activity_id: c.activity_id, price: c.price, stripe_response: c.stripe_response, plan: c.plan, repeats: c.repeats, stripe_customer_token: c.stripe_customer_token, payment_status: true)
           activity_seller = c.activity.vendor
-          
-          Stripe::Account.retrieve(activity_seller.account)
+
+          Stripe::Account.retrieve(activity_seller.uid)
           transfer =  Stripe::Transfer.create(
             :amount => (c.price * 90).floor,
             :currency => "usd",
-            :destination => activity_seller.account,
+            :destination => activity_seller.uid,
             :description => c.activity.name
             )
 
@@ -96,9 +96,9 @@ class CartsController < ApplicationController
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
-    
+
   end
-  
+
   def one_time_payment(token)
     one_time_cart_amount = current_user.carts.where("is_paid = ?", false).where.not(repeats: Activity::STRIPE_INTERVAL.values).collect{|t| t.price}.sum
     one_time_cart_amount = one_time_cart_amount * 100
@@ -106,7 +106,7 @@ class CartsController < ApplicationController
       current_user.carts.where.not(repeats: Activity::STRIPE_INTERVAL.values).update_all(is_paid: true)
       return
     end
-    
+
     begin
       charge = Stripe::Charge.create(
         :amount => one_time_cart_amount,
@@ -119,20 +119,20 @@ class CartsController < ApplicationController
     rescue Stripe::CardError => e
       return e.message
     rescue Stripe::InvalidRequestError => e
-      return "There was a problem connecting to stripe. Please try again! \n" + e.message  
+      return "There was a problem connecting to stripe. Please try again! \n" + e.message
     end
     return
   end
-  
+
   def subscriptions_payment(token, activity_id)
     #carts = current_user.carts.where.not(repeats: nil).where.not(repeats: "no").where(is_paid: false) #.where.not(plan: nil)
     #return if carts.blank?
-    
+
     #carts.each do |cart|
     cart = current_user.carts.where(activity_id: activity_id).first
-    
+
     if cart.plan.nil?
-      cart.update_attributes(is_paid: true)	
+      cart.update_attributes(is_paid: true)
     else
       begin
         customer = Stripe::Customer.create(
@@ -145,12 +145,12 @@ class CartsController < ApplicationController
       rescue Stripe::CardError => e
         return e.message
       rescue Stripe::InvalidRequestError => e
-        error = "There was a problem connecting to stripe subscription. Please try again! <br>" + e.message 
+        error = "There was a problem connecting to stripe subscription. Please try again! <br>" + e.message
         return error
       end
     end
     return
   end
-  
-  
+
+
 end
