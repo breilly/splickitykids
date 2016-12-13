@@ -16,13 +16,7 @@ class Vendor < ActiveRecord::Base
     validates_attachment_content_type :verification_file, :content_type => /\Aimage\/.*\Z/
   else
     has_attached_file :verification_file, :styles => { :medium => "250x250#", :thumb => "100x100>" }, #:default_url => "batman.png",
-      #:download,
-      :storage => :s3,
-      :s3_credentials => "#{::Rails.root.to_s}/config/s3.yml",
-      :url => ':s3_alias_url',
-      :s3_host_alias => 'd1j1smmjasrwse.cloudfront.net',
-      :path => "images/:id/:style.:extension",
-      :s3_protocol => :https
+      :path => "images/:id/:style.:extension"
     validates_attachment_content_type :verification_file, :content_type => /\Aimage\/.*\Z/
   end
 

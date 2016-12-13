@@ -121,5 +121,5 @@ Rails.application.configure do
   }
 
   # Required for Devise. Remember to change to actual host.
-  config.action_mailer.default_url_options = { host: 'splickitykids.com' }
+  config.action_mailer.default_url_options = { host: 'http://splickitykids-staging.spothood.com' }
 end
