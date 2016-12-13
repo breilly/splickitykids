@@ -59,6 +59,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    daemons (1.2.4)
     delayed_job (4.1.1)
       activesupport (>= 3.0, < 5.0)
     delayed_job_active_record (4.1.0)
@@ -171,11 +172,6 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.4)
       sprockets-rails (~> 2.0)
-    rails_12factor (0.0.3)
-      rails_serve_static_assets
-      rails_stdout_logging
-    rails_serve_static_assets (0.0.4)
-    rails_stdout_logging (0.0.4)
     railties (4.1.4)
       actionpack (= 4.1.4)
       activesupport (= 4.1.4)
@@ -254,6 +250,7 @@ DEPENDENCIES
   bootstrap_form
   cancancan (~> 1.10)
   coffee-rails (~> 4.0.0)
+  daemons
   delayed_job_active_record
   devise
   devise-async
@@ -270,7 +267,6 @@ DEPENDENCIES
   paperclip (~> 4.2)
   pg (~> 0.18.1)
   rails (= 4.1.4)
-  rails_12factor
   recaptcha
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)

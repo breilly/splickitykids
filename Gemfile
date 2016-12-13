@@ -33,11 +33,12 @@ gem 'kaminari'
 gem 'bootstrap-timepicker-rails-addon', '~> 0.5.1'
 gem "recaptcha", require: "recaptcha/rails"
 gem 'delayed_job_active_record'
+gem 'daemons'
 gem 'devise-async'
 
 group :production do
   gem 'pg', '~> 0.18.1'
-  gem 'rails_12factor'
+  #gem 'rails_12factor'
   gem 'bonsai-elasticsearch-rails'
 end
 

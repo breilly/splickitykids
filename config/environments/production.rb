@@ -65,6 +65,15 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    :port =>           '587',
+    :address =>        'smtp.gmail.com',
+    :user_name =>      ENV['SMTP_GMAIL_USERNAME'],
+    :password =>       ENV['SMTP_GMAIL_PASSWORD'],
+    :domain =>         ENV['SMTP_GMAIL_DOMAIN'],
+    :authentication => :plain
+  }
   #config.action_mailer.smtp_settings = {
   #  :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
   #  :address              => "mail.splickitykids.com",
@@ -76,15 +85,15 @@ Rails.application.configure do
   #  :enable_starttls_auto => true
   #}
 
-  ActionMailer::Base.smtp_settings = {
-    :port           => ENV['MAILGUN_SMTP_PORT'],
-    :address        => ENV['MAILGUN_SMTP_SERVER'],
-    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => 'splickitykids.heroku.com',
-    :authentication => :plain,
-  }
-  ActionMailer::Base.delivery_method = :smtp
+  # ActionMailer::Base.smtp_settings = {
+  #   :port           => ENV['MAILGUN_SMTP_PORT'],
+  #   :address        => ENV['MAILGUN_SMTP_SERVER'],
+  #   :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+  #   :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+  #   :domain         => 'splickitykids.heroku.com',
+  #   :authentication => :plain,
+  # }
+  # ActionMailer::Base.delivery_method = :smtp
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -101,7 +110,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  
+
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
@@ -110,7 +119,7 @@ Rails.application.configure do
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
-  
+
   # Required for Devise. Remember to change to actual host.
   config.action_mailer.default_url_options = { host: 'splickitykids.com' }
 end
