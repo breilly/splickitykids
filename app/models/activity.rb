@@ -10,20 +10,10 @@ class Activity < ActiveRecord::Base
   #Stripe interval: must be one of day, month, week, or year
   STRIPE_INTERVAL = {'daily'=>'day','weekly'=>'week','monthly'=>'month','yearly'=>'year'}
 
-  if Rails.env.development?
-    has_attached_file :image, :styles => { :medium => "250x250#", :thumb => "100x100>" }, :default_url => "batman.png",
-      :storage => :s3,
-      :s3_credentials => "#{::Rails.root.to_s}/config/s3.yml",
-  	  :url => ':s3_domain_url',
-      #:s3_host_alias => 'd1j1smmjasrwse.cloudfront.net',
-  	  :path => "images/:id/:style.:extension"
-    validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
-  else
-    has_attached_file :image, :styles => { :medium => "250x250#", :thumb => "100x100>" }, :default_url => "batman.png",
-  	  #:download,
-  	  :path => "images/:id/:style.:extension"
-    validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
-  end
+  has_attached_file :image, :styles => { :medium => "250x250#", :thumb => "100x100>" }, :default_url => "batman.png"
+
+  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+
 
   validates :name, :description, :price, #:starts_at, :ends_at, #:start_date, #:start_hour, :start_min, :start_am_pm, :end_date, :end_hour, :end_min,
     #:end_am_pm,
