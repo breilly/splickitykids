@@ -246,10 +246,13 @@ ActiveRecord::Schema.define(version: 20161209115558) do
     t.string   "dob_year"
     t.string   "routing_number"
     t.string   "account_number"
-    t.string   "publishable_key"
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "access_code"
+    t.string   "stripe_publishable_key"
+    t.string   "stripe_provider"
+    t.string   "stripe_account_id"
+    t.string   "stripe_token"
+    t.string   "stripe_refresh_token"
+    t.string   "stripe_business_name"
+    t.string   "stripe_account_name"
   end
 
   add_index "vendors", ["confirmation_token"], name: "index_vendors_on_confirmation_token", unique: true, using: :btree

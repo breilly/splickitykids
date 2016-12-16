@@ -58,4 +58,8 @@ class Vendor < ActiveRecord::Base
     name << self.last_name.capitalize unless self.last_name.blank?
     name.join(" ")
   end
+
+  def display_stripe_name
+     stripe_business_name || stripe_account_name
+  end
 end
