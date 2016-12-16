@@ -48,7 +48,7 @@
           <%= f.file_field :image, class: "form-control" %>
         </div>
 
-        <% if current_vendor.uid.blank? %>
+        <% if current_vendor.stripe_account_id.blank? %>
           <div class="form-group col-xs-12">
             <%= f.button :submit, label: "Create activity", class: "btn btn-primary" %>
             <%= link_to 'Cancel', activities_path, class: "btn btn-danger" %>

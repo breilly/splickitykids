@@ -1,0 +1,16 @@
+<div class="form-group col-xs-12">
+  <hr>
+  <h3>Stripe Connected Account</h3>
+</div>
+
+<div class="form-group col-xs-12">
+  <% if current_vendor.stripe_account_id.blank? %>
+    <p>You currenty doesnt have Stripe connected account</p>
+    <p>Please click the button bellow and follow the instructions</p>
+    <p><%= link_to image_tag("stripe.png"), vendor_omniauth_authorize_path(:stripe_connect) %></p>
+  <% elsif current_vendor.stripe_business_name %>
+    <p><strong>Business Name:</strong> <%= current_vendor.stripe_business_name %></p>
+  <% else %>
+    <p><strong>Account Name:</strong> <%= current_vendor.stripe_account_name %></p>
+  <% end %>
+</div>

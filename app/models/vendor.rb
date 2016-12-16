@@ -59,7 +59,4 @@ class Vendor < ActiveRecord::Base
     name.join(" ")
   end
 
-  def display_stripe_name
-     stripe_business_name || stripe_account_name
-  end
 end
