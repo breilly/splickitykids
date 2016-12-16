@@ -41,4 +41,5 @@ class Vendor < ActiveRecord::Base
     name << self.last_name.capitalize unless self.last_name.blank?
     name.join(" ")
   end
+
 end

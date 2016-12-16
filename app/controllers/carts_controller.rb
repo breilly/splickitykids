@@ -75,11 +75,11 @@ class CartsController < ApplicationController
           order_details = OrderDetail.create(order_id: @order.id, kid_id: c.kid_id, activity_id: c.activity_id, price: c.price, stripe_response: c.stripe_response, plan: c.plan, repeats: c.repeats, stripe_customer_token: c.stripe_customer_token, payment_status: true)
           activity_seller = c.activity.vendor
 
-          Stripe::Account.retrieve(activity_seller.uid)
+          Stripe::Account.retrieve(activity_seller.stripe_account_id)
           transfer =  Stripe::Transfer.create(
             :amount => (c.price * 90).floor,
             :currency => "usd",
-            :destination => activity_seller.uid,
+            :destination => activity_seller.stripe_account_id,
             :description => c.activity.name
             )
 
