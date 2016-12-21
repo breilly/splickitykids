@@ -35,6 +35,7 @@ gem "recaptcha", require: "recaptcha/rails"
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'devise-async'
+gem 'daemons'
 
 group :production do
   gem 'pg', '~> 0.18.1'
