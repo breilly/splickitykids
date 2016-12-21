@@ -10,10 +10,10 @@ class Vendors::OmniauthCallbacksController < ApplicationController
         update_stripe_attributes
         sign_in_and_redirect @vendor, :event => :authentication
       else
-        session["devise.stripe_connect_data"] = request.env["omniauth.auth"]
         redirect_to new_vendor_registration_url, alert: 'Your stripe account has not registered in our system, please signup for free'
       end
     rescue => e
+       Rails.logger.info "Error when connecting Stripe: #{e.inspect}"
        redirect_to root_path, alert: 'Stripe connect failed, please try again later or contact our support team'
     end
   end
