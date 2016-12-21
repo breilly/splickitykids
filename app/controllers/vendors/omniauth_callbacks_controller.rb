@@ -1,7 +1,27 @@
 class Vendors::OmniauthCallbacksController < ApplicationController
 
   def stripe_connect
-    if current_vendor.update_attributes({
+    @vendor = current_vendor
+    begin
+      if @vendor
+        update_stripe_attributes
+        redirect_to edit_vendor_registration_path, notice: 'Your stripe account has successfully connected'
+      elsif (email = request.env["omniauth.auth"].info.email) && (@vendor = Vendor.where(email: email).first)
+        update_stripe_attributes
+        sign_in_and_redirect @vendor, :event => :authentication
+      else
+        session["devise.stripe_connect_data"] = request.env["omniauth.auth"]
+        redirect_to new_vendor_registration_url, alert: 'Your stripe account has not registered in our system, please signup for free'
+      end
+    rescue => e
+       redirect_to root_path, alert: 'Stripe connect failed, please try again later or contact our support team'
+    end
+  end
+
+  private
+
+  def update_stripe_attributes
+    @vendor.update_attributes({
        stripe_provider: request.env["omniauth.auth"].provider,
        stripe_account_id: request.env["omniauth.auth"].uid,
        stripe_token: request.env["omniauth.auth"].credentials.token,
@@ -9,11 +29,7 @@ class Vendors::OmniauthCallbacksController < ApplicationController
        stripe_refresh_token: request.env["omniauth.auth"].credentials.refresh_token,
        stripe_business_name: request.env["omniauth.auth"].extra.extra_info.business_name,
        stripe_account_name: request.env["omniauth.auth"].info.name
-       })
-      redirect_to edit_vendor_registration_path, notice: 'Your stripe account has successfully connected'
-    else
-      redirect_to edit_vendor_registration_path, alert: 'Stripe connect failed, please try again later or contact our support team'
-    end
+    })
   end
 
  end
