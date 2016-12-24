@@ -8,30 +8,21 @@
     <th class='center'>Activity</th>
     <th class='center'>Kids</th>
     <th class='center'>Amount to Vendor</th>
-    <!--<th class='center'>Amount to Splickitykids</th>-->
     <th class='center'>Price</th>
     <th class='center'>Customer</th>
     <th class='center'>Date Sold</th>
   </tr>
 
-<% if @order %>
-<% @orders.each do |order| %>
-  <tr>
-  	<% payment = Payment.where(:order_id => order.id).first %>
-  	<% payment = Payment.where(:temp_order_id => order.id).first if payment.blank? %>
-    <td class='center'><%= image_tag order.activity.image.url(:thumb) %></td>
-    <td class='center'><%= order.activity.name %></td>
-    <td class='center'><%= order.kids.pluck(:first_name).join(', ') %></td>
-    <td class='center'><%= number_to_currency(payment.seller_amount) %></td>
-    <!--<td class='center'><%= number_to_currency(payment.splickitykids_amount) %></td>-->
-    <td class='center'><%= number_to_currency(order.activity.price) %></td>    
-    <td class='center'><%= order.try(:buyer) ? order.buyer.full_name : order.order.buyer.full_name %></td>
-    <td class='center'><%= order.created_at.strftime("%B %-d, %Y") %></td>
-  </tr>
-<% end %>
+  <% @order_details.each do |order_detail| %>
+    <tr>
+      <% payment = Payment.where(:order_detail_id => order_detail.id).first %>
+      <td class='center'><%= image_tag order_detail.activity.image.url(:thumb) %></td>
+      <td class='center'><%= order_detail.activity.name %></td>
+      <td class='center'><%= order_detail.kid.first_name %></td>
+      <td class='center'><%= number_to_currency(payment.seller_amount) %></td>
+      <td class='center'><%= number_to_currency(order_detail.activity.price) %></td>
+      <td class='center'><%= order_detail.order.buyer.full_name %></td>
+      <td class='center'><%= order_detail.created_at.strftime("%B %-d, %Y") %></td>
+    </tr>
+  <% end %>
 </table>
-<% end %>
-
-<% if user_signed_in? %>
-  <%#= link_to 'New Activity', new_activity_path, class: "btn btn-primary, data: { no_turbolink: true }" %>
-<% end %>

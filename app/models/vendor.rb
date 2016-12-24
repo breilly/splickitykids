@@ -37,6 +37,10 @@ class Vendor < ActiveRecord::Base
     self.account_active = true
   end
 
+  def activities_ids
+    activities.pluck(:id)
+  end
+
   def self.search(search)
     if search
       self.where("LOWER(CONCAT(first_name,' ', last_name)) LIKE ?", "%#{search.downcase}%")

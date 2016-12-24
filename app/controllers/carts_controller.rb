@@ -83,7 +83,12 @@ class CartsController < ApplicationController
             :description => c.activity.name
             )
 
-          #Payment.create!(order_id: @order.id, order_detail_id: order_details.id, kid_id: c.kid_id, amount_recieved: c.price, seller_id: activity_seller.id, buyer_id: current_user.id, activity_id: c.activity_id, splickitykids_amount: (c.price * 0.0).floor, seller_amount: (c.price * 1.0).floor, stripe_customer_token: c.stripe_customer_token, recurring_type: c.repeats, plan: c.plan)
+          payment = Payment.new(order_id: @order.id, order_detail_id: order_details.id,
+            kid_id: c.kid_id, amount_recieved: c.price, seller_id: activity_seller.id,
+            buyer_id: current_user.id, activity_id: c.activity_id,
+            splickitykids_amount: (c.price * 0.0).floor, seller_amount: (c.price * 1.0).floor,
+            stripe_customer_token: c.stripe_customer_token, recurring_type: c.repeats, plan: c.plan)
+          payment.save
           c.delete
           OrderMailer.delay.send_order_email_to_seller(order_details, current_user, activity_seller)
         end
@@ -98,6 +103,8 @@ class CartsController < ApplicationController
     end
 
   end
+
+  private
 
   def one_time_payment(token)
     one_time_cart_amount = current_user.carts.where("is_paid = ?", false).where.not(repeats: Activity::STRIPE_INTERVAL.values).collect{|t| t.price}.sum
