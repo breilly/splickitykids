@@ -19,7 +19,7 @@
     <td class='center'><%= link_to(order_detail.activity.name, order_detail.activity) %></td>
     <td class='center'><%= order_detail.kid.name %></td>
     <td class='center'><%= number_to_currency(order_detail.activity.price) %></td>
-    <td class='center'><%= order_detail.activity.user.full_name %></td>
+    <td class='center'><%= order_detail.activity.vendor.full_name %></td>
     <td class='center'><%= order_detail.created_at.strftime("%B %-d, %Y") %></td>
     <td class='center'>
       <% if order_detail.stripe_customer_token && order_detail.payment_status %>

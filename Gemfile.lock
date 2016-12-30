@@ -59,6 +59,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    daemons (1.2.4)
     delayed_job (4.1.1)
       activesupport (>= 3.0, < 5.0)
     delayed_job_active_record (4.1.0)
@@ -113,6 +114,7 @@ GEM
       railties (>= 3.1.0)
       turbolinks
     json (1.8.3)
+    jwt (1.5.6)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -131,6 +133,21 @@ GEM
     netrc (0.11.0)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
+    oauth2 (1.2.0)
+      faraday (>= 0.8, < 0.10)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (>= 1.2, < 3)
+    omniauth (1.3.1)
+      hashie (>= 1.2, < 4)
+      rack (>= 1.0, < 3)
+    omniauth-oauth2 (1.3.1)
+      oauth2 (~> 1.0)
+      omniauth (~> 1.2)
+    omniauth-stripe-connect (2.9.0)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.3.1)
     orm_adapter (0.5.0)
     paperclip (4.3.2)
       activemodel (>= 3.2.0)
@@ -238,6 +255,7 @@ DEPENDENCIES
   bootstrap_form
   cancancan (~> 1.10)
   coffee-rails (~> 4.0.0)
+  daemons
   delayed_job_active_record
   devise
   devise-async
@@ -250,6 +268,7 @@ DEPENDENCIES
   jquery-turbolinks
   kaminari
   momentjs-rails (>= 2.9.0)
+  omniauth-stripe-connect
   paperclip (~> 4.2)
   pg (~> 0.18.1)
   rails (= 4.1.4)

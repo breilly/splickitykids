@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161030184651) do
+ActiveRecord::Schema.define(version: 20161216092540) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -243,6 +243,13 @@ ActiveRecord::Schema.define(version: 20161030184651) do
     t.string   "dob_year"
     t.string   "routing_number"
     t.string   "account_number"
+    t.string   "stripe_publishable_key"
+    t.string   "stripe_provider"
+    t.string   "stripe_account_id"
+    t.string   "stripe_token"
+    t.string   "stripe_refresh_token"
+    t.string   "stripe_business_name"
+    t.string   "stripe_account_name"
   end
 
   add_index "vendors", ["confirmation_token"], name: "index_vendors_on_confirmation_token", unique: true

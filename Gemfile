@@ -21,6 +21,7 @@ gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap-datepicker-rails'
 #gem 'datetimepicker-rails', github: 'zpaulovics/datetimepicker-rails', branch: 'master', submodules: true
 gem 'stripe'
+gem 'omniauth-stripe-connect'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'ice_cube'
@@ -33,6 +34,7 @@ gem 'bootstrap-timepicker-rails-addon', '~> 0.5.1'
 gem "recaptcha", require: "recaptcha/rails"
 gem 'delayed_job_active_record'
 gem 'devise-async'
+gem 'daemons'
 
 group :production do
   gem 'pg', '~> 0.18.1'
@@ -56,4 +58,3 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-

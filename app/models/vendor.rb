@@ -1,7 +1,7 @@
 class Vendor < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :async, :validatable, :confirmable
 
   validates :first_name, :last_name, :company_name, :email, :website, presence: true
@@ -37,6 +37,10 @@ class Vendor < ActiveRecord::Base
     self.account_active = true
   end
 
+  def activities_ids
+    activities.pluck(:id)
+  end
+
   def self.search(search)
     if search
       self.where("LOWER(CONCAT(first_name,' ', last_name)) LIKE ?", "%#{search.downcase}%")
@@ -58,4 +62,5 @@ class Vendor < ActiveRecord::Base
     name << self.last_name.capitalize unless self.last_name.blank?
     name.join(" ")
   end
+
 end

@@ -22,6 +22,8 @@
       <%= f.input :website, required: true, class: "form-control" %>
     </div>
 
+    <%= render partial: "stripe_information" %>
+
     <div class="form-group col-xs-12">
       <hr>
       <h3>Primary contact</h3>
@@ -61,7 +63,7 @@
     </div>
 
     <div class="form-group col-xs-6">
-      <%= image_tag current_vendor.verification_file %>
+      <%= image_tag current_vendor.verification_file unless current_vendor.verification_file.blank? %>
     </div>
 
     <div class="form-group col-xs-12">
@@ -85,7 +87,7 @@
       <hr>
       <h3>Change password</h3>
     </div>
-    
+
     <div class="form-group col-xs-6">
       <%= f.input :password, autocomplete: "off", placeholder: "leave it blank if you don't want to change it", required: false %>
     </div>
