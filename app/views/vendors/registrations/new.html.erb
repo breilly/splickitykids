@@ -2,15 +2,26 @@
     <div class="row">
       <div class="span12">
         <div class="row">
-          <div class="col-md-12">
-            <h1 class="lightened">Make fun part of your bottom line.</h1>
-            <p>As a fellow small business, we understand the strain of administrative tasks and financial matters. splickity is simple and affordable. Designed so that you can act “big” even if your business is small. We’re here to streamline marketing, sales, and management of your programs while you build great relationships with families by doing what you do best- delivering (and having) fun!</p>
+          <div class="col-md-6">
+            <div class="well well_bubble_vendor center">
+              <h1 class="lightened">Make fun part of your bottom line.</h1>
+              <p>As a fellow small business, we understand the strain of administrative tasks and financial matters. splickity is simple and affordable. Designed so that you can act “big” even if your business is small. We’re here to streamline marketing, sales, and management of your programs while you build great relationships with families by doing what you do best- delivering (and having) fun!</p>
+              <br>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="well well_bubble_vendor center">
+              <h1 class="lightened">More fun for everyone!</h1>
+              <p>The <strong>More Fun Fund</strong> is our activities scholarship where we’ll deposit 1% of our revenue to support all kiddos to take part in fee-based activities. So every time you use splickity to share an activity you'll help to lift the cost of participation for families in need of financial assistance. </p>
+              <br>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
   <h2>Now it's time to sign up!</h2>
+  <p>**Once your account is approved, you will need a <a href="https://stripe.com" target="_blank">Stripe</a> account to set up your first activity.</p>
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
 
