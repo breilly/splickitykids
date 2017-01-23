@@ -81,7 +81,7 @@ Rails.application.configure do
     :address        => ENV['MAILGUN_SMTP_SERVER'],
     :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
     :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => 'splickitykids.heroku.com',
+    :domain         => ENV['MAILGUN_DOMAIN'],
     :authentication => :plain,
   }
   ActionMailer::Base.delivery_method = :smtp
@@ -101,7 +101,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  
+
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_credentials => {
@@ -110,7 +110,7 @@ Rails.application.configure do
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
-  
+
   # Required for Devise. Remember to change to actual host.
   config.action_mailer.default_url_options = { host: 'splickitykids.com' }
 end
