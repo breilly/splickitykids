@@ -67,12 +67,22 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.smtp_settings = {
-    :address        => ENV['MAILGUN_SMTP_SERVER'],
-    :port           => ENV['MAILGUN_SMTP_PORT'],
-    :domain         => ENV['MAILGUN_DOMAIN'],
-    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+  # ActionMailer::Base.smtp_settings = {
+  #   :address        => ENV['MAILGUN_SMTP_SERVER'],
+  #   :port           => ENV['MAILGUN_SMTP_PORT'],
+  #   :domain         => ENV['MAILGUN_DOMAIN'],
+  #   :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+  #   :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+  #   :authentication => :plain,
+  #   :enable_starttls_auto => true
+  # }
+
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.mailgun.org',
+    :port           => '587',
+    :domain         => 'mgun.splickitykids.com',
+    :user_name      => 'postmaster@mgun.splickitykids.com',
+    :password       => '3735bd760485d24ce623cf6c1f816b25',
     :authentication => :plain,
     :enable_starttls_auto => true
   }
