@@ -65,26 +65,17 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp
-  #config.action_mailer.smtp_settings = {
-  #  :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
-  #  :address              => "mail.splickitykids.com",
-  #  :port                 => 26,
-  #  :domain               => "https://splickitykids.herokuapp.com",
-  #  :user_name            => ENV['email_username'],
-  #  :password             => ENV['email_password'],
-  #  :authentication       => :plain,
-  #  :enable_starttls_auto => true
-  #}
-
-  ActionMailer::Base.smtp_settings = {
-    :port           => ENV['MAILGUN_SMTP_PORT'],
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = {
     :address        => ENV['MAILGUN_SMTP_SERVER'],
+    :port           => ENV['MAILGUN_SMTP_PORT'],
+    :domain         => ENV['MAILGUN_DOMAIN'],
     :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
     :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => ENV['MAILGUN_DOMAIN'],
     :authentication => :plain,
+    :enable_starttls_auto => true
   }
-  ActionMailer::Base.delivery_method = :smtp
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
