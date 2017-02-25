@@ -22,8 +22,6 @@
       <%= f.input :website, required: true, class: "form-control" %>
     </div>
 
-    <%= render partial: "stripe_information" %>
-
     <div class="form-group col-xs-12">
       <hr>
       <h3>Primary contact</h3>
@@ -57,13 +55,15 @@
       <%= f.input :dob_year, class: "form-control", label: "Year", placeholder: "1776" %>
     </div>
 
-    <div class="form-group col-xs-12">
-      <%= label_tag "Verification file (JPG or PNG): a driver's license or equivalent " %>
-      <%= f.file_field :verification_file, class: "form-control" %>
+    <%= render partial: "stripe_information" %>
+
+    <!--<div class="form-group col-xs-12">
+      <%#= label_tag "Verification file (JPG or PNG): a driver's license or equivalent " %>
+      <%#= f.file_field :verification_file, class: "form-control" %>
     </div>
 
     <div class="form-group col-xs-6">
-      <%= image_tag current_vendor.verification_file unless current_vendor.verification_file.blank? %>
+      <%#= image_tag current_vendor.verification_file unless current_vendor.verification_file.blank? %>
     </div>
 
     <div class="form-group col-xs-12">
@@ -72,12 +72,12 @@
     </div>
 
     <div class="form-group col-xs-6">
-      <%= f.input :routing_number, class: "form-control" %>
+      <%#= f.input :routing_number, class: "form-control" %>
     </div>
 
     <div class="form-group col-xs-6">
-      <%= f.input :account_number, class: "form-control" %>
-    </div>
+      <%#= f.input :account_number, class: "form-control" %>
+    </div>-->
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>

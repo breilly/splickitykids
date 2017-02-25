@@ -27,8 +27,8 @@ class Vendor < ActiveRecord::Base
   end
 
   #validates_attachment_presence :verification_file
-  validates_attachment :verification_file,
-  :content_type => { :content_type => ["image/jpeg", "image/gif", "image/png"] }
+  #validates_attachment :verification_file,
+  #:content_type => { :content_type => ["image/jpeg", "image/gif", "image/png"] }
 
   has_many :activities, dependent: :destroy
   has_many :orders, class_name: "Order", foreign_key: "buyer_id"
