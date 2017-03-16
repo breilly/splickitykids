@@ -10,7 +10,7 @@
 
 	<%= form_tag add_carts_path do %>
 		<div class="form-group form-group-lg">
-			<strong>Kids:</strong>
+			<strong>Family members:</strong>
 			<% if(["no", "never"].include? @activity.repeats) %>
 			  <%= select_tag "kid_ids", options_from_collection_for_select(current_user.kids, 'id', 'name',@carts.where(activity_id: params[:activity_id]).map{ |j| j.kid_id }), prompt: 'Please select', :multiple => true, class: "form-control" %>
 			<% else %>
