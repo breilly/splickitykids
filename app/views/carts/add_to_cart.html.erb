@@ -16,7 +16,7 @@
 			<% else %>
 			  <%= select_tag "kid_ids", options_from_collection_for_select(current_user.kids, 'id', 'name',@carts.where(activity_id: params[:activity_id]).map{ |j| j.kid_id }), prompt: 'Please select', class: "form-control" %>
 			<% end %>
-			<p>* Hold shift to select multiple kids</p>
+			<p>* Hold shift to select multiple family members</p>
 		</div>
 </div>
 <hr>
